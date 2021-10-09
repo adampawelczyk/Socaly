@@ -1,6 +1,7 @@
 package com.socaly.service;
 
 import com.socaly.dto.RegisterRequest;
+import com.socaly.entity.NotificationEmail;
 import com.socaly.entity.User;
 import com.socaly.entity.VerificationToken;
 import com.socaly.repository.UserRepository;
@@ -19,6 +20,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final VerificationTokenRepository verificationTokenRepository;
+    private final MailService mailService;
 
     @Transactional
     public void signup(RegisterRequest registerRequest) {
@@ -32,6 +34,9 @@ public class AuthService {
         userRepository.save(user);
         
         String token = generateVerificationToken(user);
+        mailService.sendMail(new NotificationEmail("Please activate your account", user.getEmail(),
+                "Thank you for signing up to Socaly, please click on the below url to activate your account: " +
+                        "http://localhost:8090/api/auth/accountVerification/" + token));
     }
 
     private String generateVerificationToken(User user) {
