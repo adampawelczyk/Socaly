@@ -1,5 +1,7 @@
 package com.socaly.controller;
 
+import com.socaly.dto.AuthenticationResponse;
+import com.socaly.dto.LoginRequest;
 import com.socaly.dto.RegisterRequest;
 import com.socaly.service.AuthService;
 import lombok.AllArgsConstructor;
@@ -25,5 +27,10 @@ public class AuthController {
         authService.verifyAccount(token);
 
         return new ResponseEntity<>("Account activated successfully", HttpStatus.OK);
+    }
+
+    @PostMapping("/login")
+    public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) {
+        return authService.login(loginRequest);
     }
 }
