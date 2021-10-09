@@ -1,5 +1,7 @@
 package com.socaly.service;
 
+import com.socaly.dto.AuthenticationResponse;
+import com.socaly.dto.LoginRequest;
 import com.socaly.dto.RegisterRequest;
 import com.socaly.entity.NotificationEmail;
 import com.socaly.entity.User;
@@ -7,7 +9,12 @@ import com.socaly.entity.VerificationToken;
 import com.socaly.exceptions.SocalyException;
 import com.socaly.repository.UserRepository;
 import com.socaly.repository.VerificationTokenRepository;
+import com.socaly.security.JwtProvider;
 import lombok.AllArgsConstructor;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +30,8 @@ public class AuthService {
     private final UserRepository userRepository;
     private final VerificationTokenRepository verificationTokenRepository;
     private final MailService mailService;
+    private final AuthenticationManager authenticationManager;
+    private final JwtProvider jwtProvider;
 
     @Transactional
     public void signup(RegisterRequest registerRequest) {
@@ -68,5 +77,14 @@ public class AuthService {
 
         user.setEnabled(true);
         userRepository.save(user);
+    }
+
+    public AuthenticationResponse login(LoginRequest loginRequest) {
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+                loginRequest.getUsername(), loginRequest.getPassword()));
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        String token = jwtProvider.generateToken(authentication);
+
+        return new AuthenticationResponse(token, loginRequest.getUsername());
     }
 }
