@@ -2,6 +2,7 @@ package com.socaly.service;
 
 import com.socaly.dto.CommunityDto;
 import com.socaly.entity.Community;
+import com.socaly.exceptions.SocalyException;
 import com.socaly.mapper.CommunityMapper;
 import com.socaly.repository.CommunityRepository;
 import lombok.AllArgsConstructor;
@@ -30,5 +31,12 @@ public class CommunityService {
     @Transactional(readOnly = true)
     public List<CommunityDto> getAll() {
         return communityRepository.findAll().stream().map(communityMapper::mapCommunityToDto).collect(Collectors.toList());
+    }
+
+    public CommunityDto getCommunity(Long id) {
+        Community community = communityRepository.findById(id).orElseThrow(
+                () -> new SocalyException("No community found with id - " + id));
+
+        return communityMapper.mapCommunityToDto(community);
     }
 }
