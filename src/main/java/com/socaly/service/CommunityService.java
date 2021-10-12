@@ -2,6 +2,7 @@ package com.socaly.service;
 
 import com.socaly.dto.CommunityDto;
 import com.socaly.entity.Community;
+import com.socaly.mapper.CommunityMapper;
 import com.socaly.repository.CommunityRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,10 +17,11 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CommunityService {
     private final CommunityRepository communityRepository;
+    private final CommunityMapper communityMapper;
 
     @Transactional
     public CommunityDto save(CommunityDto communityDto) {
-        Community save = communityRepository.save(mapCommunityDto(communityDto));
+        Community save = communityRepository.save(communityMapper.mapDtoToCommunity(communityDto));
         communityDto.setId(save.getId());
 
         return communityDto;
@@ -27,21 +29,6 @@ public class CommunityService {
 
     @Transactional(readOnly = true)
     public List<CommunityDto> getAll() {
-        return communityRepository.findAll().stream().map(this::mapToDto).collect(Collectors.toList());
-    }
-
-    private CommunityDto mapToDto(Community community) {
-        return CommunityDto.builder()
-                .name(community.getName())
-                .id(community.getId())
-                .numberOfPosts(community.getPosts().size())
-                .build();
-    }
-
-    private Community mapCommunityDto(CommunityDto communityDto) {
-        return Community.builder()
-                .name(communityDto.getName())
-                .description(communityDto.getDescription())
-                .build();
+        return communityRepository.findAll().stream().map(communityMapper::mapCommunityToDto).collect(Collectors.toList());
     }
 }
