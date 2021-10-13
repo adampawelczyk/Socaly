@@ -28,18 +28,18 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(postService.getAllPosts());
     }
 
-    @GetMapping("/{id")
+    @GetMapping("/{id}")
     public ResponseEntity<PostResponse> getPost(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(postService.getPost(id));
     }
 
     @GetMapping("/by-community/{id}")
-    public ResponseEntity<List<PostResponse>> getPostsByCommunity(Long id) {
+    public ResponseEntity<List<PostResponse>> getPostsByCommunity(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(postService.getPostsByCommunity(id));
     }
 
-    @GetMapping("/by-user/{name}")
-    public ResponseEntity<List<PostResponse>> getPostByUsername(String username) {
+    @GetMapping("/by-user/{username}")
+    public ResponseEntity<List<PostResponse>> getPostByUsername(@PathVariable String username) {
         return ResponseEntity.status(HttpStatus.OK).body(postService.getPostsByUsername(username));
     }
 }
