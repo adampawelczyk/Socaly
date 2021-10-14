@@ -2,6 +2,7 @@ plugins {
 	id 'org.springframework.boot' version '2.5.5'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
+	id 'org.jetbrains.kotlin.jvm' version '1.6.0-RC'
 }
 
 group = 'com.socaly'
@@ -27,6 +28,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf:2.5.5'
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
 	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+	implementation 'com.github.marlonlom:timeago:4.0.3'
+	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'mysql:mysql-connector-java'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
