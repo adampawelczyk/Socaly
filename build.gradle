@@ -30,6 +30,9 @@ dependencies {
 	implementation 'org.mapstruct:mapstruct:1.4.2.Final'
 	implementation 'com.github.marlonlom:timeago:4.0.3'
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+	implementation 'io.springfox:springfox-swagger2:3.0.0'
+	implementation 'io.springfox:springfox-swagger-ui:3.0.0'
+	implementation 'io.springfox:springfox-boot-starter:3.0.0'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'mysql:mysql-connector-java'
 	runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.11.2'
