@@ -12,11 +12,18 @@ import com.socaly.service.AuthService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Optional;
 
 @Mapper(componentModel = "spring")
 public abstract class PostMapper {
     @Autowired
     private CommentRepository commentRepository;
+
+    @Autowired
+    private AuthService authService;
+
+    @Autowired
+    private VoteRepository voteRepository;
 
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "description", source = "postRequest.description")
@@ -37,5 +44,22 @@ public abstract class PostMapper {
 
     String getDuration(Post post) {
         return TimeAgo.using(post.getCreatedDate().toEpochMilli());
+    }
+
+    boolean isPostUpVoted(Post post) {
+        return checkVoteType(post, VoteType.UPVOTE);
+    }
+
+    boolean isPostDownVoted(Post post) {
+        return checkVoteType(post, VoteType.DOWNVOTE);
+    }
+
+    private boolean checkVoteType(Post post, VoteType voteType) {
+        if (authService.isLoggedIn()) {
+            Optional<Vote> voteForPostByUser = voteRepository.findTopByPostAndUserOrderByVoteIdDesc(post, authService.getCurrentUser());
+
+            return voteForPostByUser.filter(vote -> vote.getVoteType().equals(voteType)).isPresent();
+        }
+        return false;
     }
 }
