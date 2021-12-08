@@ -59,9 +59,9 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostResponse> getPostsByCommunity(Long communityId) {
-        Community community = communityRepository.findById(communityId).orElseThrow(
-                () -> new CommunityNotFoundException(communityId.toString())
+    public List<PostResponse> getPostsByCommunity(String communityName) {
+        Community community = communityRepository.findByName(communityName).orElseThrow(
+                () -> new CommunityNotFoundException(communityName)
         );
         List<Post> posts = postRepository.findAllByCommunity(community);
 
