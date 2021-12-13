@@ -36,9 +36,9 @@ public class CommunityService {
         return communityRepository.findAll().stream().map(communityMapper::mapCommunityToDto).collect(Collectors.toList());
     }
 
-    public CommunityDto getCommunity(Long id) {
-        Community community = communityRepository.findById(id).orElseThrow(
-                () -> new SocalyException("No community found with id - " + id));
+    public CommunityDto getCommunity(String name) {
+        Community community = communityRepository.findByName(name).orElseThrow(
+                () -> new SocalyException("No community found with name - " + name));
 
         return communityMapper.mapCommunityToDto(community);
     }
