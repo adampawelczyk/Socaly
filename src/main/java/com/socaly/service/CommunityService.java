@@ -2,6 +2,7 @@ package com.socaly.service;
 
 import com.socaly.dto.CommunityDto;
 import com.socaly.entity.Community;
+import com.socaly.entity.User;
 import com.socaly.exceptions.SocalyException;
 import com.socaly.mapper.CommunityMapper;
 import com.socaly.repository.CommunityRepository;
@@ -19,10 +20,12 @@ import java.util.stream.Collectors;
 public class CommunityService {
     private final CommunityRepository communityRepository;
     private final CommunityMapper communityMapper;
+    private final AuthService authService;
 
     @Transactional
     public CommunityDto save(CommunityDto communityDto) {
-        Community save = communityRepository.save(communityMapper.mapDtoToCommunity(communityDto));
+        User currentUser = authService.getCurrentUser();
+        Community save = communityRepository.save(communityMapper.mapDtoToCommunity(communityDto, currentUser));
         communityDto.setId(save.getId());
 
         return communityDto;
