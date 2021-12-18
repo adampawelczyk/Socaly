@@ -43,7 +43,7 @@ public class AuthService {
         user.setUsername(registerRequest.getUsername());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setEmail(registerRequest.getEmail());
-        user.setCreated(Instant.now());
+        user.setCreatedDate(Instant.now());
         user.setEnabled(false);
 
         userRepository.save(user);
