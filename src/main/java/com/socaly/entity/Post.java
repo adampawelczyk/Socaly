@@ -18,7 +18,7 @@ import java.time.Instant;
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long postId;
+    private long id;
 
     @NotBlank(message = "Post name cannot be empty or null")
     private String postName;
@@ -32,10 +32,8 @@ public class Post {
     private String url;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id", referencedColumnName = "id")
     private Community community;
 }

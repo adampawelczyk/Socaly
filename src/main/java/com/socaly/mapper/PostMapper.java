@@ -23,13 +23,13 @@ public abstract class PostMapper {
     @Autowired
     private VoteRepository voteRepository;
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "description", source = "postRequest.description")
     @Mapping(target = "user", source = "user")
     @Mapping(target = "voteCount", constant = "0")
     public abstract Post map(PostRequest postRequest, Community community, User user);
 
-    @Mapping(target = "id", source = "postId")
     @Mapping(target = "communityName", source = "community.name")
     @Mapping(target = "userName", source = "user.username")
     @Mapping(target = "commentCount", expression = "java(commentCount(post))")
@@ -56,7 +56,7 @@ public abstract class PostMapper {
 
     private boolean checkVoteType(Post post, VoteType voteType) {
         if (authService.isLoggedIn()) {
-            Optional<Vote> voteForPostByUser = voteRepository.findTopByPostAndUserOrderByVoteIdDesc(post, authService.getCurrentUser());
+            Optional<Vote> voteForPostByUser = voteRepository.findTopByPostAndUserOrderByIdDesc(post, authService.getCurrentUser());
 
             return voteForPostByUser.filter(vote -> vote.getVoteType().equals(voteType)).isPresent();
         }

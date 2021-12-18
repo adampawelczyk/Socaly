@@ -20,7 +20,7 @@ import java.time.Instant;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long id;
 
     @NotBlank(message = "Username is required")
     private String username;
@@ -32,6 +32,6 @@ public class User {
     @NotEmpty(message = "Email is required")
     private String email;
 
-    private Instant created;
+    private Instant createdDate;
     private boolean enabled;
 }
