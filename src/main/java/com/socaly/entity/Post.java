@@ -29,7 +29,6 @@ public class Post {
 
     private Integer voteCount = 0;
     private Instant createdDate;
-    private String url;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
