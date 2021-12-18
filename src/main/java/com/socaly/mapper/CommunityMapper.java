@@ -20,6 +20,7 @@ public interface CommunityMapper {
     }
 
     @InheritInverseConfiguration
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "posts", ignore = true)
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "user", source = "user")
