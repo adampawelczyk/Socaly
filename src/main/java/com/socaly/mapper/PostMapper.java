@@ -23,6 +23,7 @@ public abstract class PostMapper {
     @Autowired
     private VoteRepository voteRepository;
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "description", source = "postRequest.description")
     @Mapping(target = "user", source = "user")
