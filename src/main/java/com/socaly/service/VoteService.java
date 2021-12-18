@@ -25,7 +25,7 @@ public class VoteService {
     public void vote(VoteDto voteDto) {
         Post post = postRepository.findById(voteDto.getPostId())
                 .orElseThrow(() -> new PostNotFoundException("Post not found with id - " + voteDto.getPostId()));
-        Optional<Vote> voteByPostAndUser = voteRepository.findTopByPostAndUserOrderByVoteIdDesc(post, authService.getCurrentUser());
+        Optional<Vote> voteByPostAndUser = voteRepository.findTopByPostAndUserOrderByIdDesc(post, authService.getCurrentUser());
 
         if (voteByPostAndUser.isPresent() && voteByPostAndUser.get().getVoteType().equals(voteDto.getVoteType())) {
             throw new SocalyException("You have already " + voteDto.getVoteType() + "'d for this post");
