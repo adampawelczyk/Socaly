@@ -30,7 +30,6 @@ public abstract class PostMapper {
     @Mapping(target = "voteCount", constant = "0")
     public abstract Post map(PostRequest postRequest, Community community, User user);
 
-    @Mapping(target = "id", source = "postId")
     @Mapping(target = "communityName", source = "community.name")
     @Mapping(target = "userName", source = "user.username")
     @Mapping(target = "commentCount", expression = "java(commentCount(post))")
