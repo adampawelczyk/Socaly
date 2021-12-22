@@ -31,13 +31,13 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
-    public void save(PostRequest postRequest) {
+    public long save(PostRequest postRequest) {
         Community community = communityRepository.findByName(postRequest.getCommunityName()).orElseThrow(
                 () -> new CommunityNotFoundException(postRequest.getCommunityName())
         );
         User currentUser = authService.getCurrentUser();
 
-        postRepository.save(postMapper.map(postRequest, community, currentUser));
+        return postRepository.save(postMapper.map(postRequest, community, currentUser)).getId();
     }
 
     @Transactional(readOnly = true)
