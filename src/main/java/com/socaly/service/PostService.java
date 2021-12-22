@@ -31,7 +31,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
-    public void save(PostRequest postRequest) {
+    public long save(PostRequest postRequest) {
         Community community = communityRepository.findByName(postRequest.getCommunityName()).orElseThrow(
                 () -> new CommunityNotFoundException(postRequest.getCommunityName())
         );
