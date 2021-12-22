@@ -17,10 +17,8 @@ public class PostController {
     private final PostService postService;
 
     @PostMapping
-    public ResponseEntity<Void> createPost(@RequestBody PostRequest postRequest) {
-        postService.save(postRequest);
-
-        return new ResponseEntity<>(HttpStatus.CREATED);
+    public ResponseEntity<Long> createPost(@RequestBody PostRequest postRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(postService.save(postRequest));
     }
 
     @GetMapping
