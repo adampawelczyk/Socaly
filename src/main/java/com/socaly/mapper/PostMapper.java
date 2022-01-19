@@ -10,6 +10,9 @@ import com.socaly.service.AuthService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Mapper(componentModel = "spring")
@@ -28,6 +31,7 @@ public abstract class PostMapper {
     @Mapping(target = "description", source = "postRequest.description")
     @Mapping(target = "user", source = "user")
     @Mapping(target = "voteCount", constant = "0")
+    @Mapping(target = "images", expression = "java(mapStringsToImages(postRequest.getImages()))")
     public abstract Post map(PostRequest postRequest, Community community, User user);
 
     @Mapping(target = "communityName", source = "community.name")
@@ -36,6 +40,7 @@ public abstract class PostMapper {
     @Mapping(target = "duration", expression = "java(getDuration(post))")
     @Mapping(target = "upVote", expression = "java(isPostUpVoted(post))")
     @Mapping(target = "downVote", expression = "java(isPostDownVoted(post))")
+    @Mapping(target = "images", expression = "java(mapImagesToStrings(post.getImages()))")
     public abstract PostResponse mapToDto(Post post);
 
     Integer commentCount(Post post) {
@@ -61,5 +66,23 @@ public abstract class PostMapper {
             return voteForPostByUser.filter(vote -> vote.getVoteType().equals(voteType)).isPresent();
         }
         return false;
+    }
+
+    List<Image> mapStringsToImages(List<String> strings) {
+        List<Image> images = new ArrayList<>();
+        for (String string : strings) {
+            Image image = new Image();
+            image.setImageUrl(string);
+            images.add(image);
+        }
+        return images;
+    }
+
+    List<String> mapImagesToStrings(List<Image> images) {
+        List<String> strings = new ArrayList<>();
+        for (Image image : images) {
+            strings.add(image.getImageUrl());
+        }
+        return strings;
     }
 }
