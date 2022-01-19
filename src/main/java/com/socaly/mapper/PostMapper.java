@@ -10,6 +10,9 @@ import com.socaly.service.AuthService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Mapper(componentModel = "spring")
@@ -61,5 +64,23 @@ public abstract class PostMapper {
             return voteForPostByUser.filter(vote -> vote.getVoteType().equals(voteType)).isPresent();
         }
         return false;
+    }
+
+    List<Image> mapStringsToImages(List<String> strings) {
+        List<Image> images = new ArrayList<>();
+        for (String string : strings) {
+            Image image = new Image();
+            image.setImageUrl(string);
+            images.add(image);
+        }
+        return images;
+    }
+
+    List<String> mapImagesToStrings(List<Image> images) {
+        List<String> strings = new ArrayList<>();
+        for (Image image : images) {
+            strings.add(image.getImageUrl());
+        }
+        return strings;
     }
 }
