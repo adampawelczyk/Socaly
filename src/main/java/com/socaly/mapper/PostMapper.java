@@ -40,6 +40,7 @@ public abstract class PostMapper {
     @Mapping(target = "duration", expression = "java(getDuration(post))")
     @Mapping(target = "upVote", expression = "java(isPostUpVoted(post))")
     @Mapping(target = "downVote", expression = "java(isPostDownVoted(post))")
+    @Mapping(target = "images", expression = "java(mapImagesToStrings(post.getImages()))")
     public abstract PostResponse mapToDto(Post post);
 
     Integer commentCount(Post post) {
