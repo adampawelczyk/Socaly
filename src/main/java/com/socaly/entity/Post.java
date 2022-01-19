@@ -9,6 +9,7 @@ import org.springframework.lang.Nullable;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @Entity
@@ -29,6 +30,9 @@ public class Post {
 
     private Integer voteCount = 0;
     private Instant createdDate;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Image> images;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
