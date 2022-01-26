@@ -3,6 +3,7 @@ package com.socaly.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -21,6 +22,9 @@ public class Comment {
     private String text;
 
     private Instant createdDate;
+
+    @Nullable
+    private Long parentCommentId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
