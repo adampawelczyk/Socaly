@@ -55,6 +55,13 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
+    public List<CommentDto> getSubCommentsForComment(Long commentId) {
+        return commentRepository.findByParentCommentId(commentId)
+                .stream()
+                .map(commentMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
+
     public List<CommentDto> getAllCommentsForUser(String username) {
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException(username)
