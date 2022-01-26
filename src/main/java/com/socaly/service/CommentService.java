@@ -49,7 +49,7 @@ public class CommentService {
                 () -> new PostNotFoundException(postId.toString())
         );
 
-        return commentRepository.findByPost(post)
+        return commentRepository.findByPostAndParentCommentIdIsNull(post)
                 .stream()
                 .map(commentMapper::mapToDto)
                 .collect(Collectors.toList());
