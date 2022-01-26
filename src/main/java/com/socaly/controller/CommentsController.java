@@ -31,4 +31,9 @@ public class CommentsController {
     public ResponseEntity<List<CommentDto>> getAllCommentsForUser(@PathVariable String username) {
         return ResponseEntity.status(HttpStatus.OK).body(commentService.getAllCommentsForUser(username));
     }
+
+    @GetMapping("/subcomments/{commentId}")
+    public ResponseEntity<List<CommentDto>> getAllSubCommentsForComment(@PathVariable Long commentId) {
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.getSubCommentsForComment(commentId));
+    }
 }
