@@ -5,7 +5,6 @@ import com.socaly.entity.Post;
 import com.socaly.entity.Vote;
 import com.socaly.entity.VoteType;
 import com.socaly.exceptions.PostNotFoundException;
-import com.socaly.exceptions.SocalyException;
 import com.socaly.repository.PostRepository;
 import com.socaly.repository.VoteRepository;
 import lombok.AllArgsConstructor;
@@ -28,16 +27,33 @@ public class VoteService {
         Optional<Vote> voteByPostAndUser = voteRepository.findTopByPostAndUserOrderByIdDesc(post, authService.getCurrentUser());
 
         if (voteByPostAndUser.isPresent() && voteByPostAndUser.get().getVoteType().equals(voteDto.getVoteType())) {
-            throw new SocalyException("You have already " + voteDto.getVoteType() + "'d for this post");
-        }
+            if (VoteType.UPVOTE.equals(voteDto.getVoteType())) {
+                post.setVoteCount(post.getVoteCount() - 1);
+            } else {
+                post.setVoteCount(post.getVoteCount() + 1);
+            }
 
-        if (VoteType.UPVOTE.equals(voteDto.getVoteType())) {
-            post.setVoteCount(post.getVoteCount() + 1);
+            voteRepository.deleteById(voteByPostAndUser.get().getId());
+
+        } else if (voteByPostAndUser.isPresent()) {
+            if (VoteType.UPVOTE.equals(voteDto.getVoteType())) {
+                post.setVoteCount(post.getVoteCount() + 2);
+            } else {
+                post.setVoteCount(post.getVoteCount() - 2);
+            }
+
+            voteRepository.deleteById(voteByPostAndUser.get().getId());
+            voteRepository.save(mapToVote(voteDto, post));
+
         } else {
-            post.setVoteCount(post.getVoteCount() - 1);
-        }
+            if (VoteType.UPVOTE.equals(voteDto.getVoteType())) {
+                post.setVoteCount(post.getVoteCount() + 1);
+            } else {
+                post.setVoteCount(post.getVoteCount() - 1);
+            }
 
-        voteRepository.save(mapToVote(voteDto, post));
+            voteRepository.save(mapToVote(voteDto, post));
+        }
     }
 
     private Vote mapToVote(VoteDto voteDto, Post post) {
