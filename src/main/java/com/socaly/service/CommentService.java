@@ -56,7 +56,7 @@ public class CommentService {
                 );
     }
 
-    public List<CommentDto> getAllCommentsForPost(Long postId) {
+    public List<CommentResponse> getAllCommentsForPost(Long postId) {
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new PostNotFoundException(postId.toString())
         );
@@ -67,14 +67,14 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
-    public List<CommentDto> getSubCommentsForComment(Long commentId) {
+    public List<CommentResponse> getSubCommentsForComment(Long commentId) {
         return commentRepository.findByParentCommentId(commentId)
                 .stream()
                 .map(commentMapper::mapToDto)
                 .collect(Collectors.toList());
     }
 
-    public List<CommentDto> getAllCommentsForUser(String username) {
+    public List<CommentResponse> getAllCommentsForUser(String username) {
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException(username)
         );
