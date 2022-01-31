@@ -1,9 +1,10 @@
 package com.socaly.mapper;
 
 import com.socaly.dto.CommentDto;
-import com.socaly.entity.Comment;
-import com.socaly.entity.Post;
-import com.socaly.entity.User;
+import com.socaly.dto.CommentResponse;
+import com.socaly.entity.*;
+import com.socaly.repository.CommentVoteRepository;
+import com.socaly.service.AuthService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
