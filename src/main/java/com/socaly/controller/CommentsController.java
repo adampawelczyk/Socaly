@@ -1,6 +1,7 @@
 package com.socaly.controller;
 
 import com.socaly.dto.CommentDto;
+import com.socaly.dto.CommentResponse;
 import com.socaly.service.CommentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,11 @@ public class CommentsController {
         commentService.save(commentDto);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{commentId}")
+    public ResponseEntity<CommentResponse> getComment(@PathVariable Long commentId) {
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.getComment(commentId));
     }
 
     @GetMapping("/by-post/{postId}")
