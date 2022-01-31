@@ -7,6 +7,9 @@ import com.socaly.repository.CommentVoteRepository;
 import com.socaly.service.AuthService;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.Optional;
 
 @Mapper(componentModel = "spring")
 public abstract class CommentMapper {
