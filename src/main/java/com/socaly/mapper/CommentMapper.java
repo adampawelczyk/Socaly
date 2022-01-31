@@ -8,7 +8,13 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
-public interface CommentMapper {
+public abstract class CommentMapper {
+    @Autowired
+    private AuthService authService;
+
+    @Autowired
+    private CommentVoteRepository commentVoteRepository;
+
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "text", source = "commentDto.text")
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
