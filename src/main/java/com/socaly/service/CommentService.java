@@ -1,10 +1,12 @@
 package com.socaly.service;
 
 import com.socaly.dto.CommentDto;
+import com.socaly.dto.CommentResponse;
 import com.socaly.entity.Comment;
 import com.socaly.entity.NotificationEmail;
 import com.socaly.entity.Post;
 import com.socaly.entity.User;
+import com.socaly.exceptions.CommentNotFoundException;
 import com.socaly.exceptions.PostNotFoundException;
 import com.socaly.mapper.CommentMapper;
 import com.socaly.repository.CommentRepository;
@@ -42,6 +44,16 @@ public class CommentService {
     private void sendCommentNotification(String message, User user) {
         mailService.sendMail(new NotificationEmail(
                 user.getUsername() + " commented on your post", user.getEmail(), message));
+    }
+
+    public CommentResponse getComment(Long commentId) {
+        return commentRepository.findById(commentId)
+                .stream()
+                .map(commentMapper::mapToDto)
+                .findFirst()
+                .orElseThrow(
+                        () -> new CommentNotFoundException(commentId.toString())
+                );
     }
 
     public List<CommentDto> getAllCommentsForPost(Long postId) {
