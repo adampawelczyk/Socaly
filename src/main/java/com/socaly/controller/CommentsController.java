@@ -29,17 +29,17 @@ public class CommentsController {
     }
 
     @GetMapping("/by-post/{postId}")
-    public ResponseEntity<List<CommentDto>> getAllCommentsForPost(@PathVariable Long postId) {
+    public ResponseEntity<List<CommentResponse>> getAllCommentsForPost(@PathVariable Long postId) {
         return ResponseEntity.status(HttpStatus.OK).body(commentService.getAllCommentsForPost(postId));
     }
 
     @GetMapping("/by-user/{username}")
-    public ResponseEntity<List<CommentDto>> getAllCommentsForUser(@PathVariable String username) {
+    public ResponseEntity<List<CommentResponse>> getAllCommentsForUser(@PathVariable String username) {
         return ResponseEntity.status(HttpStatus.OK).body(commentService.getAllCommentsForUser(username));
     }
 
     @GetMapping("/subcomments/{commentId}")
-    public ResponseEntity<List<CommentDto>> getAllSubCommentsForComment(@PathVariable Long commentId) {
+    public ResponseEntity<List<CommentResponse>> getAllSubCommentsForComment(@PathVariable Long commentId) {
         return ResponseEntity.status(HttpStatus.OK).body(commentService.getSubCommentsForComment(commentId));
     }
 }
