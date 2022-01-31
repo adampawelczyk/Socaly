@@ -29,5 +29,25 @@ public abstract class CommentMapper {
 
     @Mapping(target = "postId", expression = "java(comment.getPost().getId())")
     @Mapping(target = "username", expression = "java(comment.getUser().getUsername())")
-    CommentDto mapToDto(Comment comment);
+    @Mapping(target = "upVote", expression = "java(isCommentUpVoted(comment))")
+    @Mapping(target = "downVote", expression = "java(isCommentDownVoted(comment))")
+    public abstract CommentResponse mapToDto(Comment comment);
+
+    boolean isCommentUpVoted(Comment comment) {
+        return checkVoteType(comment, VoteType.UPVOTE);
+    }
+
+    boolean isCommentDownVoted(Comment comment) {
+        return checkVoteType(comment, VoteType.DOWNVOTE);
+    }
+
+    private boolean checkVoteType(Comment comment, VoteType voteType) {
+        if (authService.isLoggedIn()) {
+            Optional<CommentVote> voteForCommentByUser =
+                    commentVoteRepository.findTopByCommentAndUserOrderByIdDesc(comment, authService.getCurrentUser());
+
+            return voteForCommentByUser.filter(vote -> vote.getVoteType().equals(voteType)).isPresent();
+        }
+        return false;
+    }
 }
