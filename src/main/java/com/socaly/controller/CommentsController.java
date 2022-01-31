@@ -1,6 +1,7 @@
 package com.socaly.controller;
 
 import com.socaly.dto.CommentDto;
+import com.socaly.dto.CommentResponse;
 import com.socaly.service.CommentService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,18 +23,23 @@ public class CommentsController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @GetMapping("/{commentId}")
+    public ResponseEntity<CommentResponse> getComment(@PathVariable Long commentId) {
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.getComment(commentId));
+    }
+
     @GetMapping("/by-post/{postId}")
-    public ResponseEntity<List<CommentDto>> getAllCommentsForPost(@PathVariable Long postId) {
+    public ResponseEntity<List<CommentResponse>> getAllCommentsForPost(@PathVariable Long postId) {
         return ResponseEntity.status(HttpStatus.OK).body(commentService.getAllCommentsForPost(postId));
     }
 
     @GetMapping("/by-user/{username}")
-    public ResponseEntity<List<CommentDto>> getAllCommentsForUser(@PathVariable String username) {
+    public ResponseEntity<List<CommentResponse>> getAllCommentsForUser(@PathVariable String username) {
         return ResponseEntity.status(HttpStatus.OK).body(commentService.getAllCommentsForUser(username));
     }
 
     @GetMapping("/subcomments/{commentId}")
-    public ResponseEntity<List<CommentDto>> getAllSubCommentsForComment(@PathVariable Long commentId) {
+    public ResponseEntity<List<CommentResponse>> getAllSubCommentsForComment(@PathVariable Long commentId) {
         return ResponseEntity.status(HttpStatus.OK).body(commentService.getSubCommentsForComment(commentId));
     }
 }

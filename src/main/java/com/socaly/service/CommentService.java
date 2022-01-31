@@ -1,10 +1,12 @@
 package com.socaly.service;
 
 import com.socaly.dto.CommentDto;
+import com.socaly.dto.CommentResponse;
 import com.socaly.entity.Comment;
 import com.socaly.entity.NotificationEmail;
 import com.socaly.entity.Post;
 import com.socaly.entity.User;
+import com.socaly.exceptions.CommentNotFoundException;
 import com.socaly.exceptions.PostNotFoundException;
 import com.socaly.mapper.CommentMapper;
 import com.socaly.repository.CommentRepository;
@@ -44,7 +46,17 @@ public class CommentService {
                 user.getUsername() + " commented on your post", user.getEmail(), message));
     }
 
-    public List<CommentDto> getAllCommentsForPost(Long postId) {
+    public CommentResponse getComment(Long commentId) {
+        return commentRepository.findById(commentId)
+                .stream()
+                .map(commentMapper::mapToDto)
+                .findFirst()
+                .orElseThrow(
+                        () -> new CommentNotFoundException(commentId.toString())
+                );
+    }
+
+    public List<CommentResponse> getAllCommentsForPost(Long postId) {
         Post post = postRepository.findById(postId).orElseThrow(
                 () -> new PostNotFoundException(postId.toString())
         );
@@ -55,14 +67,14 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
-    public List<CommentDto> getSubCommentsForComment(Long commentId) {
+    public List<CommentResponse> getSubCommentsForComment(Long commentId) {
         return commentRepository.findByParentCommentId(commentId)
                 .stream()
                 .map(commentMapper::mapToDto)
                 .collect(Collectors.toList());
     }
 
-    public List<CommentDto> getAllCommentsForUser(String username) {
+    public List<CommentResponse> getAllCommentsForUser(String username) {
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException(username)
         );

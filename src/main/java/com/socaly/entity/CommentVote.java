@@ -1,34 +1,27 @@
 package com.socaly.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import java.time.Instant;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Comment {
+@Builder
+public class CommentVote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty
-    private String text;
-
-    private Integer voteCount = 0;
-    private Instant createdDate;
-
-    @Nullable
-    private Long parentCommentId;
+    @Enumerated(EnumType.STRING)
+    private VoteType voteType;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Post post;
+    private Comment comment;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
