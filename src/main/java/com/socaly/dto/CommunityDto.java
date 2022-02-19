@@ -17,4 +17,5 @@ public class CommunityDto {
     private String description;
     private Instant createdDate;
     private Integer numberOfPosts;
+    private Integer numberOfUsers;
 }
