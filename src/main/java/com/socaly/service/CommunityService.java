@@ -6,6 +6,7 @@ import com.socaly.entity.User;
 import com.socaly.exceptions.SocalyException;
 import com.socaly.mapper.CommunityMapper;
 import com.socaly.repository.CommunityRepository;
+import com.socaly.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,7 @@ public class CommunityService {
     private final CommunityRepository communityRepository;
     private final CommunityMapper communityMapper;
     private final AuthService authService;
+    private final UserRepository userRepository;
 
     @Transactional
     public CommunityDto save(CommunityDto communityDto) {
