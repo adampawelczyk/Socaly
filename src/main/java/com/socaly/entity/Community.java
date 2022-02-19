@@ -33,4 +33,7 @@ public class Community {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<User> users;
 }
