@@ -9,6 +9,7 @@ import com.socaly.repository.CommunityRepository;
 import com.socaly.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,5 +44,38 @@ public class CommunityService {
                 () -> new SocalyException("No community found with name - " + name));
 
         return communityMapper.mapCommunityToDto(community);
+    }
+
+    public void join(String name) {
+        User currentUser = authService.getCurrentUser();
+        Community community = communityRepository.findByName(name).orElseThrow(
+                () -> new SocalyException("No community found with name - " + name)
+        );
+
+        community.getUsers().add(currentUser);
+        communityRepository.save(community);
+    }
+
+    public void leave(String name) {
+        User currentUser = authService.getCurrentUser();
+        Community community = communityRepository.findByName(name).orElseThrow(
+                () -> new SocalyException("No community found with name - " + name)
+        );
+
+        community.getUsers().remove(currentUser);
+        communityRepository.save(community);
+    }
+
+    public List<CommunityDto> getAllCommunitiesForUser(String name) {
+        User user = userRepository.findByUsername(name).orElseThrow(
+                () -> new UsernameNotFoundException("No user found with name - " + name)
+        );
+
+        return communityRepository
+                .findAll()
+                .stream()
+                .filter(community -> community.getUsers().contains(user))
+                .map(communityMapper::mapCommunityToDto)
+                .collect(Collectors.toList());
     }
 }
