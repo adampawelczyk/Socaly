@@ -29,6 +29,7 @@ public class CommunityService {
     public CommunityDto save(CommunityDto communityDto) {
         User currentUser = authService.getCurrentUser();
         Community save = communityRepository.save(communityMapper.mapDtoToCommunity(communityDto, currentUser));
+        join(communityDto.getName());
         communityDto.setId(save.getId());
 
         return communityDto;
