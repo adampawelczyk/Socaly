@@ -13,6 +13,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CommunityMapper {
     @Mapping(target = "numberOfPosts", expression = "java(mapPosts(community.getPosts()))")
+    @Mapping(target = "numberOfUsers", expression = "java(community.getUsers().size())")
     CommunityDto mapCommunityToDto(Community community);
 
     default Integer mapPosts(List<Post> numberOfPosts) {
