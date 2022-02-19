@@ -31,4 +31,23 @@ public class CommunityController {
     public ResponseEntity<CommunityDto> getCommunity(@PathVariable String name) {
         return ResponseEntity.status(HttpStatus.OK).body(communityService.getCommunity(name));
     }
+
+    @GetMapping("/join/{name}")
+    public ResponseEntity<Void> joinCommunity(@PathVariable String name) {
+        communityService.join(name);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/leave/{name}")
+    public ResponseEntity<Void> leaveCommunity(@PathVariable String name) {
+        communityService.leave(name);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllCommunitiesForUser/{name}")
+    public ResponseEntity<List<CommunityDto>> getAllCommunitiesForUser(@PathVariable String name) {
+        return ResponseEntity.status(HttpStatus.OK).body(communityService.getAllCommunitiesForUser(name));
+    }
 }
