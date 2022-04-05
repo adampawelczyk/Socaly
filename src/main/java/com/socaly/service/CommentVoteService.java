@@ -22,8 +22,8 @@ public class CommentVoteService {
 
     @Transactional
     public void vote(CommentVoteDto commentVoteDto) {
-        Comment comment = commentRepository.findById(commentVoteDto.getCommentId())
-                .orElseThrow(() -> new CommentNotFoundException("Comment not found with id - " + commentVoteDto.getCommentId()));
+        Comment comment = commentRepository.findById(commentVoteDto.getCommentID())
+                .orElseThrow(() -> new CommentNotFoundException("Comment not found with id - " + commentVoteDto.getCommentID()));
         Optional<CommentVote> voteByCommentAndUser = commentVoteRepository.findTopByCommentAndUserOrderByIdDesc(comment, authService.getCurrentUser());
 
         if (voteByCommentAndUser.isPresent() && voteByCommentAndUser.get().getVoteType().equals(commentVoteDto.getVoteType())) {
