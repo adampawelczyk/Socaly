@@ -11,8 +11,8 @@ import java.time.Instant;
 @NoArgsConstructor
 public class CommentDto {
     private Long id;
-    private Long postId;
-    private Long parentCommentId;
+    private Long postID;
+    private Long parentCommentID;
     private Instant createdDate;
     private String text;
     private String username;
