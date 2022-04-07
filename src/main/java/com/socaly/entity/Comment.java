@@ -25,7 +25,7 @@ public class Comment {
     private Instant createdDate;
 
     @Nullable
-    private Long parentCommentID;
+    private Long parentCommentId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Post post;
