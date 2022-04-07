@@ -30,8 +30,8 @@ public class CommentService {
     private final MailService mailService;
 
     public void save(CommentDto commentDto) {
-        Post post = postRepository.findById(commentDto.getPostID()).orElseThrow(
-                () -> new PostNotFoundException(commentDto.getPostID().toString())
+        Post post = postRepository.findById(commentDto.getPostId()).orElseThrow(
+                () -> new PostNotFoundException(commentDto.getPostId().toString())
         );
         User user = authService.getCurrentUser();
         Comment comment = commentMapper.map(commentDto, post, user);
