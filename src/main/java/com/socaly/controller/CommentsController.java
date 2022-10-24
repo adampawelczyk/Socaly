@@ -23,6 +23,13 @@ public class CommentsController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
+    @PostMapping("/edit/{commentId}")
+    public ResponseEntity<Void> editComment(@PathVariable Long commentId, @RequestBody CommentDto commentDto) {
+        commentService.edit(commentId, commentDto);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping("/{commentId}")
     public ResponseEntity<CommentResponse> getComment(@PathVariable Long commentId) {
         return ResponseEntity.status(HttpStatus.OK).body(commentService.getComment(commentId));
