@@ -4,8 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.Instant;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,7 +11,8 @@ public class CommentResponse {
     private Long id;
     private Long postId;
     private Long parentCommentId;
-    private Instant createdDate;
+    private String timeSinceCreation;
+    private String timeSinceEdit;
     private Integer voteCount;
     private String text;
     private String username;
