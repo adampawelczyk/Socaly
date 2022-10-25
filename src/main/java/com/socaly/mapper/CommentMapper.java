@@ -22,7 +22,7 @@ public abstract class CommentMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "text", source = "commentDto.text")
     @Mapping(target = "voteCount", constant = "0")
-    @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
+    @Mapping(target = "creationDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "post", source = "post")
     @Mapping(target = "user", source = "user")
     public abstract Comment map(CommentDto commentDto, Post post, User user);
