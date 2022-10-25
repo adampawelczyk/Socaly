@@ -22,7 +22,8 @@ public class Comment {
     private String text;
 
     private Integer voteCount = 0;
-    private Instant createdDate;
+    private Instant creationDate;
+    private Instant editDate;
 
     @Nullable
     private Long parentCommentId;
