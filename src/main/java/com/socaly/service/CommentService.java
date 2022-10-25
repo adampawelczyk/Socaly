@@ -16,7 +16,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -39,6 +41,19 @@ public class CommentService {
 
         String message = post.getUser().getUsername() + " posted a comment on your post.";
         sendCommentNotification(message, post.getUser());
+    }
+
+    public void edit(Long commentId, String text) {
+        Comment commentToEdit = commentRepository.findById(commentId).orElseThrow(
+                () -> new CommentNotFoundException(commentId.toString())
+        );
+        User user = authService.getCurrentUser();
+
+        if (Objects.equals(commentToEdit.getUser().getId(), user.getId())) {
+            commentToEdit.setText(text);
+            commentToEdit.setEditDate(Instant.now());
+            commentRepository.save(commentToEdit);
+        }
     }
 
     private void sendCommentNotification(String message, User user) {
