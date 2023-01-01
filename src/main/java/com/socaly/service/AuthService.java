@@ -4,10 +4,12 @@ import com.socaly.dto.AuthenticationResponse;
 import com.socaly.dto.LoginRequest;
 import com.socaly.dto.RefreshTokenRequest;
 import com.socaly.dto.RegisterRequest;
+import com.socaly.entity.Image;
 import com.socaly.entity.NotificationEmail;
 import com.socaly.entity.User;
 import com.socaly.entity.VerificationToken;
 import com.socaly.exceptions.SocalyException;
+import com.socaly.repository.ImageRepository;
 import com.socaly.repository.UserRepository;
 import com.socaly.repository.VerificationTokenRepository;
 import com.socaly.security.JwtProvider;
@@ -24,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.Optional;
+import java.util.Random;
 import java.util.UUID;
 
 @Service
@@ -31,6 +34,7 @@ import java.util.UUID;
 public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
+    private final ImageRepository imageRepository;
     private final VerificationTokenRepository verificationTokenRepository;
     private final MailService mailService;
     private final AuthenticationManager authenticationManager;
@@ -40,11 +44,18 @@ public class AuthService {
     @Transactional
     public void signup(RegisterRequest registerRequest) {
         User user = new User();
+
         user.setUsername(registerRequest.getUsername());
         user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         user.setEmail(registerRequest.getEmail());
         user.setCreatedDate(Instant.now());
         user.setEnabled(false);
+
+        Image profileImage = new Image();
+        profileImage.setImageUrl(generateProfileImage());
+        imageRepository.save(profileImage);
+
+        user.setProfileImage(profileImage);
 
         userRepository.save(user);
         
@@ -52,6 +63,12 @@ public class AuthService {
         mailService.sendMail(new NotificationEmail("Please activate your account", user.getEmail(),
                 "Thank you for signing up to Socaly, please click on the below url to activate your account: " +
                         "http://localhost:8090/api/auth/accountVerification/" + token));
+    }
+
+    private String generateProfileImage() {
+        return "https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static%2Favatar-default-"
+                + new Random().nextInt(8)
+                +".png?alt=media&token=b00daa37-abf9-447d-9a52-80daa478e8ec";
     }
 
     private String generateVerificationToken(User user) {
