@@ -36,5 +36,5 @@ public class User {
     private Image profileImage;
 
     @OneToOne(fetch = FetchType.LAZY)
-    private Image banner;
+    private Image profileBanner;
 }
