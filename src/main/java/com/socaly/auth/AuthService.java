@@ -41,12 +41,12 @@ public class AuthService {
     private final RefreshTokenService refreshTokenService;
 
     @Transactional
-    public void signup(RegisterRequest registerRequest) {
+    public void signup(SignUpRequest signUpRequest) {
         User user = new User();
 
-        user.setUsername(registerRequest.getUsername());
-        user.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
-        user.setEmail(registerRequest.getEmail());
+        user.setUsername(signUpRequest.getUsername());
+        user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
+        user.setEmail(signUpRequest.getEmail());
         user.setCreatedDate(Instant.now());
         user.setEnabled(false);
 
