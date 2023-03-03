@@ -41,7 +41,7 @@ public class AuthService {
     private final RefreshTokenService refreshTokenService;
 
     @Transactional
-    public void signup(SignUpRequest signUpRequest) {
+    public void signUp(SignUpRequest signUpRequest) {
         User user = new User();
 
         user.setUsername(signUpRequest.getUsername());
