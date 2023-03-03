@@ -112,7 +112,7 @@ public class AuthService {
         userRepository.save(user);
     }
 
-    public AuthResponse login(LoginRequest loginRequest) {
+    public AuthResponse login(LogInRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginRequest.getUsername(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
