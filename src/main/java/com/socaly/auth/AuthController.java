@@ -30,7 +30,7 @@ public class AuthController {
         return new ResponseEntity<>("Account activated successfully", HttpStatus.OK);
     }
 
-    @PostMapping("/login")
+    @PostMapping("/log-in")
     public AuthResponse logIn(@RequestBody LogInRequest loginRequest) {
         return authService.logIn(loginRequest);
     }
