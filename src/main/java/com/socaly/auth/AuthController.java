@@ -17,7 +17,7 @@ public class AuthController {
     private final RefreshTokenService refreshTokenService;
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody SignUpRequest signUpRequest) {
+    public ResponseEntity<String> signUp(@RequestBody SignUpRequest signUpRequest) {
         authService.signUp(signUpRequest);
 
         return new ResponseEntity<>("User registration successful", HttpStatus.OK);
