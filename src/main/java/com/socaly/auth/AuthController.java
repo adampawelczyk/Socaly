@@ -40,7 +40,7 @@ public class AuthController {
         return authService.refreshToken(refreshTokenRequest);
     }
 
-    @PostMapping("/logout")
+    @PostMapping("/log-out")
     public ResponseEntity<String> logOut(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
         refreshTokenService.deleteRefreshToken(refreshTokenRequest.getRefreshToken());
 
