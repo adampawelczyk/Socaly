@@ -27,12 +27,12 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final MailService mailService;
 
-    public void save(CommentDto commentDto) {
-        Post post = postRepository.findById(commentDto.getPostId()).orElseThrow(
-                () -> new PostNotFoundException(commentDto.getPostId().toString())
+    public void save(CommentRequest commentRequest) {
+        Post post = postRepository.findById(commentRequest.getPostId()).orElseThrow(
+                () -> new PostNotFoundException(commentRequest.getPostId().toString())
         );
         User user = authService.getCurrentUser();
-        Comment comment = commentMapper.map(commentDto, post, user);
+        Comment comment = commentMapper.map(commentRequest, post, user);
         commentRepository.save(comment);
 
         String message = post.getUser().getUsername() + " posted a comment on your post.";

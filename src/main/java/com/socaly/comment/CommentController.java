@@ -14,8 +14,8 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping
-    public ResponseEntity<Void> createComment(@RequestBody CommentDto commentDto) {
-        commentService.save(commentDto);
+    public ResponseEntity<Void> createComment(@RequestBody CommentRequest commentRequest) {
+        commentService.save(commentRequest);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
