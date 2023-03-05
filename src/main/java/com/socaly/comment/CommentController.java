@@ -10,7 +10,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/comments")
-public class CommentsController {
+public class CommentController {
     private final CommentService commentService;
 
     @PostMapping
