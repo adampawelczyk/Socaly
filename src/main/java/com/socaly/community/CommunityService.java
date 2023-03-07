@@ -23,13 +23,12 @@ public class CommunityService {
     private final UserRepository userRepository;
 
     @Transactional
-    public CommunityDto save(CommunityDto communityDto) {
+    public CommunityDto save(CommunityRequest communityRequest) {
         User currentUser = authService.getCurrentUser();
-        Community save = communityRepository.save(communityMapper.mapDtoToCommunity(communityDto, currentUser));
-        join(communityDto.getName());
-        communityDto.setId(save.getId());
+        Community save = communityRepository.save(communityMapper.mapDtoToCommunity(communityRequest, currentUser));
+        join(communityRequest.getName());
 
-        return communityDto;
+        return communityMapper.mapCommunityToDto(save);
     }
 
     @Transactional(readOnly = true)
