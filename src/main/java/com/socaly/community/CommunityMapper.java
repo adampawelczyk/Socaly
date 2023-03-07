@@ -20,7 +20,7 @@ public interface CommunityMapper {
 
     @InheritInverseConfiguration
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "posts", ignore = true)
+    @Mapping(target = "posts", expression = "java(new java.util.ArrayList<>())")
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "user", source = "user")
     @Mapping(target = "users", expression = "java(new java.util.ArrayList<>())")
