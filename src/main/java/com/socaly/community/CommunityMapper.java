@@ -24,5 +24,5 @@ public interface CommunityMapper {
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "user", source = "user")
     @Mapping(target = "users", expression = "java(new java.util.ArrayList<>())")
-    Community mapDtoToCommunity(CommunityDto communityDto, User user);
+    Community mapDtoToCommunity(CommunityRequest communityDto, User user);
 }
