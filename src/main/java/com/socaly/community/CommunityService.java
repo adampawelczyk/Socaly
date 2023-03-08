@@ -25,7 +25,7 @@ public class CommunityService {
     @Transactional
     public CommunityResponse save(CommunityRequest communityRequest) {
         User currentUser = authService.getCurrentUser();
-        Community save = communityRepository.save(communityMapper.mapDtoToCommunity(communityRequest, currentUser));
+        Community save = communityRepository.save(communityMapper.mapToCommunity(communityRequest, currentUser));
         join(communityRequest.getName());
 
         return communityMapper.mapCommunityToDto(save);
