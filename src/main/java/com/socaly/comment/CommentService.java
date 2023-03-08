@@ -60,7 +60,7 @@ public class CommentService {
     public CommentResponse getComment(Long commentId) {
         return commentRepository.findById(commentId)
                 .stream()
-                .map(commentMapper::mapToDto)
+                .map(commentMapper::mapToCommentResponse)
                 .findFirst()
                 .orElseThrow(
                         () -> new CommentNotFoundException(commentId.toString())
@@ -74,14 +74,14 @@ public class CommentService {
 
         return commentRepository.findByPostAndParentCommentIdIsNull(post)
                 .stream()
-                .map(commentMapper::mapToDto)
+                .map(commentMapper::mapToCommentResponse)
                 .collect(Collectors.toList());
     }
 
     public List<CommentResponse> getSubCommentsForComment(Long commentId) {
         return commentRepository.findByParentCommentId(commentId)
                 .stream()
-                .map(commentMapper::mapToDto)
+                .map(commentMapper::mapToCommentResponse)
                 .collect(Collectors.toList());
     }
 
@@ -92,7 +92,7 @@ public class CommentService {
 
         return commentRepository.findByUser(user)
                 .stream()
-                .map(commentMapper::mapToDto)
+                .map(commentMapper::mapToCommentResponse)
                 .collect(Collectors.toList());
     }
 }
