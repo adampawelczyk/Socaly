@@ -32,7 +32,7 @@ public class CommentService {
                 () -> new PostNotFoundException(commentRequest.getPostId().toString())
         );
         User user = authService.getCurrentUser();
-        Comment comment = commentMapper.map(commentRequest, post, user);
+        Comment comment = commentMapper.mapToComment(commentRequest, post, user);
         commentRepository.save(comment);
 
         String message = post.getUser().getUsername() + " posted a comment on your post.";

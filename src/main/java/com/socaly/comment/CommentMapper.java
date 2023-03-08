@@ -27,7 +27,7 @@ public abstract class CommentMapper {
     @Mapping(target = "creationDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "post", source = "post")
     @Mapping(target = "user", source = "user")
-    public abstract Comment map(CommentRequest commentRequest, Post post, User user);
+    public abstract Comment mapToComment(CommentRequest commentRequest, Post post, User user);
 
     @Mapping(target = "postId", expression = "java(comment.getPost().getId())")
     @Mapping(target = "username", expression = "java(comment.getUser().getUsername())")
