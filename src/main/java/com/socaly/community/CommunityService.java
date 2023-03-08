@@ -33,7 +33,11 @@ public class CommunityService {
 
     @Transactional(readOnly = true)
     public List<CommunityResponse> getAll() {
-        return communityRepository.findAll().stream().map(communityMapper::mapToCommunityResponse).collect(Collectors.toList());
+        return communityRepository
+                .findAll()
+                .stream()
+                .map(communityMapper::mapToCommunityResponse)
+                .collect(Collectors.toList());
     }
 
     public CommunityResponse getCommunity(String name) {
