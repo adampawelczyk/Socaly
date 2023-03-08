@@ -15,7 +15,7 @@ import java.util.List;
 public class CommunityController {
     private final CommunityService communityService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<CommunityResponse> createCommunity(@RequestBody CommunityRequest communityRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(communityService.save(communityRequest));
     }
