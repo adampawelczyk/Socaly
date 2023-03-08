@@ -28,19 +28,19 @@ public class CommunityService {
         Community save = communityRepository.save(communityMapper.mapToCommunity(communityRequest, currentUser));
         join(communityRequest.getName());
 
-        return communityMapper.mapCommunityToDto(save);
+        return communityMapper.mapToCommunityResponse(save);
     }
 
     @Transactional(readOnly = true)
     public List<CommunityResponse> getAll() {
-        return communityRepository.findAll().stream().map(communityMapper::mapCommunityToDto).collect(Collectors.toList());
+        return communityRepository.findAll().stream().map(communityMapper::mapToCommunityResponse).collect(Collectors.toList());
     }
 
     public CommunityResponse getCommunity(String name) {
         Community community = communityRepository.findByName(name).orElseThrow(
                 () -> new SocalyException("No community found with name - " + name));
 
-        return communityMapper.mapCommunityToDto(community);
+        return communityMapper.mapToCommunityResponse(community);
     }
 
     public void join(String name) {
@@ -72,7 +72,7 @@ public class CommunityService {
                 .findAll()
                 .stream()
                 .filter(community -> community.getUsers().contains(user))
-                .map(communityMapper::mapCommunityToDto)
+                .map(communityMapper::mapToCommunityResponse)
                 .collect(Collectors.toList());
     }
 }

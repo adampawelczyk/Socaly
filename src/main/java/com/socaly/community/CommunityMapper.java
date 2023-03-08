@@ -18,7 +18,7 @@ public interface CommunityMapper {
 
     @Mapping(target = "numberOfPosts", expression = "java(mapPosts(community.getPosts()))")
     @Mapping(target = "numberOfUsers", expression = "java(community.getUsers().size())")
-    CommunityResponse mapCommunityToDto(Community community);
+    CommunityResponse mapToCommunityResponse(Community community);
 
     default Integer mapPosts(List<Post> numberOfPosts) {
         return numberOfPosts.size();
