@@ -18,7 +18,6 @@ public interface CommunityMapper {
         return numberOfPosts.size();
     }
 
-    @InheritInverseConfiguration
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "posts", expression = "java(new java.util.ArrayList<>())")
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
