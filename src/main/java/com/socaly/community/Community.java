@@ -30,9 +30,6 @@ public class Community {
 
     private Instant createdDate;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Post> posts;
-
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
 
