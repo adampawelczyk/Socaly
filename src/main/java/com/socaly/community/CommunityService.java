@@ -23,7 +23,7 @@ public class CommunityService {
     private final UserRepository userRepository;
 
     @Transactional
-    public CommunityDto save(CommunityRequest communityRequest) {
+    public CommunityResponse save(CommunityRequest communityRequest) {
         User currentUser = authService.getCurrentUser();
         Community save = communityRepository.save(communityMapper.mapDtoToCommunity(communityRequest, currentUser));
         join(communityRequest.getName());
@@ -32,11 +32,11 @@ public class CommunityService {
     }
 
     @Transactional(readOnly = true)
-    public List<CommunityDto> getAll() {
+    public List<CommunityResponse> getAll() {
         return communityRepository.findAll().stream().map(communityMapper::mapCommunityToDto).collect(Collectors.toList());
     }
 
-    public CommunityDto getCommunity(String name) {
+    public CommunityResponse getCommunity(String name) {
         Community community = communityRepository.findByName(name).orElseThrow(
                 () -> new SocalyException("No community found with name - " + name));
 
@@ -63,7 +63,7 @@ public class CommunityService {
         communityRepository.save(community);
     }
 
-    public List<CommunityDto> getAllCommunitiesForUser(String name) {
+    public List<CommunityResponse> getAllCommunitiesForUser(String name) {
         User user = userRepository.findByUsername(name).orElseThrow(
                 () -> new UsernameNotFoundException("No user found with name - " + name)
         );

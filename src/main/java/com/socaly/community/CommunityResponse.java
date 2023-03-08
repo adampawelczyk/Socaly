@@ -11,7 +11,7 @@ import java.time.Instant;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CommunityDto {
+public class CommunityResponse {
     private Long id;
     private String name;
     private String description;
