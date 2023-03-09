@@ -13,7 +13,7 @@ import java.util.List;
 public class CommentController {
     private final CommentService commentService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Void> createComment(@RequestBody CommentRequest commentRequest) {
         commentService.save(commentRequest);
 
