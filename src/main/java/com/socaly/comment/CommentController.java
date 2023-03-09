@@ -27,7 +27,7 @@ public class CommentController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/{commentId}")
+    @GetMapping("/get/{commentId}")
     public ResponseEntity<CommentResponse> getComment(@PathVariable Long commentId) {
         return ResponseEntity.status(HttpStatus.OK).body(commentService.getComment(commentId));
     }
