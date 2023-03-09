@@ -32,7 +32,7 @@ public class CommentController {
         return ResponseEntity.status(HttpStatus.OK).body(commentService.getComment(commentId));
     }
 
-    @GetMapping("/by-post/{postId}")
+    @GetMapping("get/all/by-post/{postId}")
     public ResponseEntity<List<CommentResponse>> getAllCommentsForPost(@PathVariable Long postId) {
         return ResponseEntity.status(HttpStatus.OK).body(commentService.getAllCommentsForPost(postId));
     }
