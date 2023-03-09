@@ -20,7 +20,7 @@ public class CommunityController {
         return ResponseEntity.status(HttpStatus.CREATED).body(communityService.save(communityRequest));
     }
 
-    @GetMapping
+    @GetMapping("/get/all")
     public ResponseEntity<List<CommunityResponse>> getAllCommunities() {
         return ResponseEntity.status(HttpStatus.OK).body(communityService.getAll());
     }
