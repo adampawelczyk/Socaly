@@ -44,7 +44,7 @@ public class CommunityController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/getAllCommunitiesForUser/{name}")
+    @GetMapping("/get/all/by-user/{name}")
     public ResponseEntity<List<CommunityResponse>> getAllCommunitiesForUser(@PathVariable String name) {
         return ResponseEntity.status(HttpStatus.OK).body(communityService.getAllCommunitiesForUser(name));
     }
