@@ -28,7 +28,7 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(postService.getPost(id));
     }
 
-    @GetMapping("/by-community/{name}")
+    @GetMapping("get/all/by-community/{name}")
     public ResponseEntity<List<PostResponse>> getPostsByCommunity(@PathVariable String name) {
         return ResponseEntity.status(HttpStatus.OK).body(postService.getPostsByCommunity(name));
     }
