@@ -18,7 +18,7 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.CREATED).body(postService.save(postRequest));
     }
 
-    @GetMapping
+    @GetMapping("get/all")
     public ResponseEntity<List<PostResponse>> getAllPosts() {
         return ResponseEntity.status(HttpStatus.OK).body(postService.getAllPosts());
     }
