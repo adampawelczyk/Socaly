@@ -10,7 +10,6 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostRequest {
-    private Long postId;
     private String communityName;
     private String postName;
     private String description;
