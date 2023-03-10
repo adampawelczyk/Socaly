@@ -13,7 +13,7 @@ import java.util.List;
 public class PostController {
     private final PostService postService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Long> createPost(@RequestBody PostRequest postRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(postService.save(postRequest));
     }
