@@ -32,7 +32,7 @@ public class PostService {
         );
         User currentUser = authService.getCurrentUser();
 
-        return postRepository.save(postMapper.map(postRequest, community, currentUser)).getId();
+        return postRepository.save(postMapper.mapToPost(postRequest, community, currentUser)).getId();
     }
 
     @Transactional(readOnly = true)

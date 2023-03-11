@@ -34,7 +34,7 @@ public abstract class PostMapper {
     @Mapping(target = "user", source = "user")
     @Mapping(target = "voteCount", constant = "0")
     @Mapping(target = "images", expression = "java(mapStringsToImages(postRequest.getImages()))")
-    public abstract Post map(PostRequest postRequest, Community community, User user);
+    public abstract Post mapToPost(PostRequest postRequest, Community community, User user);
 
     @Mapping(target = "communityName", source = "community.name")
     @Mapping(target = "userName", source = "user.username")
