@@ -43,7 +43,7 @@ public abstract class PostMapper {
     @Mapping(target = "upVote", expression = "java(isPostUpVoted(post))")
     @Mapping(target = "downVote", expression = "java(isPostDownVoted(post))")
     @Mapping(target = "images", expression = "java(mapImagesToStrings(post.getImages()))")
-    public abstract PostResponse mapToDto(Post post);
+    public abstract PostResponse mapToPostResponse(Post post);
 
     Integer commentCount(Post post) {
         return commentRepository.findByPost(post).size();

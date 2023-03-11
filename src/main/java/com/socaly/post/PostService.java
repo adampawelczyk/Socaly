@@ -41,7 +41,7 @@ public class PostService {
                 () -> new PostNotFoundException(id.toString())
         );
 
-        return postMapper.mapToDto(post);
+        return postMapper.mapToPostResponse(post);
     }
 
     @Transactional
@@ -49,7 +49,7 @@ public class PostService {
         return postRepository
                 .findAll()
                 .stream()
-                .map(postMapper::mapToDto)
+                .map(postMapper::mapToPostResponse)
                 .collect(Collectors.toList());
     }
 
@@ -60,7 +60,7 @@ public class PostService {
         );
         List<Post> posts = postRepository.findAllByCommunity(community);
 
-        return posts.stream().map(postMapper::mapToDto).collect(Collectors.toList());
+        return posts.stream().map(postMapper::mapToPostResponse).collect(Collectors.toList());
     }
 
     @Transactional
@@ -71,7 +71,7 @@ public class PostService {
 
         return postRepository.findByUser(user)
                 .stream()
-                .map(postMapper::mapToDto)
+                .map(postMapper::mapToPostResponse)
                 .collect(Collectors.toList());
     }
 }
