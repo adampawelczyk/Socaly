@@ -30,7 +30,7 @@ public class PostController {
 
     @GetMapping("get/all/by-community/{name}")
     public ResponseEntity<List<PostResponse>> getAllPostsByCommunity(@PathVariable String name) {
-        return ResponseEntity.status(HttpStatus.OK).body(postService.getPostsByCommunity(name));
+        return ResponseEntity.status(HttpStatus.OK).body(postService.getAllPostsByCommunity(name));
     }
 
     @GetMapping("get/all/by-user/{name}")
