@@ -64,7 +64,7 @@ public class PostService {
     }
 
     @Transactional
-    public List<PostResponse> getPostsByUsername(String username) {
+    public List<PostResponse> getAllPostsByUser(String username) {
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException(username)
         );
