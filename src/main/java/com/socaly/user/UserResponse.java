@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+public class UserResponse {
     private String createdDate;
     private String profileImage;
     private String profileBanner;

@@ -10,7 +10,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/getUserDetails/{username}")
-    public UserDto getUserDetails(@PathVariable String username) {
+    public UserResponse getUserDetails(@PathVariable String username) {
         return userService.getUserDetails(username);
     }
 }

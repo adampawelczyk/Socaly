@@ -8,11 +8,11 @@ import org.mapstruct.Mapping;
 public abstract class UserMapper {
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "profileImage", expression = "java(mapStringToImage(userDto.getProfileImage()))")
-    public abstract User map(UserDto userDto);
+    @Mapping(target = "profileImage", expression = "java(mapStringToImage(userResponse.getProfileImage()))")
+    public abstract User map(UserResponse userResponse);
 
     @Mapping(target = "profileImage", expression = "java(mapImageToString(user.getProfileImage()))")
-    public abstract UserDto mapToDto(User user);
+    public abstract UserResponse mapToDto(User user);
 
     Image mapStringToImage(String string) {
         Image image = new Image();
