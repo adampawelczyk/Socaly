@@ -1,7 +1,6 @@
 package com.socaly.community;
 
 import com.socaly.user.User;
-import com.socaly.exceptions.SocalyException;
 import com.socaly.user.UserRepository;
 import com.socaly.auth.AuthService;
 import lombok.AllArgsConstructor;
@@ -42,7 +41,7 @@ public class CommunityService {
 
     public CommunityResponse getCommunity(String name) {
         Community community = communityRepository.findByName(name).orElseThrow(
-                () -> new SocalyException("No community found with name - " + name));
+                () -> new CommunityNotFoundException("No community found with name - " + name));
 
         return communityMapper.mapToCommunityResponse(community);
     }
@@ -50,7 +49,7 @@ public class CommunityService {
     public void join(String name) {
         User currentUser = authService.getCurrentUser();
         Community community = communityRepository.findByName(name).orElseThrow(
-                () -> new SocalyException("No community found with name - " + name)
+                () -> new CommunityNotFoundException("No community found with name - " + name)
         );
 
         community.getUsers().add(currentUser);
@@ -60,7 +59,7 @@ public class CommunityService {
     public void leave(String name) {
         User currentUser = authService.getCurrentUser();
         Community community = communityRepository.findByName(name).orElseThrow(
-                () -> new SocalyException("No community found with name - " + name)
+                () -> new CommunityNotFoundException("No community found with name - " + name)
         );
 
         community.getUsers().remove(currentUser);
