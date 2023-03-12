@@ -106,7 +106,7 @@ public class AuthService {
         String username = verificationToken.getUser().getUsername();
 
         User user = userRepository.findByUsername(username).orElseThrow(
-                () -> new SocalyException("User not found with name - " + username));
+                () -> new UsernameNotFoundException("User not found with name - " + username));
 
         user.setEnabled(true);
         userRepository.save(user);
