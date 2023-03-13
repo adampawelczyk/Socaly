@@ -6,7 +6,6 @@ import com.socaly.mail.MailService;
 import com.socaly.mail.NotificationEmail;
 import com.socaly.user.User;
 import com.socaly.verificationToken.VerificationToken;
-import com.socaly.exceptions.SocalyException;
 import com.socaly.image.ImageRepository;
 import com.socaly.refreshToken.RefreshTokenService;
 import com.socaly.user.UserRepository;
@@ -84,7 +83,7 @@ public class AuthService {
     public void verifyAccount(String token) {
         Optional<VerificationToken> verificationToken = verificationTokenRepository.findByToken(token);
 
-        verificationToken.orElseThrow(() -> new SocalyException("Invalid token"));
+        verificationToken.orElseThrow(() -> new AuthException("Invalid token"));
         fetchUserAndEnable(verificationToken.get());
     }
 
