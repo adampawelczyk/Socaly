@@ -7,7 +7,7 @@ import com.socaly.post.PostNotFoundException;
 import com.socaly.post.PostRepository;
 import com.socaly.user.UserRepository;
 import com.socaly.auth.AuthService;
-import com.socaly.email.MailService;
+import com.socaly.email.EmailService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -25,7 +25,7 @@ public class CommentService {
     private final AuthService authService;
     private final CommentMapper commentMapper;
     private final CommentRepository commentRepository;
-    private final MailService mailService;
+    private final EmailService emailService;
 
     public void save(CommentRequest commentRequest) {
         Post post = postRepository.findById(commentRequest.getPostId()).orElseThrow(
@@ -53,7 +53,7 @@ public class CommentService {
     }
 
     private void sendCommentNotification(String message, User user) {
-        mailService.sendMail(new NotificationEmail(
+        emailService.sendMail(new NotificationEmail(
                 user.getUsername() + " commented on your post", user.getEmail(), message));
     }
 

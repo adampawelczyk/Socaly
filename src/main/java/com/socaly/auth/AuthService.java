@@ -2,7 +2,7 @@ package com.socaly.auth;
 
 import com.socaly.refreshToken.RefreshTokenRequest;
 import com.socaly.image.Image;
-import com.socaly.email.MailService;
+import com.socaly.email.EmailService;
 import com.socaly.email.NotificationEmail;
 import com.socaly.user.User;
 import com.socaly.verificationToken.VerificationToken;
@@ -34,7 +34,7 @@ public class AuthService {
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
     private final VerificationTokenRepository verificationTokenRepository;
-    private final MailService mailService;
+    private final EmailService emailService;
     private final AuthenticationManager authenticationManager;
     private final JwtProvider jwtProvider;
     private final RefreshTokenService refreshTokenService;
@@ -58,7 +58,7 @@ public class AuthService {
         userRepository.save(user);
         
         String token = generateVerificationToken(user);
-        mailService.sendMail(new NotificationEmail("Please activate your account", user.getEmail(),
+        emailService.sendMail(new NotificationEmail("Please activate your account", user.getEmail(),
                 "Thank you for signing up to Socaly, please click on the below url to activate your account: " +
                         "http://localhost:8090/api/auth/verify-account/" + token));
     }
