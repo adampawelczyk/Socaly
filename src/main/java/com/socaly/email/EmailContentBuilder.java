@@ -7,7 +7,7 @@ import org.thymeleaf.context.Context;
 
 @Service
 @AllArgsConstructor
-public class MailContentBuilder {
+public class EmailContentBuilder {
     private final TemplateEngine templateEngine;
 
     String build(String message) {
