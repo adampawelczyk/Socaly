@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 @Slf4j
 public class EmailService {
-    private final JavaMailSender mailSender;
+    private final JavaMailSender emailSender;
     private final EmailContentBuilder emailContentBuilder;
 
     @Async
@@ -28,7 +28,7 @@ public class EmailService {
             messageHelper.setText(emailContentBuilder.build(notificationEmail.getBody()));
         };
         try {
-            mailSender.send(messagePreparator);
+            emailSender.send(messagePreparator);
             log.info("Activation email sent!");
         } catch (MailException e) {
             throw new SocalyException("Exception occurred when sending mail to " + notificationEmail.getRecipient());
