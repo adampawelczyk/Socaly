@@ -1,13 +1,13 @@
 package com.socaly.comment;
 
-import com.socaly.mail.NotificationEmail;
+import com.socaly.email.NotificationEmail;
 import com.socaly.post.Post;
 import com.socaly.user.User;
 import com.socaly.post.PostNotFoundException;
 import com.socaly.post.PostRepository;
 import com.socaly.user.UserRepository;
 import com.socaly.auth.AuthService;
-import com.socaly.mail.MailService;
+import com.socaly.email.MailService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
