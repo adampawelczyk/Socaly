@@ -1,6 +1,5 @@
 package com.socaly.email;
 
-import com.socaly.exceptions.SocalyException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.MailException;
@@ -31,7 +30,7 @@ public class EmailService {
             emailSender.send(messagePreparator);
             log.info("Activation email sent!");
         } catch (MailException e) {
-            throw new SocalyException("Exception occurred when sending mail to " + notificationEmail.getRecipient());
+            throw new EmailException("Exception occurred when sending mail to " + notificationEmail.getRecipient());
         }
     }
 }
