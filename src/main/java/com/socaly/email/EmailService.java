@@ -30,7 +30,7 @@ public class EmailService {
             emailSender.send(messagePreparator);
             log.info("Activation email sent!");
         } catch (MailException e) {
-            throw new EmailException("Exception occurred when sending mail to " + notificationEmail.getRecipient());
+            throw new EmailException("Exception occurred when sending email to " + notificationEmail.getRecipient());
         }
     }
 }
