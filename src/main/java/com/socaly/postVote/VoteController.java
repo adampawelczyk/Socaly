@@ -1,4 +1,4 @@
-package com.socaly.vote;
+package com.socaly.postVote;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

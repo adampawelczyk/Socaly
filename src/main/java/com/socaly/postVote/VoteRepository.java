@@ -1,4 +1,4 @@
-package com.socaly.vote;
+package com.socaly.postVote;
 
 import com.socaly.post.Post;
 import com.socaly.user.User;

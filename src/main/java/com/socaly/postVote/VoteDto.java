@@ -1,4 +1,4 @@
-package com.socaly.vote;
+package com.socaly.postVote;
 
 import com.socaly.util.VoteType;
 import lombok.AllArgsConstructor;
