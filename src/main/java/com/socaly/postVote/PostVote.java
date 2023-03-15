@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Entity
 @Builder
-public class Vote {
+public class PostVote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

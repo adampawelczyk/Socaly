@@ -5,7 +5,7 @@ import com.socaly.community.Community;
 import com.socaly.comment.CommentRepository;
 import com.socaly.image.Image;
 import com.socaly.util.VoteType;
-import com.socaly.postVote.Vote;
+import com.socaly.postVote.PostVote;
 import com.socaly.postVote.VoteRepository;
 import com.socaly.auth.AuthService;
 import com.socaly.user.User;
@@ -63,9 +63,9 @@ public abstract class PostMapper {
 
     private boolean checkVoteType(Post post, VoteType voteType) {
         if (authService.isLoggedIn()) {
-            Optional<Vote> voteForPostByUser = voteRepository.findTopByPostAndUserOrderByIdDesc(post, authService.getCurrentUser());
+            Optional<PostVote> voteForPostByUser = voteRepository.findTopByPostAndUserOrderByIdDesc(post, authService.getCurrentUser());
 
-            return voteForPostByUser.filter(vote -> vote.getVoteType().equals(voteType)).isPresent();
+            return voteForPostByUser.filter(postVote -> postVote.getVoteType().equals(voteType)).isPresent();
         }
         return false;
     }
