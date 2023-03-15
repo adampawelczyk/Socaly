@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Service
 @AllArgsConstructor
-public class VoteService {
+public class PostVoteService {
     private final PostVoteRepository postVoteRepository;
     private final PostRepository postRepository;
     private final AuthService authService;

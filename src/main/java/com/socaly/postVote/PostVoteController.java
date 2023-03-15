@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 @AllArgsConstructor
 @RequestMapping("api/votes/")
 public class PostVoteController {
-    private final VoteService voteService;
+    private final PostVoteService postVoteService;
 
     @PostMapping
     public ResponseEntity<Void> vote(@RequestBody PostVoteDto postVoteDto) {
-        voteService.vote(postVoteDto);
+        postVoteService.vote(postVoteDto);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
