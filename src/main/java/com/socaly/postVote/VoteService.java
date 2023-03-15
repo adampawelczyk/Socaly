@@ -14,7 +14,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class VoteService {
-    private final VoteRepository voteRepository;
+    private final PostVoteRepository postVoteRepository;
     private final PostRepository postRepository;
     private final AuthService authService;
 
@@ -22,7 +22,7 @@ public class VoteService {
     public void vote(PostVoteDto postVoteDto) {
         Post post = postRepository.findById(postVoteDto.getPostId())
                 .orElseThrow(() -> new PostNotFoundException("Post not found with id - " + postVoteDto.getPostId()));
-        Optional<PostVote> voteByPostAndUser = voteRepository.findTopByPostAndUserOrderByIdDesc(post, authService.getCurrentUser());
+        Optional<PostVote> voteByPostAndUser = postVoteRepository.findTopByPostAndUserOrderByIdDesc(post, authService.getCurrentUser());
 
         if (voteByPostAndUser.isPresent() && voteByPostAndUser.get().getVoteType().equals(postVoteDto.getVoteType())) {
             if (VoteType.UPVOTE.equals(postVoteDto.getVoteType())) {
@@ -31,7 +31,7 @@ public class VoteService {
                 post.setVoteCount(post.getVoteCount() + 1);
             }
 
-            voteRepository.deleteById(voteByPostAndUser.get().getId());
+            postVoteRepository.deleteById(voteByPostAndUser.get().getId());
 
         } else if (voteByPostAndUser.isPresent()) {
             if (VoteType.UPVOTE.equals(postVoteDto.getVoteType())) {
@@ -40,8 +40,8 @@ public class VoteService {
                 post.setVoteCount(post.getVoteCount() - 2);
             }
 
-            voteRepository.deleteById(voteByPostAndUser.get().getId());
-            voteRepository.save(mapToVote(postVoteDto, post));
+            postVoteRepository.deleteById(voteByPostAndUser.get().getId());
+            postVoteRepository.save(mapToVote(postVoteDto, post));
 
         } else {
             if (VoteType.UPVOTE.equals(postVoteDto.getVoteType())) {
@@ -50,7 +50,7 @@ public class VoteService {
                 post.setVoteCount(post.getVoteCount() - 1);
             }
 
-            voteRepository.save(mapToVote(postVoteDto, post));
+            postVoteRepository.save(mapToVote(postVoteDto, post));
         }
     }
 

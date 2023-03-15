@@ -6,7 +6,7 @@ import com.socaly.comment.CommentRepository;
 import com.socaly.image.Image;
 import com.socaly.util.VoteType;
 import com.socaly.postVote.PostVote;
-import com.socaly.postVote.VoteRepository;
+import com.socaly.postVote.PostVoteRepository;
 import com.socaly.auth.AuthService;
 import com.socaly.user.User;
 import org.mapstruct.Mapper;
@@ -26,7 +26,7 @@ public abstract class PostMapper {
     private AuthService authService;
 
     @Autowired
-    private VoteRepository voteRepository;
+    private PostVoteRepository postVoteRepository;
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
@@ -63,7 +63,7 @@ public abstract class PostMapper {
 
     private boolean checkVoteType(Post post, VoteType voteType) {
         if (authService.isLoggedIn()) {
-            Optional<PostVote> voteForPostByUser = voteRepository.findTopByPostAndUserOrderByIdDesc(post, authService.getCurrentUser());
+            Optional<PostVote> voteForPostByUser = postVoteRepository.findTopByPostAndUserOrderByIdDesc(post, authService.getCurrentUser());
 
             return voteForPostByUser.filter(postVote -> postVote.getVoteType().equals(voteType)).isPresent();
         }
