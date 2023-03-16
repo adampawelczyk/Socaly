@@ -11,6 +11,6 @@ public class UserController {
 
     @GetMapping("/get/{username}")
     public UserResponse getUser(@PathVariable String username) {
-        return userService.getUserDetails(username);
+        return userService.getUser(username);
     }
 }
