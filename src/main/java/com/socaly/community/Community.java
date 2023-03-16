@@ -1,6 +1,5 @@
 package com.socaly.community;
 
-import com.socaly.post.Post;
 import com.socaly.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
