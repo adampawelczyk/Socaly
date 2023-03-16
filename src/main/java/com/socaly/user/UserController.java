@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/getUserDetails/{username}")
+    @GetMapping("/get/{username}")
     public UserResponse getUserDetails(@PathVariable String username) {
         return userService.getUserDetails(username);
     }
