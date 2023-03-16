@@ -10,7 +10,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/get/{username}")
-    public UserResponse getUserDetails(@PathVariable String username) {
+    public UserResponse getUser(@PathVariable String username) {
         return userService.getUserDetails(username);
     }
 }
