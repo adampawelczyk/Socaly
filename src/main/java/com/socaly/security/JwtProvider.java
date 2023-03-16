@@ -66,7 +66,7 @@ public class JwtProvider {
         try {
             return keyStore.getCertificate("socaly").getPublicKey();
         } catch (KeyStoreException e) {
-            throw new SecurityException("Exception occurred while retriving public key from keystore");
+            throw new SecurityException("Exception occurred while retrieving public key from keystore");
         }
     }
 
