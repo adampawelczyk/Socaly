@@ -18,7 +18,7 @@ public class EmailService {
 
     @Async
     public void sendMail(NotificationEmail notificationEmail) {
-        MimeMessagePreparator messagePreparator = mimeMessage -> {
+        MimeMessagePreparator messagePreparer = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 
             messageHelper.setFrom("socaly@email.com");
@@ -27,7 +27,7 @@ public class EmailService {
             messageHelper.setText(emailContentBuilder.build(notificationEmail.getBody()));
         };
         try {
-            emailSender.send(messagePreparator);
+            emailSender.send(messagePreparer);
             log.info("Activation email sent!");
         } catch (MailException e) {
             throw new EmailException("Exception occurred when sending email to " + notificationEmail.getRecipient());
