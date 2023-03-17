@@ -12,7 +12,8 @@ public class UserService {
 
     public UserResponse getUser(String username) {
         return userRepository.findByUsername(username)
-                .stream().map(userMapper::mapToDto)
+                .stream()
+                .map(userMapper::mapToDto)
                 .findFirst()
                 .orElseThrow(
                     () -> new UsernameNotFoundException(username)
