@@ -20,13 +20,6 @@ public class CommentController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PostMapping("/edit/{commentId}")
-    public ResponseEntity<Void> editComment(@PathVariable Long commentId, @RequestBody String text) {
-        commentService.edit(commentId, text);
-
-        return new ResponseEntity<>(HttpStatus.OK);
-    }
-
     @GetMapping("/get/{commentId}")
     public ResponseEntity<CommentResponse> getComment(@PathVariable Long commentId) {
         return ResponseEntity.status(HttpStatus.OK).body(commentService.getComment(commentId));
@@ -45,5 +38,12 @@ public class CommentController {
     @GetMapping("get/all/sub-comments/{commentId}")
     public ResponseEntity<List<CommentResponse>> getAllSubCommentsForComment(@PathVariable Long commentId) {
         return ResponseEntity.status(HttpStatus.OK).body(commentService.getSubCommentsForComment(commentId));
+    }
+
+    @PostMapping("/edit/{commentId}")
+    public ResponseEntity<Void> editComment(@PathVariable Long commentId, @RequestBody String text) {
+        commentService.edit(commentId, text);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
