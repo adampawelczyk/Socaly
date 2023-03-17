@@ -60,7 +60,10 @@ public class PostService {
         );
         List<Post> posts = postRepository.findAllByCommunity(community);
 
-        return posts.stream().map(postMapper::mapToPostResponse).collect(Collectors.toList());
+        return posts
+                .stream()
+                .map(postMapper::mapToPostResponse)
+                .collect(Collectors.toList());
     }
 
     @Transactional
