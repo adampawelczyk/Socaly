@@ -41,7 +41,7 @@ public class CommunityService {
 
     public CommunityResponse getCommunity(String name) {
         Community community = communityRepository.findByName(name).orElseThrow(
-                () -> new CommunityNotFoundException("No community found with name - " + name));
+                () -> new CommunityNotFoundException(name));
 
         return communityMapper.mapToCommunityResponse(community);
     }
@@ -49,7 +49,7 @@ public class CommunityService {
     public void join(String name) {
         User currentUser = authService.getCurrentUser();
         Community community = communityRepository.findByName(name).orElseThrow(
-                () -> new CommunityNotFoundException("No community found with name - " + name)
+                () -> new CommunityNotFoundException(name)
         );
 
         community.getUsers().add(currentUser);
@@ -59,7 +59,7 @@ public class CommunityService {
     public void leave(String name) {
         User currentUser = authService.getCurrentUser();
         Community community = communityRepository.findByName(name).orElseThrow(
-                () -> new CommunityNotFoundException("No community found with name - " + name)
+                () -> new CommunityNotFoundException(name)
         );
 
         community.getUsers().remove(currentUser);
