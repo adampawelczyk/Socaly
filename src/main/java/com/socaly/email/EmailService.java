@@ -1,6 +1,5 @@
-package com.socaly.mail;
+package com.socaly.email;
 
-import com.socaly.exceptions.SocalyException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.MailException;
@@ -13,25 +12,24 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class MailService {
-    private final JavaMailSender mailSender;
-    private final MailContentBuilder mailContentBuilder;
+public class EmailService {
+    private final JavaMailSender emailSender;
+    private final EmailContentBuilder emailContentBuilder;
 
     @Async
     public void sendMail(NotificationEmail notificationEmail) {
-        MimeMessagePreparator messagePreparator = mimeMessage -> {
+        MimeMessagePreparator messagePreparer = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 
             messageHelper.setFrom("socaly@email.com");
             messageHelper.setTo(notificationEmail.getRecipient());
             messageHelper.setSubject(notificationEmail.getSubject());
-            messageHelper.setText(mailContentBuilder.build(notificationEmail.getBody()));
+            messageHelper.setText(emailContentBuilder.build(notificationEmail.getBody()));
         };
         try {
-            mailSender.send(messagePreparator);
-            log.info("Activation email sent!");
+            emailSender.send(messagePreparer);
         } catch (MailException e) {
-            throw new SocalyException("Exception occurred when sending mail to " + notificationEmail.getRecipient());
+            throw new EmailException("Exception occurred when sending email to " + notificationEmail.getRecipient());
         }
     }
 }

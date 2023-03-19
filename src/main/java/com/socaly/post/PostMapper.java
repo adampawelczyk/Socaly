@@ -5,8 +5,8 @@ import com.socaly.community.Community;
 import com.socaly.comment.CommentRepository;
 import com.socaly.image.Image;
 import com.socaly.util.VoteType;
-import com.socaly.vote.Vote;
-import com.socaly.vote.VoteRepository;
+import com.socaly.postVote.PostVote;
+import com.socaly.postVote.PostVoteRepository;
 import com.socaly.auth.AuthService;
 import com.socaly.user.User;
 import org.mapstruct.Mapper;
@@ -26,7 +26,7 @@ public abstract class PostMapper {
     private AuthService authService;
 
     @Autowired
-    private VoteRepository voteRepository;
+    private PostVoteRepository postVoteRepository;
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
@@ -34,7 +34,7 @@ public abstract class PostMapper {
     @Mapping(target = "user", source = "user")
     @Mapping(target = "voteCount", constant = "0")
     @Mapping(target = "images", expression = "java(mapStringsToImages(postRequest.getImages()))")
-    public abstract Post map(PostRequest postRequest, Community community, User user);
+    public abstract Post mapToPost(PostRequest postRequest, Community community, User user);
 
     @Mapping(target = "communityName", source = "community.name")
     @Mapping(target = "userName", source = "user.username")
@@ -43,7 +43,7 @@ public abstract class PostMapper {
     @Mapping(target = "upVote", expression = "java(isPostUpVoted(post))")
     @Mapping(target = "downVote", expression = "java(isPostDownVoted(post))")
     @Mapping(target = "images", expression = "java(mapImagesToStrings(post.getImages()))")
-    public abstract PostResponse mapToDto(Post post);
+    public abstract PostResponse mapToPostResponse(Post post);
 
     Integer commentCount(Post post) {
         return commentRepository.findByPost(post).size();
@@ -63,9 +63,9 @@ public abstract class PostMapper {
 
     private boolean checkVoteType(Post post, VoteType voteType) {
         if (authService.isLoggedIn()) {
-            Optional<Vote> voteForPostByUser = voteRepository.findTopByPostAndUserOrderByIdDesc(post, authService.getCurrentUser());
+            Optional<PostVote> voteForPostByUser = postVoteRepository.findTopByPostAndUserOrderByIdDesc(post, authService.getCurrentUser());
 
-            return voteForPostByUser.filter(vote -> vote.getVoteType().equals(voteType)).isPresent();
+            return voteForPostByUser.filter(postVote -> postVote.getVoteType().equals(voteType)).isPresent();
         }
         return false;
     }

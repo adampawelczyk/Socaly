@@ -1,4 +1,4 @@
-package com.socaly.vote;
+package com.socaly.postVote;
 
 import com.socaly.post.Post;
 import com.socaly.user.User;
@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface VoteRepository extends JpaRepository<Vote, Long> {
-    Optional<Vote> findTopByPostAndUserOrderByIdDesc(Post post, User currentUser);
+public interface PostVoteRepository extends JpaRepository<PostVote, Long> {
+    Optional<PostVote> findTopByPostAndUserOrderByIdDesc(Post post, User currentUser);
     void deleteById(@NotNull Long voteId);
 }

@@ -1,4 +1,4 @@
-package com.socaly.mail;
+package com.socaly.email;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

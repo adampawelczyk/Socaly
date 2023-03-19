@@ -1,6 +1,5 @@
 package com.socaly.security;
 
-import com.socaly.exceptions.SocalyException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,7 +31,7 @@ public class JwtProvider {
             InputStream resourceAsStream = getClass().getResourceAsStream("/socaly.jks");
             keyStore.load(resourceAsStream, "secret".toCharArray());
         } catch (KeyStoreException | CertificateException | NoSuchAlgorithmException | IOException e) {
-            throw new SocalyException("Exception occurred while loading keystore");
+            throw new SecurityException("Exception occurred while loading keystore");
         }
     }
 
@@ -59,7 +58,7 @@ public class JwtProvider {
         try {
             return (PrivateKey) keyStore.getKey("socaly", "secret".toCharArray());
         } catch (KeyStoreException | NoSuchAlgorithmException | UnrecoverableKeyException e) {
-            throw new SocalyException("Exception occurred while retrieving public key from keystore");
+            throw new SecurityException("Exception occurred while retrieving public key from keystore");
         }
     }
 
@@ -67,7 +66,7 @@ public class JwtProvider {
         try {
             return keyStore.getCertificate("socaly").getPublicKey();
         } catch (KeyStoreException e) {
-            throw new SocalyException("Exception occurred while retriving public key from keystore");
+            throw new SecurityException("Exception occurred while retrieving public key from keystore");
         }
     }
 

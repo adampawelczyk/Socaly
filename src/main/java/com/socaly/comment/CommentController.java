@@ -9,15 +9,35 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("/api/comments")
-public class CommentsController {
+@RequestMapping("/api/comment")
+public class CommentController {
     private final CommentService commentService;
 
-    @PostMapping
-    public ResponseEntity<Void> createComment(@RequestBody CommentDto commentDto) {
-        commentService.save(commentDto);
+    @PostMapping("/create")
+    public ResponseEntity<Void> createComment(@RequestBody CommentRequest commentRequest) {
+        commentService.save(commentRequest);
 
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("/get/{commentId}")
+    public ResponseEntity<CommentResponse> getComment(@PathVariable Long commentId) {
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.getComment(commentId));
+    }
+
+    @GetMapping("get/all/by-post/{postId}")
+    public ResponseEntity<List<CommentResponse>> getAllCommentsForPost(@PathVariable Long postId) {
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.getAllCommentsForPost(postId));
+    }
+
+    @GetMapping("get/all/by-user/{username}")
+    public ResponseEntity<List<CommentResponse>> getAllCommentsForUser(@PathVariable String username) {
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.getAllCommentsForUser(username));
+    }
+
+    @GetMapping("get/all/sub-comments/{commentId}")
+    public ResponseEntity<List<CommentResponse>> getAllSubCommentsForComment(@PathVariable Long commentId) {
+        return ResponseEntity.status(HttpStatus.OK).body(commentService.getSubCommentsForComment(commentId));
     }
 
     @PostMapping("/edit/{commentId}")
@@ -25,25 +45,5 @@ public class CommentsController {
         commentService.edit(commentId, text);
 
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping("/{commentId}")
-    public ResponseEntity<CommentResponse> getComment(@PathVariable Long commentId) {
-        return ResponseEntity.status(HttpStatus.OK).body(commentService.getComment(commentId));
-    }
-
-    @GetMapping("/by-post/{postId}")
-    public ResponseEntity<List<CommentResponse>> getAllCommentsForPost(@PathVariable Long postId) {
-        return ResponseEntity.status(HttpStatus.OK).body(commentService.getAllCommentsForPost(postId));
-    }
-
-    @GetMapping("/by-user/{username}")
-    public ResponseEntity<List<CommentResponse>> getAllCommentsForUser(@PathVariable String username) {
-        return ResponseEntity.status(HttpStatus.OK).body(commentService.getAllCommentsForUser(username));
-    }
-
-    @GetMapping("/subcomments/{commentId}")
-    public ResponseEntity<List<CommentResponse>> getAllSubCommentsForComment(@PathVariable Long commentId) {
-        return ResponseEntity.status(HttpStatus.OK).body(commentService.getSubCommentsForComment(commentId));
     }
 }

@@ -16,32 +16,32 @@ public class AuthController {
     private final AuthService authService;
     private final RefreshTokenService refreshTokenService;
 
-    @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody RegisterRequest registerRequest) {
-        authService.signup(registerRequest);
+    @PostMapping("/sign-up")
+    public ResponseEntity<String> signUp(@RequestBody SignUpRequest signUpRequest) {
+        authService.signUp(signUpRequest);
 
         return new ResponseEntity<>("User registration successful", HttpStatus.OK);
     }
 
-    @GetMapping("accountVerification/{token}")
+    @GetMapping("/verify-account/{token}")
     public ResponseEntity<String> verifyAccount(@PathVariable String token) {
         authService.verifyAccount(token);
 
         return new ResponseEntity<>("Account activated successfully", HttpStatus.OK);
     }
 
-    @PostMapping("/login")
-    public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) {
-        return authService.login(loginRequest);
+    @PostMapping("/log-in")
+    public AuthResponse logIn(@RequestBody LogInRequest loginRequest) {
+        return authService.logIn(loginRequest);
     }
 
-    @PostMapping("refresh/token")
-    public AuthenticationResponse refreshToken(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
+    @PostMapping("/refresh-token")
+    public AuthResponse refreshToken(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
         return authService.refreshToken(refreshTokenRequest);
     }
 
-    @PostMapping("/logout")
-    public ResponseEntity<String> logout(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
+    @PostMapping("/log-out")
+    public ResponseEntity<String> logOut(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
         refreshTokenService.deleteRefreshToken(refreshTokenRequest.getRefreshToken());
 
         return ResponseEntity.status(HttpStatus.OK).body("Refresh token deleted successfully");

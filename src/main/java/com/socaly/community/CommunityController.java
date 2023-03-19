@@ -15,19 +15,24 @@ import java.util.List;
 public class CommunityController {
     private final CommunityService communityService;
 
-    @PostMapping
-    public ResponseEntity<CommunityDto> createCommunity(@RequestBody CommunityDto communityDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(communityService.save(communityDto));
+    @PostMapping("/create")
+    public ResponseEntity<CommunityResponse> createCommunity(@RequestBody CommunityRequest communityRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(communityService.save(communityRequest));
     }
 
-    @GetMapping
-    public ResponseEntity<List<CommunityDto>> getAllCommunities() {
+    @GetMapping("/get/{name}")
+    public ResponseEntity<CommunityResponse> getCommunity(@PathVariable String name) {
+        return ResponseEntity.status(HttpStatus.OK).body(communityService.getCommunity(name));
+    }
+
+    @GetMapping("/get/all")
+    public ResponseEntity<List<CommunityResponse>> getAllCommunities() {
         return ResponseEntity.status(HttpStatus.OK).body(communityService.getAll());
     }
 
-    @GetMapping("/{name}")
-    public ResponseEntity<CommunityDto> getCommunity(@PathVariable String name) {
-        return ResponseEntity.status(HttpStatus.OK).body(communityService.getCommunity(name));
+    @GetMapping("/get/all/by-user/{name}")
+    public ResponseEntity<List<CommunityResponse>> getAllCommunitiesForUser(@PathVariable String name) {
+        return ResponseEntity.status(HttpStatus.OK).body(communityService.getAllCommunitiesForUser(name));
     }
 
     @GetMapping("/join/{name}")
@@ -42,10 +47,5 @@ public class CommunityController {
         communityService.leave(name);
 
         return new ResponseEntity<>(HttpStatus.OK);
-    }
-
-    @GetMapping("/getAllCommunitiesForUser/{name}")
-    public ResponseEntity<List<CommunityDto>> getAllCommunitiesForUser(@PathVariable String name) {
-        return ResponseEntity.status(HttpStatus.OK).body(communityService.getAllCommunitiesForUser(name));
     }
 }

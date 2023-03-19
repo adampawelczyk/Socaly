@@ -1,7 +1,6 @@
 package com.socaly.community;
 
 import com.socaly.user.User;
-import com.socaly.exceptions.SocalyException;
 import com.socaly.user.UserRepository;
 import com.socaly.auth.AuthService;
 import lombok.AllArgsConstructor;
@@ -23,31 +22,34 @@ public class CommunityService {
     private final UserRepository userRepository;
 
     @Transactional
-    public CommunityDto save(CommunityDto communityDto) {
+    public CommunityResponse save(CommunityRequest communityRequest) {
         User currentUser = authService.getCurrentUser();
-        Community save = communityRepository.save(communityMapper.mapDtoToCommunity(communityDto, currentUser));
-        join(communityDto.getName());
-        communityDto.setId(save.getId());
+        Community save = communityRepository.save(communityMapper.mapToCommunity(communityRequest, currentUser));
+        join(communityRequest.getName());
 
-        return communityDto;
+        return communityMapper.mapToCommunityResponse(save);
     }
 
     @Transactional(readOnly = true)
-    public List<CommunityDto> getAll() {
-        return communityRepository.findAll().stream().map(communityMapper::mapCommunityToDto).collect(Collectors.toList());
+    public List<CommunityResponse> getAll() {
+        return communityRepository
+                .findAll()
+                .stream()
+                .map(communityMapper::mapToCommunityResponse)
+                .collect(Collectors.toList());
     }
 
-    public CommunityDto getCommunity(String name) {
+    public CommunityResponse getCommunity(String name) {
         Community community = communityRepository.findByName(name).orElseThrow(
-                () -> new SocalyException("No community found with name - " + name));
+                () -> new CommunityNotFoundException(name));
 
-        return communityMapper.mapCommunityToDto(community);
+        return communityMapper.mapToCommunityResponse(community);
     }
 
     public void join(String name) {
         User currentUser = authService.getCurrentUser();
         Community community = communityRepository.findByName(name).orElseThrow(
-                () -> new SocalyException("No community found with name - " + name)
+                () -> new CommunityNotFoundException(name)
         );
 
         community.getUsers().add(currentUser);
@@ -57,14 +59,14 @@ public class CommunityService {
     public void leave(String name) {
         User currentUser = authService.getCurrentUser();
         Community community = communityRepository.findByName(name).orElseThrow(
-                () -> new SocalyException("No community found with name - " + name)
+                () -> new CommunityNotFoundException(name)
         );
 
         community.getUsers().remove(currentUser);
         communityRepository.save(community);
     }
 
-    public List<CommunityDto> getAllCommunitiesForUser(String name) {
+    public List<CommunityResponse> getAllCommunitiesForUser(String name) {
         User user = userRepository.findByUsername(name).orElseThrow(
                 () -> new UsernameNotFoundException("No user found with name - " + name)
         );
@@ -73,7 +75,7 @@ public class CommunityService {
                 .findAll()
                 .stream()
                 .filter(community -> community.getUsers().contains(user))
-                .map(communityMapper::mapCommunityToDto)
+                .map(communityMapper::mapToCommunityResponse)
                 .collect(Collectors.toList());
     }
 }

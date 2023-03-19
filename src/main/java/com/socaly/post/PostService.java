@@ -32,7 +32,7 @@ public class PostService {
         );
         User currentUser = authService.getCurrentUser();
 
-        return postRepository.save(postMapper.map(postRequest, community, currentUser)).getId();
+        return postRepository.save(postMapper.mapToPost(postRequest, community, currentUser)).getId();
     }
 
     @Transactional(readOnly = true)
@@ -41,7 +41,7 @@ public class PostService {
                 () -> new PostNotFoundException(id.toString())
         );
 
-        return postMapper.mapToDto(post);
+        return postMapper.mapToPostResponse(post);
     }
 
     @Transactional
@@ -49,29 +49,32 @@ public class PostService {
         return postRepository
                 .findAll()
                 .stream()
-                .map(postMapper::mapToDto)
+                .map(postMapper::mapToPostResponse)
                 .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
-    public List<PostResponse> getPostsByCommunity(String communityName) {
+    public List<PostResponse> getAllPostsByCommunity(String communityName) {
         Community community = communityRepository.findByName(communityName).orElseThrow(
                 () -> new CommunityNotFoundException(communityName)
         );
         List<Post> posts = postRepository.findAllByCommunity(community);
 
-        return posts.stream().map(postMapper::mapToDto).collect(Collectors.toList());
+        return posts
+                .stream()
+                .map(postMapper::mapToPostResponse)
+                .collect(Collectors.toList());
     }
 
     @Transactional
-    public List<PostResponse> getPostsByUsername(String username) {
+    public List<PostResponse> getAllPostsByUser(String username) {
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException(username)
         );
 
         return postRepository.findByUser(user)
                 .stream()
-                .map(postMapper::mapToDto)
+                .map(postMapper::mapToPostResponse)
                 .collect(Collectors.toList());
     }
 }

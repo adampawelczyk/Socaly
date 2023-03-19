@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/getUserDetails/{username}")
-    public UserDto getUserDetails(@PathVariable String username) {
-        return userService.getUserDetails(username);
+    @GetMapping("/get/{username}")
+    public UserResponse getUser(@PathVariable String username) {
+        return userService.getUser(username);
     }
 }

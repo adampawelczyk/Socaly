@@ -1,13 +1,13 @@
 package com.socaly.comment;
 
-import com.socaly.mail.NotificationEmail;
+import com.socaly.email.NotificationEmail;
 import com.socaly.post.Post;
 import com.socaly.user.User;
 import com.socaly.post.PostNotFoundException;
 import com.socaly.post.PostRepository;
 import com.socaly.user.UserRepository;
 import com.socaly.auth.AuthService;
-import com.socaly.mail.MailService;
+import com.socaly.email.EmailService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -25,14 +25,14 @@ public class CommentService {
     private final AuthService authService;
     private final CommentMapper commentMapper;
     private final CommentRepository commentRepository;
-    private final MailService mailService;
+    private final EmailService emailService;
 
-    public void save(CommentDto commentDto) {
-        Post post = postRepository.findById(commentDto.getPostId()).orElseThrow(
-                () -> new PostNotFoundException(commentDto.getPostId().toString())
+    public void save(CommentRequest commentRequest) {
+        Post post = postRepository.findById(commentRequest.getPostId()).orElseThrow(
+                () -> new PostNotFoundException(commentRequest.getPostId().toString())
         );
         User user = authService.getCurrentUser();
-        Comment comment = commentMapper.map(commentDto, post, user);
+        Comment comment = commentMapper.mapToComment(commentRequest, post, user);
         commentRepository.save(comment);
 
         String message = post.getUser().getUsername() + " posted a comment on your post.";
@@ -53,14 +53,14 @@ public class CommentService {
     }
 
     private void sendCommentNotification(String message, User user) {
-        mailService.sendMail(new NotificationEmail(
+        emailService.sendMail(new NotificationEmail(
                 user.getUsername() + " commented on your post", user.getEmail(), message));
     }
 
     public CommentResponse getComment(Long commentId) {
         return commentRepository.findById(commentId)
                 .stream()
-                .map(commentMapper::mapToDto)
+                .map(commentMapper::mapToCommentResponse)
                 .findFirst()
                 .orElseThrow(
                         () -> new CommentNotFoundException(commentId.toString())
@@ -74,14 +74,14 @@ public class CommentService {
 
         return commentRepository.findByPostAndParentCommentIdIsNull(post)
                 .stream()
-                .map(commentMapper::mapToDto)
+                .map(commentMapper::mapToCommentResponse)
                 .collect(Collectors.toList());
     }
 
     public List<CommentResponse> getSubCommentsForComment(Long commentId) {
         return commentRepository.findByParentCommentId(commentId)
                 .stream()
-                .map(commentMapper::mapToDto)
+                .map(commentMapper::mapToCommentResponse)
                 .collect(Collectors.toList());
     }
 
@@ -92,7 +92,7 @@ public class CommentService {
 
         return commentRepository.findByUser(user)
                 .stream()
-                .map(commentMapper::mapToDto)
+                .map(commentMapper::mapToCommentResponse)
                 .collect(Collectors.toList());
     }
 }

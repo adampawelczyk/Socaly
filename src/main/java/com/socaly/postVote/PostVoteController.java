@@ -1,4 +1,4 @@
-package com.socaly.vote;
+package com.socaly.postVote;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @AllArgsConstructor
 @RequestMapping("api/votes/")
-public class VoteController {
-    private final VoteService voteService;
+public class PostVoteController {
+    private final PostVoteService postVoteService;
 
     @PostMapping
-    public ResponseEntity<Void> vote(@RequestBody VoteDto voteDto) {
-        voteService.vote(voteDto);
+    public ResponseEntity<Void> vote(@RequestBody PostVoteDto postVoteDto) {
+        postVoteService.vote(postVoteDto);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

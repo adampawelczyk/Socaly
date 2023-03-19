@@ -1,6 +1,5 @@
 package com.socaly.community;
 
-import com.socaly.post.Post;
 import com.socaly.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,9 +28,6 @@ public class Community {
     private String description;
 
     private Instant createdDate;
-
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Post> posts;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;

@@ -22,12 +22,12 @@ public abstract class CommentMapper {
     private CommentVoteRepository commentVoteRepository;
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "text", source = "commentDto.text")
+    @Mapping(target = "text", source = "commentRequest.text")
     @Mapping(target = "voteCount", constant = "0")
     @Mapping(target = "creationDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "post", source = "post")
     @Mapping(target = "user", source = "user")
-    public abstract Comment map(CommentDto commentDto, Post post, User user);
+    public abstract Comment mapToComment(CommentRequest commentRequest, Post post, User user);
 
     @Mapping(target = "postId", expression = "java(comment.getPost().getId())")
     @Mapping(target = "username", expression = "java(comment.getUser().getUsername())")
@@ -35,7 +35,7 @@ public abstract class CommentMapper {
     @Mapping(target = "downVote", expression = "java(isCommentDownVoted(comment))")
     @Mapping(target = "timeSinceCreation", expression = "java(getTimeSinceCreation(comment))")
     @Mapping(target = "timeSinceEdit", expression = "java(getTimeSinceEdit(comment))")
-    public abstract CommentResponse mapToDto(Comment comment);
+    public abstract CommentResponse mapToCommentResponse(Comment comment);
 
     boolean isCommentUpVoted(Comment comment) {
         return checkVoteType(comment, VoteType.UPVOTE);

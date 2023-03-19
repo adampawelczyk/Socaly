@@ -8,33 +8,33 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/posts")
+@RequestMapping("/api/post")
 @AllArgsConstructor
 public class PostController {
     private final PostService postService;
 
-    @PostMapping
+    @PostMapping("/create")
     public ResponseEntity<Long> createPost(@RequestBody PostRequest postRequest) {
         return ResponseEntity.status(HttpStatus.CREATED).body(postService.save(postRequest));
     }
 
-    @GetMapping
-    public ResponseEntity<List<PostResponse>> getAllPosts() {
-        return ResponseEntity.status(HttpStatus.OK).body(postService.getAllPosts());
-    }
-
-    @GetMapping("/{id}")
+    @GetMapping("get/{id}")
     public ResponseEntity<PostResponse> getPost(@PathVariable Long id) {
         return ResponseEntity.status(HttpStatus.OK).body(postService.getPost(id));
     }
 
-    @GetMapping("/by-community/{name}")
-    public ResponseEntity<List<PostResponse>> getPostsByCommunity(@PathVariable String name) {
-        return ResponseEntity.status(HttpStatus.OK).body(postService.getPostsByCommunity(name));
+    @GetMapping("get/all")
+    public ResponseEntity<List<PostResponse>> getAllPosts() {
+        return ResponseEntity.status(HttpStatus.OK).body(postService.getAllPosts());
     }
 
-    @GetMapping("/by-user/{username}")
-    public ResponseEntity<List<PostResponse>> getPostByUsername(@PathVariable String username) {
-        return ResponseEntity.status(HttpStatus.OK).body(postService.getPostsByUsername(username));
+    @GetMapping("get/all/by-user/{name}")
+    public ResponseEntity<List<PostResponse>> getAllPostByUser(@PathVariable String name) {
+        return ResponseEntity.status(HttpStatus.OK).body(postService.getAllPostsByUser(name));
+    }
+
+    @GetMapping("get/all/by-community/{name}")
+    public ResponseEntity<List<PostResponse>> getAllPostsByCommunity(@PathVariable String name) {
+        return ResponseEntity.status(HttpStatus.OK).body(postService.getAllPostsByCommunity(name));
     }
 }

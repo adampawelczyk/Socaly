@@ -10,9 +10,10 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
-    public UserDto getUserDetails(String username) {
+    public UserResponse getUser(String username) {
         return userRepository.findByUsername(username)
-                .stream().map(userMapper::mapToDto)
+                .stream()
+                .map(userMapper::mapToDto)
                 .findFirst()
                 .orElseThrow(
                     () -> new UsernameNotFoundException(username)
