@@ -21,4 +21,10 @@ public class UserController {
         userService.changeProfileImage(imageUrl);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PatchMapping("/change/profile/banner")
+    public ResponseEntity<Void> changeProfileBanner(@RequestBody String imageUrl) {
+        userService.changeProfileBanner(imageUrl);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
