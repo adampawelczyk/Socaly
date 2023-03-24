@@ -55,6 +55,13 @@ public class AuthService {
 
         user.setProfileImage(profileImage);
 
+        Image profileBanner = new Image();
+        profileBanner.setImageUrl("https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static%2F" +
+                "banner-default.png?alt=media&token=72a29594-4e22-43b6-83de-d93048a90edc");
+        imageRepository.save(profileBanner);
+
+        user.setProfileBanner(profileBanner);
+
         userRepository.save(user);
         
         String token = generateVerificationToken(user);
