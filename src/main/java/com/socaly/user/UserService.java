@@ -1,5 +1,7 @@
 package com.socaly.user;
 
+import com.socaly.auth.AuthService;
+import com.socaly.image.ImageRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -7,7 +9,9 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class UserService {
+    private final AuthService authService;
     private final UserRepository userRepository;
+    private final ImageRepository imageRepository;
     private final UserMapper userMapper;
 
     public UserResponse getUser(String username) {
@@ -18,5 +22,12 @@ public class UserService {
                 .orElseThrow(
                     () -> new UsernameNotFoundException(username)
                 );
+    }
+
+    void changeProfileImage(String imageUrl) {
+        User currentUser = authService.getCurrentUser();
+        currentUser.getProfileImage().setImageUrl(imageUrl);
+
+        imageRepository.save(currentUser.getProfileImage());
     }
 }
