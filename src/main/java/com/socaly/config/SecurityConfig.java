@@ -27,12 +27,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors().and().csrf().disable().authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/community").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/community/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/posts").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/posts/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/comments").permitAll()
-                .antMatchers(HttpMethod.GET, "/api/comments/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/comment/get/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/community/get/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/post/get/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/user/get/**").permitAll()
                 .antMatchers("/v2/api-docs",
                         "/configuration/ui",
                         "/swagger-resources/**",
