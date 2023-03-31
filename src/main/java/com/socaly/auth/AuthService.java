@@ -115,7 +115,7 @@ public class AuthService {
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException("User not found with name - " + username));
 
-        user.setEnabled(true);
+        user.setEmailVerified(true);
         userRepository.save(user);
     }
 
