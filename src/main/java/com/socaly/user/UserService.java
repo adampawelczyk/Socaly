@@ -24,6 +24,18 @@ public class UserService {
                 );
     }
 
+    public UserSettingsResponse getUserSettings() {
+        User currentUser = authService.getCurrentUser();
+
+        return userRepository.findByUsername(currentUser.getUsername())
+                .stream()
+                .map(userMapper::mapToUserSettings)
+                .findFirst()
+                .orElseThrow(
+                        () -> new UsernameNotFoundException(currentUser.getUsername())
+                );
+    }
+
     void changeProfileImage(String imageUrl) {
         User currentUser = authService.getCurrentUser();
         currentUser.getProfileImage().setImageUrl(imageUrl);
