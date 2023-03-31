@@ -47,7 +47,8 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         user.setEmail(signUpRequest.getEmail());
         user.setCreatedDate(Instant.now());
-        user.setEnabled(false);
+        user.setEmailVerified(false);
+        user.setDescription("");
 
         Image profileImage = new Image();
         profileImage.setImageUrl(generateProfileImage());
