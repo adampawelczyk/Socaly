@@ -31,7 +31,7 @@ public class User {
     private String email;
 
     private Instant createdDate;
-    private boolean enabled;
+    private boolean isEmailVerified;
 
     @OneToOne(fetch = FetchType.LAZY)
     private Image profileImage;
