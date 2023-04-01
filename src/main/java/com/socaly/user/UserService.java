@@ -49,4 +49,11 @@ public class UserService {
 
         imageRepository.save(currentUser.getProfileBanner());
     }
+
+    void changeDescription(String description) {
+        User currentUser = authService.getCurrentUser();
+        currentUser.setDescription(description);
+
+        userRepository.save(currentUser);
+    }
 }
