@@ -16,6 +16,10 @@ public class UserController {
         return userService.getUser(username);
     }
 
+    @GetMapping("/get/settings") UserSettingsResponse getUserSettings() {
+        return userService.getUserSettings();
+    }
+
     @PatchMapping("/change/profile/image")
     public ResponseEntity<Void> changeProfileImage(@RequestBody String imageUrl) {
         userService.changeProfileImage(imageUrl);
