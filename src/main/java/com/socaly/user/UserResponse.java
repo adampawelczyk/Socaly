@@ -11,4 +11,5 @@ public class UserResponse {
     private String createdDate;
     private String profileImage;
     private String profileBanner;
+    private String description;
 }
