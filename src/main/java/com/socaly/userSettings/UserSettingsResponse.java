@@ -1,4 +1,4 @@
-package com.socaly.user;
+package com.socaly.userSettings;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

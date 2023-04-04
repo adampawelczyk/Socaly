@@ -1,5 +1,6 @@
 package com.socaly.user;
 
+import com.socaly.userSettings.UserSettingsResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
