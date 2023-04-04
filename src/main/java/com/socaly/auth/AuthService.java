@@ -5,6 +5,8 @@ import com.socaly.image.Image;
 import com.socaly.email.EmailService;
 import com.socaly.email.NotificationEmail;
 import com.socaly.user.User;
+import com.socaly.userSettings.UserSettings;
+import com.socaly.userSettings.UserSettingsRepository;
 import com.socaly.verificationToken.VerificationToken;
 import com.socaly.image.ImageRepository;
 import com.socaly.refreshToken.RefreshTokenService;
@@ -33,6 +35,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
+    private final UserSettingsRepository userSettingsRepository;
     private final VerificationTokenRepository verificationTokenRepository;
     private final EmailService emailService;
     private final AuthenticationManager authenticationManager;
@@ -49,6 +52,11 @@ public class AuthService {
         user.setCreatedDate(Instant.now());
         user.setEmailVerified(false);
         user.setDescription("");
+
+        UserSettings settings = new UserSettings();
+        userSettingsRepository.save(settings);
+
+        user.setSettings(settings);
 
         Image profileImage = new Image();
         profileImage.setImageUrl(generateProfileImage());
