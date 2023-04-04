@@ -17,7 +17,8 @@ public class UserController {
         return userService.getUser(username);
     }
 
-    @GetMapping("/get/settings") UserSettingsResponse getUserSettings() {
+    @GetMapping("/get/settings")
+    UserSettingsResponse getUserSettings() {
         return userService.getUserSettings();
     }
 
