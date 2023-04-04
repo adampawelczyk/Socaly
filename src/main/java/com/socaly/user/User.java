@@ -1,6 +1,7 @@
 package com.socaly.user;
 
 import com.socaly.image.Image;
+import com.socaly.userSettings.UserSettings;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,4 +40,7 @@ public class User {
 
     @OneToOne(fetch = FetchType.LAZY)
     private Image profileBanner;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private UserSettings settings;
 }
