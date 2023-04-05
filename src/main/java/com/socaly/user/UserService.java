@@ -15,6 +15,12 @@ public class UserService {
     private final ImageRepository imageRepository;
     private final UserMapper userMapper;
 
+    public UserResponse getCurrentUser() {
+        User user = authService.getCurrentUser();
+
+        return getUser(user.getUsername());
+    }
+
     public UserResponse getUser(String username) {
         return userRepository.findByUsername(username)
                 .stream()
