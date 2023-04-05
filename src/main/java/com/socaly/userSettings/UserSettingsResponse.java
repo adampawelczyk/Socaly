@@ -9,12 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserSettingsResponse {
-    private String createdDate;
-    private String profileImage;
-    private String profileBanner;
-    private String description;
-    private String email;
-    private boolean isEmailVerified;
     private Sorting communityContentSort;
     private boolean openPostsInNewTab;
     private boolean postCommentEmails;
