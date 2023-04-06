@@ -13,6 +13,6 @@ public class UserSettingsResponse {
     private boolean openPostsInNewTab;
     private boolean postCommentEmails;
     private boolean commentReplyEmails;
-    private boolean postUpvoteEmails;
+    private boolean postUpVoteEmails;
     private boolean commentUpVoteEmails;
 }
