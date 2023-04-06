@@ -48,4 +48,12 @@ class UserSettingsService {
         userSettings.setPostCommentEmails(postCommentEmails);
         userSettingsRepository.save(userSettings);
     }
+
+    void changeCommentReplyEmails(boolean commentReplyEmails) {
+        User currentUser = authService.getCurrentUser();
+
+        UserSettings userSettings = currentUser.getSettings();
+        userSettings.setCommentReplyEmails(commentReplyEmails);
+        userSettingsRepository.save(userSettings);
+    }
 }
