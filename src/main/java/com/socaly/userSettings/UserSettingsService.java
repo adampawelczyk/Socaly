@@ -56,4 +56,12 @@ class UserSettingsService {
         userSettings.setCommentReplyEmails(commentReplyEmails);
         userSettingsRepository.save(userSettings);
     }
+
+    void changePostUpVoteEmails(boolean postUpvoteEmails) {
+        User currentUser = authService.getCurrentUser();
+
+        UserSettings userSettings = currentUser.getSettings();
+        userSettings.setPostUpVoteEmails(postUpvoteEmails);
+        userSettingsRepository.save(userSettings);
+    }
 }
