@@ -12,7 +12,7 @@ public class UserSettingsController {
     private final UserSettingsService userSettingsService;
 
     @GetMapping("/get")
-    UserSettingsResponse getCurrentUserSettings() {
+    public UserSettingsResponse getCurrentUserSettings() {
         return userSettingsService.getCurrentUserSettings();
     }
 }
