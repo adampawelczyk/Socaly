@@ -5,25 +5,24 @@ import com.socaly.user.User;
 import com.socaly.user.UserMapper;
 import com.socaly.user.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
 class UserSettingsService {
     private final AuthService authService;
-    private final UserRepository userRepository;
-    private final UserMapper userMapper;
+    private final UserSettingsRepository userSettingsRepository;
+    private final UserSettingsMapper userSettingsMapper;
 
-    public UserSettingsResponse getCurrentUserSettings() {
+    UserSettingsResponse getCurrentUserSettings() {
         User currentUser = authService.getCurrentUser();
 
-        return userRepository.findByUsername(currentUser.getUsername())
+        return userSettingsRepository.findById(currentUser.getSettings().getId())
                 .stream()
-                .map(userMapper::mapToUserSettings)
+                .map(userSettingsMapper::mapToUserSettingsResponse)
                 .findFirst()
                 .orElseThrow(
-                        () -> new UsernameNotFoundException(currentUser.getUsername())
+                        () -> new UserSettingsNotFoundException(currentUser.getUsername())
                 );
     }
 }
