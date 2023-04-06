@@ -40,4 +40,10 @@ public class UserSettingsController {
         userSettingsService.changeCommentReplyEmails(commentReplyEmails);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PatchMapping("/change/post-up-vote-emails")
+    public ResponseEntity<Void> changePostUpVoteEmails(@RequestBody Boolean postUpvoteEmails) {
+        userSettingsService.changePostUpVoteEmails(postUpvoteEmails);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
