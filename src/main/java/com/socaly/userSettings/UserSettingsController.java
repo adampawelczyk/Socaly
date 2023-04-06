@@ -22,4 +22,10 @@ public class UserSettingsController {
         userSettingsService.changeCommunityContentSort(sorting);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PatchMapping("/change/open-posts-in-new-tab")
+    public ResponseEntity<Void> changeOpenPostsInNewTab(@RequestBody Boolean openPostsInNewTab) {
+        userSettingsService.changeOpenPostsInNewTab(openPostsInNewTab);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
