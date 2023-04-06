@@ -28,4 +28,10 @@ public class UserSettingsController {
         userSettingsService.changeOpenPostsInNewTab(openPostsInNewTab);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PatchMapping("/change/post-comment-emails")
+    public ResponseEntity<Void> changePostCommentEmails(@RequestBody Boolean postCommentEmails) {
+        userSettingsService.changePostCommentEmails(postCommentEmails);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
