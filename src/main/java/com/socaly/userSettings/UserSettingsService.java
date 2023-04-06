@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @AllArgsConstructor
-public class UserSettingsService {
+class UserSettingsService {
     private final AuthService authService;
     private final UserRepository userRepository;
     private final UserMapper userMapper;
