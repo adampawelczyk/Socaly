@@ -32,4 +32,12 @@ class UserSettingsService {
         userSettings.setCommunityContentSort(sorting);
         userSettingsRepository.save(userSettings);
     }
+
+    void changeOpenPostsInNewTab(boolean openPostsInNewTab) {
+        User currentUser = authService.getCurrentUser();
+
+        UserSettings userSettings = currentUser.getSettings();
+        userSettings.setOpenPostsInNewTab(openPostsInNewTab);
+        userSettingsRepository.save(userSettings);
+    }
 }
