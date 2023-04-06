@@ -40,4 +40,12 @@ class UserSettingsService {
         userSettings.setOpenPostsInNewTab(openPostsInNewTab);
         userSettingsRepository.save(userSettings);
     }
+
+    void changePostCommentEmails(boolean postCommentEmails) {
+        User currentUser = authService.getCurrentUser();
+
+        UserSettings userSettings = currentUser.getSettings();
+        userSettings.setPostCommentEmails(postCommentEmails);
+        userSettingsRepository.save(userSettings);
+    }
 }
