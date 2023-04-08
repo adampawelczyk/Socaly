@@ -26,6 +26,12 @@ public class UserService {
         return user.getEmail();
     }
 
+    public Boolean isEmailVerified() {
+        User user = authService.getCurrentUser();
+
+        return user.isEmailVerified();
+    }
+
     public UserResponse getUser(String username) {
         return userRepository.findByUsername(username)
                 .stream()
