@@ -2,7 +2,6 @@ package com.socaly.user;
 
 import com.socaly.auth.AuthService;
 import com.socaly.image.ImageRepository;
-import com.socaly.userSettings.UserSettingsResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
