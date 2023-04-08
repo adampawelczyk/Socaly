@@ -16,6 +16,11 @@ public class UserController {
         return userService.getCurrentUser();
     }
 
+    @GetMapping("/get/email")
+    public String getCurrentUserEmail() {
+        return userService.getCurrentUserEmail();
+    }
+
     @GetMapping("/get/{username}")
     public UserResponse getUser(@PathVariable String username) {
         return userService.getUser(username);
