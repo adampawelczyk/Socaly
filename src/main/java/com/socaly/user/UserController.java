@@ -21,6 +21,11 @@ public class UserController {
         return userService.getCurrentUserEmail();
     }
 
+    @GetMapping("/is-email-verified")
+    public Boolean isEmailVerified() {
+        return userService.isEmailVerified();
+    }
+
     @GetMapping("/get/{username}")
     public UserResponse getUser(@PathVariable String username) {
         return userService.getUser(username);
