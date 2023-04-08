@@ -20,6 +20,6 @@ public class UserSettings {
     private Boolean OpenPostsInNewTab = false;
     private Boolean postCommentEmails = true;
     private Boolean commentReplyEmails = true;
-    private Boolean postUpvoteEmails = true;
+    private Boolean postUpVoteEmails = true;
     private Boolean commentUpVoteEmails = true;
 }
