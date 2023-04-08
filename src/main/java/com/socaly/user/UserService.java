@@ -20,6 +20,12 @@ public class UserService {
         return getUser(user.getUsername());
     }
 
+    public String getCurrentUserEmail() {
+        User user = authService.getCurrentUser();
+
+        return user.getEmail();
+    }
+
     public UserResponse getUser(String username) {
         return userRepository.findByUsername(username)
                 .stream()
