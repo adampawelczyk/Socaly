@@ -15,9 +15,6 @@ public abstract class UserMapper {
     @Mapping(target = "profileImage", expression = "java(mapImageToString(user.getProfileImage()))")
     public abstract UserResponse mapToDto(User user);
 
-    @Mapping(target = "profileImage", expression = "java(mapImageToString(user.getProfileImage()))")
-    public abstract UserSettingsResponse mapToUserSettings(User user);
-
     Image mapStringToImage(String string) {
         Image image = new Image();
         image.setImageUrl(string);
