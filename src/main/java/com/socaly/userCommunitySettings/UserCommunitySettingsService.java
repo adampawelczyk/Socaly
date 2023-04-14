@@ -38,4 +38,17 @@ public class UserCommunitySettingsService {
         userCommunitySettings.setCommunityContentSort(sorting);
         userCommunitySettingsRepository.save(userCommunitySettings);
     }
+
+    void changeShowTheme(Long communityId, boolean showTheme) {
+        User currentUser = authService.getCurrentUser();
+
+        UserCommunitySettings userCommunitySettings =currentUser.getUserCommunitySettings()
+                .stream()
+                .filter(settings -> Objects.equals(settings.getCommunityId(), communityId))
+                .findFirst()
+                .orElseThrow(() -> new UserCommunitySettingsNotFoundException(currentUser.getUsername()));
+
+        userCommunitySettings.setShowTheme(showTheme);
+        userCommunitySettingsRepository.save(userCommunitySettings);
+    }
 }
