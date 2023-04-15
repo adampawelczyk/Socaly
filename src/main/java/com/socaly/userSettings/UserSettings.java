@@ -17,6 +17,8 @@ public class UserSettings {
     private Long id;
     @Enumerated(EnumType.STRING)
     private Sorting communityContentSort = Sorting.HOT;
+    private Boolean rememberLastCommunityContentSort = false;
+    private Boolean useCustomCommunityThemes = true;
     private Boolean openPostsInNewTab = false;
     private Boolean postCommentEmails = true;
     private Boolean commentReplyEmails = true;
