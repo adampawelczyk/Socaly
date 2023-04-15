@@ -18,6 +18,6 @@ public class UserCommunitySettings {
 
     private Long communityId;
     @Enumerated(EnumType.STRING)
-    private Sorting CommunityContentSort = Sorting.HOT;
+    private Sorting communityContentSort = Sorting.HOT;
     private Boolean showTheme = true;
 }
