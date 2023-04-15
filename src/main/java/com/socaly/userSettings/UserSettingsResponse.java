@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserSettingsResponse {
     private Sorting communityContentSort;
+    private boolean rememberLastCommunityContentSort;
+    private boolean useCustomCommunityThemes;
     private boolean openPostsInNewTab;
     private boolean postCommentEmails;
     private boolean commentReplyEmails;
