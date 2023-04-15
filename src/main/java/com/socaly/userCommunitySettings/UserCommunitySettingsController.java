@@ -1,6 +1,9 @@
 package com.socaly.userCommunitySettings;
 
+import com.socaly.util.Sorting;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -12,5 +15,11 @@ public class UserCommunitySettingsController {
     @GetMapping("/get/{communityId}")
     public UserCommunitySettingsResponse getUserCommunitySettingsById(@PathVariable Long communityId) {
         return userCommunitySettingsService.getUserCommunitySettingsById(communityId);
+    }
+
+    @PatchMapping("/change/community-content-sort/{communityId}")
+    public ResponseEntity<Void> changeCommunityContentSort(@PathVariable Long communityId, @RequestBody Sorting sorting) {
+        userCommunitySettingsService.changeCommunityContentSort(communityId, sorting);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
