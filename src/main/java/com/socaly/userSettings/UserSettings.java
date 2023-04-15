@@ -16,8 +16,8 @@ public class UserSettings {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Enumerated(EnumType.STRING)
-    private Sorting CommunityContentSort = Sorting.HOT;
-    private Boolean OpenPostsInNewTab = false;
+    private Sorting communityContentSort = Sorting.HOT;
+    private Boolean openPostsInNewTab = false;
     private Boolean postCommentEmails = true;
     private Boolean commentReplyEmails = true;
     private Boolean postUpVoteEmails = true;
