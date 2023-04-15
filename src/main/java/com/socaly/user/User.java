@@ -1,6 +1,7 @@
 package com.socaly.user;
 
 import com.socaly.image.Image;
+import com.socaly.userCommunitySettings.UserCommunitySettings;
 import com.socaly.userSettings.UserSettings;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,6 +12,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import java.time.Instant;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -43,4 +45,7 @@ public class User {
 
     @OneToOne(fetch = FetchType.LAZY)
     private UserSettings settings;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<UserCommunitySettings> userCommunitySettings;
 }
