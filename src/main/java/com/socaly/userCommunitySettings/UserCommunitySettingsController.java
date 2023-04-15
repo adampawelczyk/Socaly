@@ -22,4 +22,10 @@ public class UserCommunitySettingsController {
         userCommunitySettingsService.changeCommunityContentSort(communityId, sorting);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PatchMapping("/change/show-theme/{communityId}")
+    public ResponseEntity<Void> changeShowTheme(@PathVariable Long communityId, @RequestBody Boolean showTheme) {
+        userCommunitySettingsService.changeShowTheme(communityId, showTheme);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
