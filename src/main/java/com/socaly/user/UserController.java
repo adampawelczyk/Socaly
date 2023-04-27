@@ -48,4 +48,10 @@ public class UserController {
         userService.changeDescription(description);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PatchMapping("/update/email")
+    public ResponseEntity<Void> updateEmail(@RequestBody EmailUpdateRequest emailUpdateRequest) {
+        userService.updateEmail(emailUpdateRequest);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
