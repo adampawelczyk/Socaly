@@ -62,4 +62,15 @@ public class UserService {
 
         userRepository.save(currentUser);
     }
+
+    void updateEmail(EmailUpdateRequest emailUpdateRequest) {
+        User currentUser = authService.getCurrentUser();
+
+        if (authService.isAuthenticated(currentUser.getUsername(), emailUpdateRequest.getPassword())) {
+            currentUser.setEmail(emailUpdateRequest.getEmail());
+            currentUser.setEmailVerified(false);
+
+            userRepository.save(currentUser);
+        }
+    }
 }
