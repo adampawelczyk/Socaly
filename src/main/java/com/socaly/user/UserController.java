@@ -54,4 +54,10 @@ public class UserController {
         userService.updateEmail(emailUpdateRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PatchMapping("/update/password")
+    public ResponseEntity<Void> updatePassword(@RequestBody PasswordUpdateRequest passwordUpdateRequest) {
+        userService.updatePassword(passwordUpdateRequest);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
