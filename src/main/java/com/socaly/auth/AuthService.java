@@ -145,6 +145,10 @@ public class AuthService {
         return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password)).isAuthenticated();
     }
 
+    public String encodePassword(String password) {
+        return passwordEncoder.encode(password);
+    }
+
     public AuthResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
         refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
 
