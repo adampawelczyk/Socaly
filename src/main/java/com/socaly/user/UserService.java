@@ -73,4 +73,14 @@ public class UserService {
             userRepository.save(currentUser);
         }
     }
+
+    void updatePassword(PasswordUpdateRequest passwordUpdateRequest) {
+        User currentUser = authService.getCurrentUser();
+
+        if (authService.isAuthenticated(currentUser.getUsername(), passwordUpdateRequest.getCurrentPassword())) {
+            currentUser.setPassword(authService.encodePassword(passwordUpdateRequest.getNewPassword()));
+
+            userRepository.save(currentUser);
+        }
+    }
 }
