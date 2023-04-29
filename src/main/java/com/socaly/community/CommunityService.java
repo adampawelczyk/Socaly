@@ -3,6 +3,9 @@ package com.socaly.community;
 import com.socaly.user.User;
 import com.socaly.user.UserRepository;
 import com.socaly.auth.AuthService;
+import com.socaly.userCommunitySettings.UserCommunitySettings;
+import com.socaly.userCommunitySettings.UserCommunitySettingsNotFoundException;
+import com.socaly.userCommunitySettings.UserCommunitySettingsRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,6 +20,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CommunityService {
     private final CommunityRepository communityRepository;
+    private final UserCommunitySettingsRepository userCommunitySettingsRepository;
     private final CommunityMapper communityMapper;
     private final AuthService authService;
     private final UserRepository userRepository;
@@ -54,6 +58,13 @@ public class CommunityService {
 
         community.getUsers().add(currentUser);
         communityRepository.save(community);
+
+        UserCommunitySettings userCommunitySettings = new UserCommunitySettings();
+        userCommunitySettings.setCommunityId(community.getId());
+        userCommunitySettingsRepository.save(userCommunitySettings);
+
+        currentUser.getUserCommunitySettings().add(userCommunitySettings);
+        userRepository.save(currentUser);
     }
 
     public void leave(String name) {
