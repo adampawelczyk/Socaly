@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -75,6 +76,18 @@ public class CommunityService {
 
         community.getUsers().remove(currentUser);
         communityRepository.save(community);
+
+        List<UserCommunitySettings> userCommunitySettingsList = currentUser.getUserCommunitySettings();
+        UserCommunitySettings userCommunitySettings = userCommunitySettingsList
+                .stream()
+                .filter(settings -> Objects.equals(settings.getCommunityId(), community.getId()))
+                .findFirst()
+                .orElseThrow(() -> new UserCommunitySettingsNotFoundException(currentUser.getUsername()));
+
+        currentUser.getUserCommunitySettings().remove(userCommunitySettings);
+        userRepository.save(currentUser);
+
+        userCommunitySettingsRepository.delete(userCommunitySettings);
     }
 
     public List<CommunityResponse> getAllCommunitiesForUser(String name) {
