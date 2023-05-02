@@ -66,4 +66,9 @@ public class UserController {
         userService.delete(userDeleteRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @GetMapping("/is/deleted/{username}")
+    public Boolean isDeleted(@PathVariable String username) {
+        return userService.isDeleted(username);
+    }
 }
