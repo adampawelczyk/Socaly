@@ -110,4 +110,12 @@ public class UserService {
             currentUser.setProfileBanner(profileBanner);
         }
     }
+
+    boolean isDeleted(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(
+                () -> new UsernameNotFoundException(username)
+        );
+
+        return user.isDeleted();
+    }
 }
