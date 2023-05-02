@@ -1,6 +1,7 @@
 package com.socaly.user;
 
 import com.socaly.auth.AuthService;
+import com.socaly.image.Image;
 import com.socaly.image.ImageRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -81,6 +82,32 @@ public class UserService {
             currentUser.setPassword(authService.encodePassword(passwordUpdateRequest.getNewPassword()));
 
             userRepository.save(currentUser);
+        }
+    }
+
+    void delete(UserDeleteRequest userDeleteRequest) {
+        if (authService.isAuthenticated(userDeleteRequest.getUsername(), userDeleteRequest.getPassword())) {
+            User currentUser = authService.getCurrentUser();
+
+            currentUser.setDeleted(true);
+            currentUser.setEmail("");
+            currentUser.setEmailVerified(false);
+            currentUser.setPassword("");
+
+            Image profileImage = new Image();
+            profileImage.setImageUrl("https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static%2Favatar-deleted.png?alt=media&token=c2a1cb63-5a7a-4280-a4f9-c415fdf0bc7e");
+            imageRepository.save(profileImage);
+
+            currentUser.setProfileImage(profileImage);
+
+            userRepository.save(currentUser);
+
+            Image profileBanner = new Image();
+            profileBanner.setImageUrl("https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static%2F" +
+                    "banner-default.png?alt=media&token=72a29594-4e22-43b6-83de-d93048a90edc");
+            imageRepository.save(profileBanner);
+
+            currentUser.setProfileBanner(profileBanner);
         }
     }
 }
