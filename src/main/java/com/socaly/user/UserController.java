@@ -60,4 +60,10 @@ public class UserController {
         userService.updatePassword(passwordUpdateRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> delete(@RequestBody UserDeleteRequest userDeleteRequest) {
+        userService.delete(userDeleteRequest);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 }
