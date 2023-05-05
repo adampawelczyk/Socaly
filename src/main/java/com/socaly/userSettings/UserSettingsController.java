@@ -18,7 +18,7 @@ public class UserSettingsController {
     }
 
     @PatchMapping("/update/community-content-sort")
-    public ResponseEntity<Void> changeCommunityContentSort(@RequestBody Sorting sorting) {
+    public ResponseEntity<Void> updateCommunityContentSort(@RequestBody Sorting sorting) {
         userSettingsService.changeCommunityContentSort(sorting);
         return new ResponseEntity<>(HttpStatus.OK);
     }
