@@ -25,7 +25,7 @@ public class UserSettingsController {
 
     @PatchMapping("/update/open-posts-in-new-tab")
     public ResponseEntity<Void> updateOpenPostsInNewTab(@RequestBody Boolean openPostsInNewTab) {
-        userSettingsService.changeOpenPostsInNewTab(openPostsInNewTab);
+        userSettingsService.updateOpenPostsInNewTab(openPostsInNewTab);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
