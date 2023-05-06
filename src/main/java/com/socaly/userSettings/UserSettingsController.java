@@ -30,7 +30,7 @@ public class UserSettingsController {
     }
 
     @PatchMapping("/update/post-comment-emails")
-    public ResponseEntity<Void> changePostCommentEmails(@RequestBody Boolean postCommentEmails) {
+    public ResponseEntity<Void> updatePostCommentEmails(@RequestBody Boolean postCommentEmails) {
         userSettingsService.changePostCommentEmails(postCommentEmails);
         return new ResponseEntity<>(HttpStatus.OK);
     }
