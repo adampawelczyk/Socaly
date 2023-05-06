@@ -49,7 +49,7 @@ class UserSettingsService {
         userSettingsRepository.save(userSettings);
     }
 
-    void changeCommentReplyEmails(boolean commentReplyEmails) {
+    void updateCommentReplyEmails(boolean commentReplyEmails) {
         User currentUser = authService.getCurrentUser();
 
         UserSettings userSettings = currentUser.getSettings();
