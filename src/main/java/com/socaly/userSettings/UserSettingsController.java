@@ -49,7 +49,7 @@ public class UserSettingsController {
 
     @PatchMapping("/update/comment-up-vote-emails")
     public ResponseEntity<Void> updateCommentUpVoteEmails(@RequestBody Boolean commentUpVoteEmails) {
-        userSettingsService.changeCommentUpVoteEmails(commentUpVoteEmails);
+        userSettingsService.updateCommentUpVoteEmails(commentUpVoteEmails);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
