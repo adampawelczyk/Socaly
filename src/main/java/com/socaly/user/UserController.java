@@ -11,6 +11,21 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
 
+    @GetMapping("/get")
+    public UserResponse getCurrentUser() {
+        return userService.getCurrentUser();
+    }
+
+    @GetMapping("/get/email")
+    public String getCurrentUserEmail() {
+        return userService.getCurrentUserEmail();
+    }
+
+    @GetMapping("/is-email-verified")
+    public Boolean isEmailVerified() {
+        return userService.isEmailVerified();
+    }
+
     @GetMapping("/get/{username}")
     public UserResponse getUser(@PathVariable String username) {
         return userService.getUser(username);
@@ -26,5 +41,34 @@ public class UserController {
     public ResponseEntity<Void> changeProfileBanner(@RequestBody String imageUrl) {
         userService.changeProfileBanner(imageUrl);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PatchMapping("/change/description")
+    public ResponseEntity<Void> changeDescription(@RequestBody(required = false) String description) {
+        userService.changeDescription(description);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PatchMapping("/update/email")
+    public ResponseEntity<Void> updateEmail(@RequestBody EmailUpdateRequest emailUpdateRequest) {
+        userService.updateEmail(emailUpdateRequest);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PatchMapping("/update/password")
+    public ResponseEntity<Void> updatePassword(@RequestBody PasswordUpdateRequest passwordUpdateRequest) {
+        userService.updatePassword(passwordUpdateRequest);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> delete(@RequestBody UserDeleteRequest userDeleteRequest) {
+        userService.delete(userDeleteRequest);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/is/deleted/{username}")
+    public Boolean isDeleted(@PathVariable String username) {
+        return userService.isDeleted(username);
     }
 }

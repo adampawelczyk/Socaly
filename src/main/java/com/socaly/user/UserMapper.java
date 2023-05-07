@@ -1,6 +1,7 @@
 package com.socaly.user;
 
 import com.socaly.image.Image;
+import com.socaly.userSettings.UserSettingsResponse;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

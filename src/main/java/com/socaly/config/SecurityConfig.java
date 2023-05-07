@@ -31,6 +31,7 @@ public class SecurityConfig {
                 .antMatchers(HttpMethod.GET, "/api/community/get/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/post/get/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/api/user/get/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/api/user/is/**").permitAll()
                 .antMatchers("/v2/api-docs",
                         "/configuration/ui",
                         "/swagger-resources/**",

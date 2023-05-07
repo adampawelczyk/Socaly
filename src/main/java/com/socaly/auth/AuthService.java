@@ -5,6 +5,8 @@ import com.socaly.image.Image;
 import com.socaly.email.EmailService;
 import com.socaly.email.NotificationEmail;
 import com.socaly.user.User;
+import com.socaly.userSettings.UserSettings;
+import com.socaly.userSettings.UserSettingsRepository;
 import com.socaly.verificationToken.VerificationToken;
 import com.socaly.image.ImageRepository;
 import com.socaly.refreshToken.RefreshTokenService;
@@ -33,6 +35,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
+    private final UserSettingsRepository userSettingsRepository;
     private final VerificationTokenRepository verificationTokenRepository;
     private final EmailService emailService;
     private final AuthenticationManager authenticationManager;
@@ -47,7 +50,13 @@ public class AuthService {
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         user.setEmail(signUpRequest.getEmail());
         user.setCreatedDate(Instant.now());
-        user.setEnabled(false);
+        user.setEmailVerified(false);
+        user.setDescription("");
+
+        UserSettings settings = new UserSettings();
+        userSettingsRepository.save(settings);
+
+        user.setSettings(settings);
 
         Image profileImage = new Image();
         profileImage.setImageUrl(generateProfileImage());
@@ -114,7 +123,7 @@ public class AuthService {
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException("User not found with name - " + username));
 
-        user.setEnabled(true);
+        user.setEmailVerified(true);
         userRepository.save(user);
     }
 
@@ -130,6 +139,14 @@ public class AuthService {
                 .expiresAt(Instant.now().plusMillis(jwtProvider.getJwtExpirationInMillis()))
                 .username(loginRequest.getUsername())
                 .build();
+    }
+
+    public Boolean isAuthenticated(String username, String password) {
+        return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password)).isAuthenticated();
+    }
+
+    public String encodePassword(String password) {
+        return passwordEncoder.encode(password);
     }
 
     public AuthResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {

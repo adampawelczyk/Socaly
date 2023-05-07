@@ -7,9 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponse {
-    private String createdDate;
-    private String profileImage;
-    private String profileBanner;
-    private String description;
+public class EmailUpdateRequest {
+    private String password;
+    private String email;
 }
