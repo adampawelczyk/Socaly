@@ -95,7 +95,7 @@ public class UserService {
             currentUser.setPassword("");
 
             Image profileImage = new Image();
-            profileImage.setImageUrl("https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static%2Favatar-deleted.png?alt=media&token=c2a1cb63-5a7a-4280-a4f9-c415fdf0bc7e");
+            profileImage.setImageUrl("https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static%2Favatar-deleted.png?alt=media&token=7edbd58b-d829-4716-bac2-f80d958027ab");
             imageRepository.save(profileImage);
 
             currentUser.setProfileImage(profileImage);
