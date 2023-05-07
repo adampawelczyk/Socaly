@@ -20,8 +20,8 @@ public class UserSettings {
     private Boolean rememberLastCommunityContentSort = false;
     private Boolean useCustomCommunityThemes = true;
     private Boolean openPostsInNewTab = false;
-    private Boolean postCommentEmails = true;
-    private Boolean commentReplyEmails = true;
-    private Boolean postUpVoteEmails = true;
-    private Boolean commentUpVoteEmails = true;
+    private Boolean postCommentEmails = false;
+    private Boolean commentReplyEmails = false;
+    private Boolean postUpVoteEmails = false;
+    private Boolean commentUpVoteEmails = false;
 }
