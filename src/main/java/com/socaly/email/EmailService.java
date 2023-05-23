@@ -21,7 +21,7 @@ public class EmailService {
         MimeMessagePreparator messagePreparer = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 
-            messageHelper.setFrom("socaly@email.com");
+            messageHelper.setFrom("noreply@socaly.com");
             messageHelper.setTo(notificationEmail.getRecipient());
             messageHelper.setSubject(notificationEmail.getSubject());
             messageHelper.setText(emailContentBuilder.build(notificationEmail.getBody()));
