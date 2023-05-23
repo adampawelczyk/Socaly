@@ -17,19 +17,23 @@ public class EmailService {
     private final EmailContentBuilder emailContentBuilder;
 
     @Async
-    public void sendMail(NotificationEmail notificationEmail) {
+    public void sendEmailVerificationEmail(EmailVerificationEmail emailVerificationEmail) {
         MimeMessagePreparator messagePreparer = mimeMessage -> {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 
             messageHelper.setFrom("noreply@socaly.com");
-            messageHelper.setTo(notificationEmail.getRecipient());
-            messageHelper.setSubject(notificationEmail.getSubject());
-            messageHelper.setText(emailContentBuilder.build(notificationEmail.getBody()));
+            messageHelper.setTo(emailVerificationEmail.getRecipient());
+            messageHelper.setSubject(emailVerificationEmail.getSubject());
+            messageHelper.setText(emailContentBuilder.buildEmailVerificationEmail(
+                    emailVerificationEmail.getEmailAddress(),
+                    emailVerificationEmail.getUsername(),
+                    emailVerificationEmail.getVerificationLink()
+            ));
         };
         try {
             emailSender.send(messagePreparer);
         } catch (MailException e) {
-            throw new EmailException("Exception occurred when sending email to " + notificationEmail.getRecipient());
+            throw new EmailException("Exception occurred when sending email to " + emailVerificationEmail.getRecipient());
         }
     }
 }
