@@ -3,7 +3,7 @@ package com.socaly.auth;
 import com.socaly.refreshToken.RefreshTokenRequest;
 import com.socaly.image.Image;
 import com.socaly.email.EmailService;
-import com.socaly.email.NotificationEmail;
+import com.socaly.email.EmailVerificationEmail;
 import com.socaly.user.User;
 import com.socaly.userSettings.UserSettings;
 import com.socaly.userSettings.UserSettingsRepository;
