@@ -74,9 +74,13 @@ public class AuthService {
         userRepository.save(user);
         
         String token = generateVerificationToken(user);
-        emailService.sendMail(new NotificationEmail("Please activate your account", user.getEmail(),
-                "Thank you for signing up to Socaly, please click on the below url to activate your account: " +
-                        "http://localhost:8090/api/auth/verify-account/" + token));
+        emailService.sendEmailVerificationEmail(new EmailVerificationEmail(
+                "Verify your Socaly email address",
+                user.getEmail(),
+                user.getEmail(),
+                user.getUsername(),
+                "http://localhost:8090/api/auth/verify-account/" + token
+                ));
     }
 
     private String generateProfileImage() {
