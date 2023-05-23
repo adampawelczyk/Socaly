@@ -16,4 +16,13 @@ public class EmailContentBuilder {
 
         return templateEngine.process("mailTemplate", context);
     }
+
+    String buildEmailVerificationEmail(String emailAddress, String username, String verificationLink) {
+        Context context = new Context();
+        context.setVariable("emailAddress", emailAddress);
+        context.setVariable("username", username);
+        context.setVariable("verificationLink", verificationLink);
+
+        return templateEngine.process("verificationEmailTemplate", context);
+    }
 }
