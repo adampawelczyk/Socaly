@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <title>Email verification</title>
+    </head>
+    <body>
+        <div style="display: flex; width: 100%; align-items: center; flex-direction: column; font-size: 16px; color: black;
+                      line-height: 18px; font-family: Arial, sans-serif; text-align: left">
+            <header style="display: flex; flex-direction: row; width: 600px; margin-top: 2rem; margin-bottom: 3rem; padding-left: 1rem;
+                        justify-content: space-between">
+                <div>
+                    <a style="text-decoration: none" href="http://localhost:4200/">
+                        <img style="height: 30px; width: auto" alt="Image containing the socaly logo" src="https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static%2Fsocaly-image-logo.png?alt=media&token=9ff49c88-38db-4c16-8156-7249cde35e9c">
+                        <img style="height: 30px; width: auto" alt="Image containing the socaly text logo" src="https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static%2Fsocaly-text-logo-black.png?alt=media&token=e30e5f38-605d-4d7a-80cc-f61fbe638a5e">
+                    </a>
+                </div>
+                <div style="display: flex; align-content: center; flex-wrap: wrap; font-size: 12px; color: #7a9299">
+                    <a href="http://localhost:4200/user-profile/user" target="_blank">u/<span th:text="${username}"></span></a>
+                </div>
+            </header>
+            <main>
+                <div style="width: 600px">
+                    <p style="margin-bottom: 1rem">
+                        Hi there,
+                    </p>
+                    <p style="margin-bottom: 1rem">
+                        Your email address <span th:text="${emailAddress}"></span> has been added to your <span th:text="${username}"></span> Socaly account. But wait, we’re not done yet...
+                    </p>
+                    <p style="margin-bottom: 3rem">
+                        To finish verifying your email address and securing your account, click the button below.
+                    </p>
+                </div>
+                <div style="display: flex; justify-content: center; width: 600px">
+                    <a style="display: block; width: 200px; padding: 8px; background-color: #0079d3; color: white; text-decoration: none;
+                        border-radius: 4px; text-align: center" th:href="${verificationLink}">
+                        Verify Email Address
+                    </a>
+                </div>
+                <div style="width: 600px">
+                    <p style="margin-top: 3rem; margin-bottom: 1rem">
+                        (And don’t wait too long. This link will only work for 3 days, and you can only use it once.)
+                    </p>
+                    <p style="margin-bottom: 1rem">
+                        Expired link? No worries! To get a new verification email, visit your Account Settings, select Update email address, then hit Resend Verification Email.
+                    </p>
+                    <p style="margin-bottom: 2rem;">
+                        If <span th:text="${username}"></span> isn’t your Socaly account, let us know, and we’ll make sure nothing weird is going on.
+                    </p>
+                </div>
+            </main>
+            <footer style="width: 600px">
+                <img src="https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static%2Ffooter-logo.png?alt=media&token=2208e322-2d2a-43f2-a485-9671ff4be270"
+                     style="max-width: 100%" alt="footer image containing the socaly logo"/>
+            </footer>
+        </div>
+    </body>
+</html>
