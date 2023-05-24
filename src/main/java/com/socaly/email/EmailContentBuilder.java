@@ -10,11 +10,12 @@ import org.thymeleaf.context.Context;
 public class EmailContentBuilder {
     private final TemplateEngine templateEngine;
 
-    String buildEmailVerificationEmail(String emailAddress, String username, String verificationLink) {
+    String buildEmailVerificationEmail(String emailAddress, String username, String verificationLink, String profileImage) {
         Context context = new Context();
         context.setVariable("emailAddress", emailAddress);
         context.setVariable("username", username);
         context.setVariable("verificationLink", verificationLink);
+        context.setVariable("profileImage", profileImage);
 
         return templateEngine.process("verificationEmailTemplate", context);
     }
