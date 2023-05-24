@@ -79,7 +79,8 @@ public class AuthService {
                 user.getEmail(),
                 user.getEmail(),
                 user.getUsername(),
-                "http://localhost:8090/api/auth/verify-account/" + token
+                "http://localhost:8090/api/auth/verify-account/" + token,
+                user.getProfileImage().getImageUrl()
                 ));
     }
 
