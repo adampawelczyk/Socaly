@@ -27,7 +27,8 @@ public class EmailService {
             messageHelper.setText(emailContentBuilder.buildEmailVerificationEmail(
                     emailVerificationEmail.getEmailAddress(),
                     emailVerificationEmail.getUsername(),
-                    emailVerificationEmail.getVerificationLink()
+                    emailVerificationEmail.getVerificationLink(),
+                    emailVerificationEmail.getProfileImage()
             ));
         };
         try {
