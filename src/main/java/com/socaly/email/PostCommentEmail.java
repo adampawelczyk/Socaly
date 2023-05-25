@@ -12,6 +12,7 @@ public class PostCommentEmail {
     private String recipient;
     private String username;
     private String commenterUsername;
+    private String commenterProfileImage;
     private String communityName;
     private String comment;
 }
