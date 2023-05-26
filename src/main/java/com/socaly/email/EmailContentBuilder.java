@@ -21,13 +21,14 @@ public class EmailContentBuilder {
     }
 
     String buildPostCommentEmail(String username, String commenterUsername, String commenterProfileImage, String postTitle,
-                                 String communityName, String comment) {
+                                 String postTimestamp, String communityName, String comment) {
         Context context = new Context();
 
         context.setVariable("username", username);
         context.setVariable("commenterUsername", commenterUsername);
         context.setVariable("commenterProfileImage", commenterProfileImage);
         context.setVariable("postTitle", postTitle);
+        context.setVariable("postTimestamp", postTimestamp);
         context.setVariable("communityName", communityName);
         context.setVariable("comment", comment);
 
