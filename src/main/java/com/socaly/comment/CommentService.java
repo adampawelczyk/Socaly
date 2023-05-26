@@ -1,6 +1,7 @@
 package com.socaly.comment;
 
-import com.socaly.email.NotificationEmail;
+import com.github.marlonlom.utilities.timeago.TimeAgo;
+import com.socaly.email.PostCommentEmail;
 import com.socaly.post.Post;
 import com.socaly.user.User;
 import com.socaly.post.PostNotFoundException;
@@ -35,8 +36,20 @@ public class CommentService {
         Comment comment = commentMapper.mapToComment(commentRequest, post, user);
         commentRepository.save(comment);
 
-        String message = post.getUser().getUsername() + " posted a comment on your post.";
-        sendCommentNotification(message, post.getUser());
+        if (!post.getUser().getUsername().equals(comment.getUser().getUsername()) && comment.getParentCommentId() == null
+            && user.getSettings().getPostCommentEmails()) {
+            emailService.sendPostCommentEmail(new PostCommentEmail(
+                    "User: " + comment.getUser().getUsername() + " commented on your post: " + post.getPostName(),
+                    user.getEmail(),
+                    user.getUsername(),
+                    comment.getUser().getUsername(),
+                    comment.getUser().getProfileImage().getImageUrl(),
+                    post.getPostName(),
+                    TimeAgo.using(post.getCreatedDate().toEpochMilli()),
+                    post.getCommunity().getName(),
+                    comment.getText()
+            ));
+        }
     }
 
     public void edit(Long commentId, String text) {
