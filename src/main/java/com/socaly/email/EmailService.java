@@ -37,4 +37,29 @@ public class EmailService {
             throw new EmailException("Exception occurred when sending email to " + emailVerificationEmail.getRecipient());
         }
     }
+
+    @Async
+    public void sendPostCommentEmail(PostCommentEmail postCommentEmail) {
+        MimeMessagePreparator messagePreparer = mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+
+            messageHelper.setFrom("noreply@socaly.com");
+            messageHelper.setTo(postCommentEmail.getRecipient());
+            messageHelper.setSubject(postCommentEmail.getSubject());
+            messageHelper.setText(emailContentBuilder.buildPostCommentEmail(
+                    postCommentEmail.getUsername(),
+                    postCommentEmail.getCommenterUsername(),
+                    postCommentEmail.getCommenterProfileImage(),
+                    postCommentEmail.getPostTitle(),
+                    postCommentEmail.getPostTimestamp(),
+                    postCommentEmail.getCommunityName(),
+                    postCommentEmail.getComment()
+            ));
+        };
+        try {
+            emailSender.send(messagePreparer);
+        } catch (MailException e) {
+            throw new EmailException("Exception occurred when sending email to " + postCommentEmail.getRecipient());
+        }
+    }
 }
