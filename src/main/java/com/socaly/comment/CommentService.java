@@ -65,11 +65,6 @@ public class CommentService {
         }
     }
 
-    private void sendCommentNotification(String message, User user) {
-        emailService.sendMail(new NotificationEmail(
-                user.getUsername() + " commented on your post", user.getEmail(), message));
-    }
-
     public CommentResponse getComment(Long commentId) {
         return commentRepository.findById(commentId)
                 .stream()
