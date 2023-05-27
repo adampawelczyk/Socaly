@@ -40,8 +40,8 @@ public class CommentService {
             && post.getUser().getSettings().getPostCommentEmails()) {
             emailService.sendPostCommentEmail(new PostCommentEmail(
                     comment.getUser().getUsername() + " commented on your post: " + post.getPostName(),
-                    user.getEmail(),
-                    user.getUsername(),
+                    post.getUser().getEmail(),
+                    post.getUser().getUsername(),
                     post.getUser().getProfileImage().getImageUrl(),
                     comment.getUser().getUsername(),
                     comment.getUser().getProfileImage().getImageUrl(),
