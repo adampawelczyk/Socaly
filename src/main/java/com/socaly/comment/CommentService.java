@@ -37,7 +37,7 @@ public class CommentService {
         commentRepository.save(comment);
 
         if (!post.getUser().getUsername().equals(comment.getUser().getUsername()) && comment.getParentCommentId() == null
-            && user.getSettings().getPostCommentEmails()) {
+            && post.getUser().getSettings().getPostCommentEmails()) {
             emailService.sendPostCommentEmail(new PostCommentEmail(
                     "User: " + comment.getUser().getUsername() + " commented on your post: " + post.getPostName(),
                     user.getEmail(),
