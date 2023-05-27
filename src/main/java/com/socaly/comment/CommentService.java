@@ -39,7 +39,7 @@ public class CommentService {
         if (!post.getUser().getUsername().equals(comment.getUser().getUsername()) && comment.getParentCommentId() == null
             && post.getUser().getSettings().getPostCommentEmails()) {
             emailService.sendPostCommentEmail(new PostCommentEmail(
-                    "User: " + comment.getUser().getUsername() + " commented on your post: " + post.getPostName(),
+                    comment.getUser().getUsername() + " commented on your post: " + post.getPostName(),
                     user.getEmail(),
                     user.getUsername(),
                     comment.getUser().getUsername(),
