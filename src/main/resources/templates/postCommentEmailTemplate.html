@@ -46,7 +46,8 @@
         </div>
         <div>
           <p>
-            <a style="text-decoration: none; font-weight: bold" href="">
+            <a style="text-decoration: none; font-weight: bold"
+               th:href="@{'http://localhost:4200/user-profile/' + ${commenterUsername}}" target="_blank">
               u/<span th:text="${commenterUsername}"></span>
             </a>
             commented on your post in s/community1
