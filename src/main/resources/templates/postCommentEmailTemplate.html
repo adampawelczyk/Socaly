@@ -27,7 +27,7 @@
       <a th:href="@{'http://localhost:4200/user-profile/' + ${username}}" target="_blank"
          style="text-decoration: none; display: flex">
         <img style="height: 16px; width: auto; margin-right: 0.3rem; border-radius: 50%"
-             th:alt="Image containing + ${username} + profile image" th:src="${profileImage}"/>
+             th:alt="${'Image containing the ' + username + ' profile image'}" th:src="${profileImage}"/>
         u/<span th:text="${username}"></span>
       </a>
     </div>
