@@ -38,19 +38,23 @@ public class CommentService {
 
         if (!post.getUser().getUsername().equals(comment.getUser().getUsername()) && comment.getParentCommentId() == null
             && post.getUser().getSettings().getPostCommentEmails()) {
-            emailService.sendPostCommentEmail(new PostCommentEmail(
-                    comment.getUser().getUsername() + " commented on your post: " + post.getPostName(),
-                    post.getUser().getEmail(),
-                    post.getUser().getUsername(),
-                    post.getUser().getProfileImage().getImageUrl(),
-                    comment.getUser().getUsername(),
-                    comment.getUser().getProfileImage().getImageUrl(),
-                    post.getPostName(),
-                    TimeAgo.using(post.getCreatedDate().toEpochMilli()),
-                    post.getCommunity().getName(),
-                    comment.getText()
-            ));
+            sendPostCommentEmail(post, comment);
         }
+    }
+
+    private void sendPostCommentEmail(Post post, Comment comment) {
+        emailService.sendPostCommentEmail(new PostCommentEmail(
+                comment.getUser().getUsername() + " commented on your post: " + post.getPostName(),
+                post.getUser().getEmail(),
+                post.getUser().getUsername(),
+                post.getUser().getProfileImage().getImageUrl(),
+                comment.getUser().getUsername(),
+                comment.getUser().getProfileImage().getImageUrl(),
+                post.getPostName(),
+                TimeAgo.using(post.getCreatedDate().toEpochMilli()),
+                post.getCommunity().getName(),
+                comment.getText()
+        ));
     }
 
     public void edit(Long commentId, String text) {
