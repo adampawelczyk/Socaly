@@ -36,7 +36,8 @@
     <div style="width: 600px">
       <div style="display: flex; justify-content: center; align-items: center; flex-flow: column">
         <div>
-          <img style="height: 100px; width: auto; border-radius: 50%" th:alt="Image containing the + ${commenterUsername} + profile image"
+          <img style="height: 100px; width: auto; border-radius: 50%"
+               th:alt="${'Image containing the ' + commenterUsername + ' profile image'}"
                th:src="${commenterProfileImage}"/>
           <span style="color: #0079d3; position: relative; left: -2.7rem; padding: 0.5rem; background-color: white;
                        border-radius: 50%; border: 1px solid #f6f7f8" class="material-symbols-outlined">
