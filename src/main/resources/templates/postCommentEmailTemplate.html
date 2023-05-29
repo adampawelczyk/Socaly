@@ -32,61 +32,59 @@
       </a>
     </div>
   </header>
-  <main>
-    <div style="width: 600px">
-      <div style="display: flex; justify-content: center; align-items: center; flex-flow: column">
-        <div>
-          <img style="height: 100px; width: auto; border-radius: 50%"
-               th:alt="${'Image containing the ' + commenterUsername + ' profile image'}"
-               th:src="${commenterProfileImage}"/>
-          <span style="color: #0079d3; position: relative; left: -2.7rem; padding: 0.5rem; background-color: white;
-                       border-radius: 50%; border: 1px solid #f6f7f8" class="material-symbols-outlined">
-            chat_bubble
-          </span>
-        </div>
-        <div>
-          <p>
-            <a style="text-decoration: none; font-weight: bold"
-               th:href="@{'http://localhost:4200/user-profile/' + ${commenterUsername}}" target="_blank">
-              u/<span th:text="${commenterUsername}"></span>
-            </a>
-            commented on your post in s/<span th:text="${communityName}"></span>
-          </p>
-        </div>
+  <main style="width: 600px">
+    <div style="display: flex; justify-content: center; align-items: center; flex-flow: column">
+      <div>
+        <img style="height: 100px; width: auto; border-radius: 50%"
+             th:alt="${'Image containing the ' + commenterUsername + ' profile image'}"
+             th:src="${commenterProfileImage}"/>
+        <span style="color: #0079d3; position: relative; left: -2.7rem; padding: 0.5rem; background-color: white;
+                     border-radius: 50%; border: 1px solid #f6f7f8" class="material-symbols-outlined">
+          chat_bubble
+        </span>
       </div>
-      <div style="width: 600px; margin-top: 2rem">
-        <div style="display: flex; flex-flow: row">
-          <img style="height: 32px; width: auto; border-radius: 50%" th:alt="Image containing the + ${communityName} + logo"
-               th:src=""/>
-          <div style="display: flex; flex-flow: column; margin-left: 0.3rem;">
-            <p style="margin: 0; font-size: 0.87rem; font-weight: bold">
-              s/<span th:text="${communityName}"></span>
-            </p>
-            <p style="margin: 0; font-size: 0.75rem; color: #878a8c">
-              u/<span th:text="${username}"></span> • <span th:text="${postTimestamp}"></span>
-            </p>
-          </div>
-        </div>
-        <div style="padding-bottom: 0.5rem; border-bottom: 1px solid #f6f7f8">
-          <p style="margin: 0.2rem 0 0 0; font-weight: bold">
-            <span th:text="${postTitle}"></span>
-          </p>
-        </div>
-        <div style="padding-top: 0.5rem">
-          <p style="margin: 0; font-size: 0.75rem; color: #878a8c">
+      <div>
+        <p>
+          <a style="text-decoration: none; font-weight: bold"
+             th:href="@{'http://localhost:4200/user-profile/' + ${commenterUsername}}" target="_blank">
             u/<span th:text="${commenterUsername}"></span>
+          </a>
+          commented on your post in s/<span th:text="${communityName}"></span>
+        </p>
+      </div>
+    </div>
+    <div style="margin-top: 2rem">
+      <div style="display: flex; flex-flow: row">
+        <img style="height: 32px; width: auto; border-radius: 50%"
+             th:src=""/>
+        <div style="display: flex; flex-flow: column; margin-left: 0.3rem;">
+          <p style="margin: 0; font-size: 0.87rem; font-weight: bold">
+            s/<span th:text="${communityName}"></span>
           </p>
-          <p style="margin: 0.2rem 0 0 0; font-size: 0.87rem">
-            <span th:utext="${comment}"></span>
+          <p style="margin: 0; font-size: 0.75rem; color: #878a8c">
+            u/<span th:text="${username}"></span> • <span th:text="${postTimestamp}"></span>
           </p>
         </div>
       </div>
-      <div style="display: flex; justify-content: center; margin: 3rem 0 3rem 0">
-        <a style="display: block; width: 200px; padding: 0.5rem; background-color: #0079d3; color: white;
-                  text-decoration: none; border-radius: 4px; text-align: center">
-          View Comment
-        </a>
+      <div style="padding-bottom: 0.5rem; border-bottom: 1px solid #f6f7f8">
+        <p style="margin: 0.2rem 0 0 0; font-weight: bold">
+          <span th:text="${postTitle}"></span>
+        </p>
       </div>
+      <div style="padding-top: 0.5rem">
+        <p style="margin: 0; font-size: 0.75rem; color: #878a8c">
+          u/<span th:text="${commenterUsername}"></span>
+        </p>
+        <p style="margin: 0.2rem 0 0 0; font-size: 0.87rem">
+          <span th:utext="${comment}"></span>
+        </p>
+      </div>
+    </div>
+    <div style="display: flex; justify-content: center; margin: 3rem 0 3rem 0">
+      <a style="display: block; width: 200px; padding: 0.5rem; background-color: #0079d3; color: white;
+                text-decoration: none; border-radius: 4px; text-align: center">
+        View Comment
+      </a>
     </div>
   </main>
   <footer style="width: 600px; background-color: #f1f5f6">
