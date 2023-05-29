@@ -36,4 +36,23 @@ public class EmailContentBuilder {
 
         return templateEngine.process("postCommentEmailTemplate", context);
     }
+
+    String buildCommentReplyEmail(String username, String profileImage, String replyingUsername, String replyingUserProfileImage,
+                                  String postTitle, String postTimestamp, String communityName, String commentText,
+                                  String commentTimestamp, String replyText) {
+        Context context = new Context();
+
+        context.setVariable("username", username);
+        context.setVariable("profileImage", profileImage);
+        context.setVariable("replyingUsername", replyingUsername);
+        context.setVariable("replyingUserProfileImage", replyingUserProfileImage);
+        context.setVariable("postTitle", postTitle);
+        context.setVariable("postTimestamp", postTimestamp);
+        context.setVariable("communityName", communityName);
+        context.setVariable("commentText", commentText);
+        context.setVariable("commentTimestamp", commentTimestamp);
+        context.setVariable("replyText", replyText);
+
+        return templateEngine.process("commentReplyEmailTemplate", context);
+    }
 }
