@@ -61,7 +61,8 @@ public class EmailService {
         try {
             emailSender.send(messagePreparer);
         } catch (MailException e) {
-            throw new EmailException("Exception occurred when sending email to " + postCommentEmail.getRecipient());
+            throw new EmailException("Exception occurred when sending post comment email to " +
+                    postCommentEmail.getRecipient());
         }
     }
 
