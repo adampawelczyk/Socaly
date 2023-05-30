@@ -105,7 +105,7 @@ public class EmailService {
             messageHelper.setTo(postUpVoteEmail.getRecipient());
             messageHelper.setSubject(postUpVoteEmail.getSubject());
             messageHelper.setText(emailContentBuilder.buildPostUpVoteEmail(
-                    postUpVoteEmail.getUsername(),
+                    postUpVoteEmail.getRecipientUsername(),
                     postUpVoteEmail.getProfileImage(),
                     postUpVoteEmail.getUpVotingUserUsername(),
                     postUpVoteEmail.getUpVotingUserProfileImage(),

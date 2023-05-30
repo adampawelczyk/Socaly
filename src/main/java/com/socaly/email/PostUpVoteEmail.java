@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class PostUpVoteEmail {
     private String subject;
     private String recipient;
-    private String username;
+    private String recipientUsername;
     private String profileImage;
     private String upVotingUserUsername;
     private String upVotingUserProfileImage;
