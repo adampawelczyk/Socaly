@@ -14,6 +14,7 @@ public class CommentReplyEmail {
     private String profileImage;
     private String replyingUsername;
     private String replyingUserProfileImage;
+    private String postingUsername;
     private String postTitle;
     private String postTimestamp;
     private String communityName;
