@@ -1,6 +1,7 @@
 package com.socaly.comment;
 
 import com.github.marlonlom.utilities.timeago.TimeAgo;
+import com.socaly.email.CommentReplyEmail;
 import com.socaly.email.PostCommentEmail;
 import com.socaly.post.Post;
 import com.socaly.user.User;
@@ -54,6 +55,24 @@ public class CommentService {
                 TimeAgo.using(post.getCreatedDate().toEpochMilli()),
                 post.getCommunity().getName(),
                 comment.getText()
+        ));
+    }
+
+    private void sendCommentReplyEmail(Post post, Comment comment, Comment reply) {
+        emailService.sendCommentReplyEmail(new CommentReplyEmail(
+                reply.getUser().getUsername() + " replied to your comment on post: " + post.getPostName(),
+                comment.getUser().getEmail(),
+                comment.getUser().getUsername(),
+                comment.getUser().getProfileImage().getImageUrl(),
+                reply.getUser().getUsername(),
+                reply.getUser().getProfileImage().getImageUrl(),
+                post.getUser().getUsername(),
+                post.getPostName(),
+                TimeAgo.using(post.getCreatedDate().toEpochMilli()),
+                post.getCommunity().getName(),
+                comment.getText(),
+                TimeAgo.using(comment.getCreationDate().toEpochMilli()),
+                reply.getText()
         ));
     }
 
