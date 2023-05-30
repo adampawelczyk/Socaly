@@ -40,6 +40,15 @@ public class CommentService {
         if (!post.getUser().getUsername().equals(comment.getUser().getUsername()) && comment.getParentCommentId() == null
             && post.getUser().getSettings().getPostCommentEmails()) {
             sendPostCommentEmail(post, comment);
+        } else if (comment.getParentCommentId() != null) {
+            Comment parentComment = commentRepository.findById(comment.getParentCommentId()).orElseThrow(
+                    () -> new CommentNotFoundException(comment.getParentCommentId().toString())
+            );
+
+            if (!comment.getUser().getUsername().equals(parentComment.getUser().getUsername())
+                    && parentComment.getUser().getSettings().getCommentReplyEmails()) {
+                sendCommentReplyEmail(post, parentComment, comment);
+            }
         }
     }
 
