@@ -79,7 +79,7 @@ public class EmailService {
                     commentReplyEmail.getRecipientProfileImage(),
                     commentReplyEmail.getReplyUsername(),
                     commentReplyEmail.getReplyUserProfileImage(),
-                    commentReplyEmail.getPostingUsername(),
+                    commentReplyEmail.getPostUsername(),
                     commentReplyEmail.getPostTitle(),
                     commentReplyEmail.getPostTimestamp(),
                     commentReplyEmail.getCommunityName(),
