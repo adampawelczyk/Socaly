@@ -72,7 +72,7 @@ public class EmailService {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 
             messageHelper.setFrom("noreply@socaly.com");
-            messageHelper.setTo(commentReplyEmail.getRecipient());
+            messageHelper.setTo(commentReplyEmail.getRecipientEmail());
             messageHelper.setSubject(commentReplyEmail.getSubject());
             messageHelper.setText(emailContentBuilder.buildCommentReplyEmail(
                     commentReplyEmail.getRecipientUsername(),
@@ -92,7 +92,7 @@ public class EmailService {
             emailSender.send(messagePreparer);
         } catch (MailException e) {
             throw new EmailException("Exception occurred when sending comment reply email to "
-                    + commentReplyEmail.getRecipient());
+                    + commentReplyEmail.getRecipientEmail());
         }
     }
 

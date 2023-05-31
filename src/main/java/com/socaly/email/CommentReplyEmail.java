@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CommentReplyEmail {
     private String subject;
-    private String recipient;
+    private String recipientEmail;
     private String recipientUsername;
     private String recipientProfileImage;
     private String replyUsername;
