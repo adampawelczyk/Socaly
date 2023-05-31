@@ -50,7 +50,7 @@ public class EmailService {
             messageHelper.setText(emailContentBuilder.buildPostCommentEmail(
                     postCommentEmail.getRecipientUsername(),
                     postCommentEmail.getRecipientUserProfileImage(),
-                    postCommentEmail.getCommenterUsername(),
+                    postCommentEmail.getCommentUsername(),
                     postCommentEmail.getCommenterProfileImage(),
                     postCommentEmail.getPostTitle(),
                     postCommentEmail.getPostTimestamp(),

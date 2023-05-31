@@ -20,14 +20,14 @@ public class EmailContentBuilder {
         return templateEngine.process("verificationEmailTemplate", context);
     }
 
-    String buildPostCommentEmail(String recipientUsername, String recipientUserProfileImage, String commenterUsername,
+    String buildPostCommentEmail(String recipientUsername, String recipientUserProfileImage, String commentUsername,
                                  String commenterProfileImage, String postTitle, String postTimestamp,
                                  String communityName, String comment) {
         Context context = new Context();
 
         context.setVariable("recipientUsername", recipientUsername);
         context.setVariable("recipientUserProfileImage", recipientUserProfileImage);
-        context.setVariable("commenterUsername", commenterUsername);
+        context.setVariable("commentUsername", commentUsername);
         context.setVariable("commenterProfileImage", commenterProfileImage);
         context.setVariable("postTitle", postTitle);
         context.setVariable("postTimestamp", postTimestamp);

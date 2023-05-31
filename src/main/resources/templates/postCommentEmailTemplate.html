@@ -36,7 +36,7 @@
     <div style="display: flex; justify-content: center; align-items: center; flex-flow: column">
       <div>
         <img style="height: 100px; width: auto; border-radius: 50%"
-             th:alt="${'Image containing the ' + commenterUsername + ' profile image'}"
+             th:alt="${'Image containing the ' + commentUsername + ' profile image'}"
              th:src="${commenterProfileImage}"/>
         <span style="color: #0079d3; position: relative; left: -2.7rem; padding: 0.5rem; background-color: white;
                      border-radius: 50%; border: 1px solid #f6f7f8" class="material-symbols-outlined">
@@ -46,8 +46,8 @@
       <div>
         <p>
           <a style="text-decoration: none; font-weight: bold"
-             th:href="@{'http://localhost:4200/user-profile/' + ${commenterUsername}}" target="_blank">
-            u/<span th:text="${commenterUsername}"></span>
+             th:href="@{'http://localhost:4200/user-profile/' + ${commentUsername}}" target="_blank">
+            u/<span th:text="${commentUsername}"></span>
           </a>
           commented on your post in s/<span th:text="${communityName}"></span>
         </p>
@@ -73,7 +73,7 @@
       </div>
       <div style="padding-top: 0.5rem">
         <p style="margin: 0; font-size: 0.75rem; color: #878a8c">
-          u/<span th:text="${commenterUsername}"></span>
+          u/<span th:text="${commentUsername}"></span>
         </p>
         <p style="margin: 0.2rem 0 0 0; font-size: 0.87rem">
           <span th:utext="${comment}"></span>
