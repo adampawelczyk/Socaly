@@ -12,7 +12,7 @@ public class CommentReplyEmail {
     private String recipient;
     private String recipientUsername;
     private String recipientProfileImage;
-    private String replyingUsername;
+    private String replyUsername;
     private String replyingUserProfileImage;
     private String postingUsername;
     private String postTitle;
