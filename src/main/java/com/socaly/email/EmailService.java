@@ -45,7 +45,7 @@ public class EmailService {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 
             messageHelper.setFrom("noreply@socaly.com");
-            messageHelper.setTo(postCommentEmail.getRecipient());
+            messageHelper.setTo(postCommentEmail.getRecipientEmail());
             messageHelper.setSubject(postCommentEmail.getSubject());
             messageHelper.setText(emailContentBuilder.buildPostCommentEmail(
                     postCommentEmail.getRecipientUsername(),
@@ -62,7 +62,7 @@ public class EmailService {
             emailSender.send(messagePreparer);
         } catch (MailException e) {
             throw new EmailException("Exception occurred when sending post comment email to " +
-                    postCommentEmail.getRecipient());
+                    postCommentEmail.getRecipientEmail());
         }
     }
 
