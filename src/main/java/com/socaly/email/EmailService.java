@@ -49,7 +49,7 @@ public class EmailService {
             messageHelper.setSubject(postCommentEmail.getSubject());
             messageHelper.setText(emailContentBuilder.buildPostCommentEmail(
                     postCommentEmail.getRecipientUsername(),
-                    postCommentEmail.getProfileImage(),
+                    postCommentEmail.getRecipientUserProfileImage(),
                     postCommentEmail.getCommenterUsername(),
                     postCommentEmail.getCommenterProfileImage(),
                     postCommentEmail.getPostTitle(),

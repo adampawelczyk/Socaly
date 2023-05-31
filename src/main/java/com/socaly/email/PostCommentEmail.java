@@ -11,7 +11,7 @@ public class PostCommentEmail {
     private String subject;
     private String recipientEmail;
     private String recipientUsername;
-    private String profileImage;
+    private String recipientUserProfileImage;
     private String commenterUsername;
     private String commenterProfileImage;
     private String postTitle;
