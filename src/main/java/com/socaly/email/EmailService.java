@@ -76,7 +76,7 @@ public class EmailService {
             messageHelper.setSubject(commentReplyEmail.getSubject());
             messageHelper.setText(emailContentBuilder.buildCommentReplyEmail(
                     commentReplyEmail.getRecipientUsername(),
-                    commentReplyEmail.getProfileImage(),
+                    commentReplyEmail.getRecipientProfileImage(),
                     commentReplyEmail.getReplyingUsername(),
                     commentReplyEmail.getReplyingUserProfileImage(),
                     commentReplyEmail.getPostingUsername(),
