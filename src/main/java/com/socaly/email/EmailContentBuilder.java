@@ -37,15 +37,16 @@ public class EmailContentBuilder {
         return templateEngine.process("postCommentEmailTemplate", context);
     }
 
-    String buildCommentReplyEmail(String recipientUsername, String recipientProfileImage, String replyUsername, String replyingUserProfileImage,
-                                  String postingUsername, String postTitle, String postTimestamp, String communityName,
-                                  String commentText, String commentTimestamp, String replyText) {
+    String buildCommentReplyEmail(String recipientUsername, String recipientProfileImage, String replyUsername,
+                                  String replyUserProfileImage, String postingUsername, String postTitle,
+                                  String postTimestamp, String communityName, String commentText, String commentTimestamp,
+                                  String replyText) {
         Context context = new Context();
 
         context.setVariable("recipientUsername", recipientUsername);
         context.setVariable("recipientProfileImage", recipientProfileImage);
         context.setVariable("replyUsername", replyUsername);
-        context.setVariable("replyingUserProfileImage", replyingUserProfileImage);
+        context.setVariable("replyUserProfileImage", replyUserProfileImage);
         context.setVariable("postingUsername", postingUsername);
         context.setVariable("postTitle", postTitle);
         context.setVariable("postTimestamp", postTimestamp);
