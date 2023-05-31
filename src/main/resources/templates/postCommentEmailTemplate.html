@@ -24,11 +24,11 @@
       </a>
     </div>
     <div style="display: flex; align-content: center; flex-wrap: wrap; font-size: 0.75rem; color: #7a9299">
-      <a th:href="@{'http://localhost:4200/user-profile/' + ${username}}" target="_blank"
+      <a th:href="@{'http://localhost:4200/user-profile/' + ${recipientUsername}}" target="_blank"
          style="text-decoration: none; display: flex">
         <img style="height: 16px; width: auto; margin-right: 0.3rem; border-radius: 50%"
-             th:alt="${'Image containing the ' + username + ' profile image'}" th:src="${profileImage}"/>
-        u/<span th:text="${username}"></span>
+             th:alt="${'Image containing the ' + recipientUsername + ' profile image'}" th:src="${profileImage}"/>
+        u/<span th:text="${recipientUsername}"></span>
       </a>
     </div>
   </header>
@@ -62,7 +62,7 @@
             s/<span th:text="${communityName}"></span>
           </p>
           <p style="margin: 0; font-size: 0.75rem; color: #878a8c">
-            u/<span th:text="${username}"></span> • <span th:text="${postTimestamp}"></span>
+            u/<span th:text="${recipientUsername}"></span> • <span th:text="${postTimestamp}"></span>
           </p>
         </div>
       </div>
@@ -90,7 +90,7 @@
   <footer style="width: 600px; background-color: #f1f5f6">
     <div style="display: flex; justify-content: center; padding: 1rem 1rem 0 1rem; text-align: center">
       <p style="margin: 0; font-size: 0.87rem">
-        This email was intended for u/<span th:text="${username}"></span>.<br/>
+        This email was intended for u/<span th:text="${recipientUsername}"></span>.<br/>
         Visit your <a style="text-decoration: none" href="http://localhost:4200/settings/emails">settings</a> to manage
         what email Socaly sends you.
       </p>

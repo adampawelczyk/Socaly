@@ -48,7 +48,7 @@ public class EmailService {
             messageHelper.setTo(postCommentEmail.getRecipient());
             messageHelper.setSubject(postCommentEmail.getSubject());
             messageHelper.setText(emailContentBuilder.buildPostCommentEmail(
-                    postCommentEmail.getUsername(),
+                    postCommentEmail.getRecipientUsername(),
                     postCommentEmail.getProfileImage(),
                     postCommentEmail.getCommenterUsername(),
                     postCommentEmail.getCommenterProfileImage(),
