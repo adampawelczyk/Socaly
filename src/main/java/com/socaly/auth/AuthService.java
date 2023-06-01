@@ -78,8 +78,8 @@ public class AuthService {
                 "Verify your Socaly email address",
                 user.getEmail(),
                 user.getUsername(),
-                "http://localhost:8090/api/auth/verify-account/" + token,
-                user.getProfileImage().getImageUrl()
+                user.getProfileImage().getImageUrl(),
+                "http://localhost:8090/api/auth/verify-account/" + token
                 ));
     }
 
