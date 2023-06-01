@@ -17,5 +17,5 @@ public class PostCommentEmail {
     private String postTitle;
     private String postTimestamp;
     private String communityName;
-    private String comment;
+    private String commentText;
 }

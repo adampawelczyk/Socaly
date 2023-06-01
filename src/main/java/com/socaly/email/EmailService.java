@@ -55,7 +55,7 @@ public class EmailService {
                     postCommentEmail.getPostTitle(),
                     postCommentEmail.getPostTimestamp(),
                     postCommentEmail.getCommunityName(),
-                    postCommentEmail.getComment()
+                    postCommentEmail.getCommentText()
             ));
         };
         try {

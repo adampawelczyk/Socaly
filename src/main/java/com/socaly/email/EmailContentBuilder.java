@@ -22,7 +22,7 @@ public class EmailContentBuilder {
 
     String buildPostCommentEmail(String recipientUsername, String recipientUserProfileImage, String commentUsername,
                                  String commentProfileImage, String postTitle, String postTimestamp,
-                                 String communityName, String comment) {
+                                 String communityName, String commentText) {
         Context context = new Context();
 
         context.setVariable("recipientUsername", recipientUsername);
@@ -32,7 +32,7 @@ public class EmailContentBuilder {
         context.setVariable("postTitle", postTitle);
         context.setVariable("postTimestamp", postTimestamp);
         context.setVariable("communityName", communityName);
-        context.setVariable("comment", comment);
+        context.setVariable("commentText", commentText);
 
         return templateEngine.process("postCommentEmailTemplate", context);
     }
