@@ -28,7 +28,7 @@ public class EmailService {
                     emailVerificationEmail.getRecipientEmail(),
                     emailVerificationEmail.getRecipientUsername(),
                     emailVerificationEmail.getVerificationLink(),
-                    emailVerificationEmail.getProfileImage()
+                    emailVerificationEmail.getRecipientProfileImage()
             ));
         };
         try {

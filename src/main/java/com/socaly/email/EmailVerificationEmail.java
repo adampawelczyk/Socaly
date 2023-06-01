@@ -12,5 +12,5 @@ public class EmailVerificationEmail {
     private String recipientEmail;
     private String recipientUsername;
     private String verificationLink;
-    private String profileImage;
+    private String recipientProfileImage;
 }
