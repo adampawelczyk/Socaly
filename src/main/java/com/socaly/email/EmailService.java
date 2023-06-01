@@ -25,7 +25,7 @@ public class EmailService {
             messageHelper.setTo(emailVerificationEmail.getRecipientEmail());
             messageHelper.setSubject(emailVerificationEmail.getSubject());
             messageHelper.setText(emailContentBuilder.buildEmailVerificationEmail(
-                    emailVerificationEmail.getEmailAddress(),
+                    emailVerificationEmail.getRecipientEmail(),
                     emailVerificationEmail.getUsername(),
                     emailVerificationEmail.getVerificationLink(),
                     emailVerificationEmail.getProfileImage()

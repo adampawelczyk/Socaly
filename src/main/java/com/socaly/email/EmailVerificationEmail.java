@@ -10,7 +10,6 @@ import lombok.NoArgsConstructor;
 public class EmailVerificationEmail {
     private String subject;
     private String recipientEmail;
-    private String emailAddress;
     private String username;
     private String verificationLink;
     private String profileImage;

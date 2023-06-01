@@ -77,7 +77,6 @@ public class AuthService {
         emailService.sendEmailVerificationEmail(new EmailVerificationEmail(
                 "Verify your Socaly email address",
                 user.getEmail(),
-                user.getEmail(),
                 user.getUsername(),
                 "http://localhost:8090/api/auth/verify-account/" + token,
                 user.getProfileImage().getImageUrl()
