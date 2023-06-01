@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class EmailVerificationEmail {
     private String subject;
-    private String recipient;
+    private String recipientEmail;
     private String emailAddress;
     private String username;
     private String verificationLink;

@@ -22,7 +22,7 @@ public class EmailService {
             MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
 
             messageHelper.setFrom("noreply@socaly.com");
-            messageHelper.setTo(emailVerificationEmail.getRecipient());
+            messageHelper.setTo(emailVerificationEmail.getRecipientEmail());
             messageHelper.setSubject(emailVerificationEmail.getSubject());
             messageHelper.setText(emailContentBuilder.buildEmailVerificationEmail(
                     emailVerificationEmail.getEmailAddress(),
@@ -35,7 +35,7 @@ public class EmailService {
             emailSender.send(messagePreparer);
         } catch (MailException e) {
             throw new EmailException("Exception occurred when sending email verification email to " +
-                    emailVerificationEmail.getRecipient());
+                    emailVerificationEmail.getRecipientEmail());
         }
     }
 
