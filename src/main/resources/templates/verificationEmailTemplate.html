@@ -16,10 +16,10 @@
                     </a>
                 </div>
                 <div style="display: flex; align-content: center; flex-wrap: wrap; font-size: 0.75rem; color: #7a9299">
-                    <a th:href="@{'http://localhost:4200/user-profile/' + ${username}}" target="_blank" style="text-decoration: none; display: flex">
+                    <a th:href="@{'http://localhost:4200/user-profile/' + ${recipientUsername}}" target="_blank" style="text-decoration: none; display: flex">
                         <img style="height: 16px; width: auto; margin-right: 0.3rem; border-radius: 50%"
-                             th:src="${profileImage}" th:alt="${'Image containing the ' + username + ' profile image'}"/>
-                        u/<span th:text="${username}"></span>
+                             th:src="${profileImage}" th:alt="${'Image containing the ' + recipientUsername + ' profile image'}"/>
+                        u/<span th:text="${recipientUsername}"></span>
                     </a>
                 </div>
             </header>
@@ -29,7 +29,7 @@
                         Hi there,
                     </p>
                     <p style="margin-bottom: 1rem">
-                        Your email address <span th:text="${recipientEmail}"></span> has been added to your <span th:text="${username}"></span> Socaly account. But wait, we’re not done yet...
+                        Your email address <span th:text="${recipientEmail}"></span> has been added to your <span th:text="${recipientUsername}"></span> Socaly account. But wait, we’re not done yet...
                     </p>
                     <p style="margin-bottom: 3rem">
                         To finish verifying your email address and securing your account, click the button below.
@@ -49,7 +49,7 @@
                         Expired link? No worries! To get a new verification email, visit your <a href="http://localhost:4200/settings/account" style="text-decoration: none">Account Settings</a>, select <i>Update email address</i>, then hit <i>Resend Verification Email</i>.
                     </p>
                     <p style="margin-bottom: 2rem;">
-                        If <span th:text="${username}"></span> isn’t your Socaly account, let us know, and we’ll make sure nothing weird is going on.
+                        If <span th:text="${recipientUsername}"></span> isn’t your Socaly account, let us know, and we’ll make sure nothing weird is going on.
                     </p>
                 </div>
             </main>
