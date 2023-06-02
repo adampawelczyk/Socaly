@@ -49,7 +49,7 @@
              th:href="@{'http://localhost:4200/user-profile/' + ${replyUsername}}" target="_blank">
             u/<span th:text="${replyUsername}"></span>
           </a>
-          replied to your comment on post in s/<span th:text="${communityName}"></span>
+          replied to your comment on <span th:text="${postTitle}"></span> in s/<span th:text="${communityName}"></span>
         </p>
       </div>
     </div>
