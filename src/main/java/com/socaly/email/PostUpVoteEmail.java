@@ -12,10 +12,10 @@ public class PostUpVoteEmail {
     private String recipient;
     private String recipientUsername;
     private String profileImage;
+    private String communityName;
+    private String postTimestamp;
+    private String postTitle;
+    private String postPoints;
     private String upVotingUserUsername;
     private String upVotingUserProfileImage;
-    private String postTitle;
-    private String postTimestamp;
-    private String postPoints;
-    private String communityName;
 }

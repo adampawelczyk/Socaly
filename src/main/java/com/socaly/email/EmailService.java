@@ -107,12 +107,12 @@ public class EmailService {
             messageHelper.setText(emailContentBuilder.buildPostUpVoteEmail(
                     postUpVoteEmail.getRecipientUsername(),
                     postUpVoteEmail.getProfileImage(),
-                    postUpVoteEmail.getUpVotingUserUsername(),
-                    postUpVoteEmail.getUpVotingUserProfileImage(),
-                    postUpVoteEmail.getPostTitle(),
+                    postUpVoteEmail.getCommunityName(),
                     postUpVoteEmail.getPostTimestamp(),
+                    postUpVoteEmail.getPostTitle(),
                     postUpVoteEmail.getPostPoints(),
-                    postUpVoteEmail.getCommunityName()
+                    postUpVoteEmail.getUpVotingUserUsername(),
+                    postUpVoteEmail.getUpVotingUserProfileImage()
             ));
         };
         try {
