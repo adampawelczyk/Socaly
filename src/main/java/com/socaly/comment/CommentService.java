@@ -58,11 +58,11 @@ public class CommentService {
                 post.getUser().getEmail(),
                 post.getUser().getUsername(),
                 post.getUser().getProfileImage().getImageUrl(),
+                post.getCommunity().getName(),
+                TimeAgo.using(post.getCreatedDate().toEpochMilli()),
+                post.getPostName(),
                 comment.getUser().getUsername(),
                 comment.getUser().getProfileImage().getImageUrl(),
-                post.getPostName(),
-                TimeAgo.using(post.getCreatedDate().toEpochMilli()),
-                post.getCommunity().getName(),
                 comment.getText()
         ));
     }
