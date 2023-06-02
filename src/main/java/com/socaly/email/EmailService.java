@@ -77,14 +77,14 @@ public class EmailService {
             messageHelper.setText(emailContentBuilder.buildCommentReplyEmail(
                     commentReplyEmail.getRecipientUsername(),
                     commentReplyEmail.getRecipientProfileImage(),
+                    commentReplyEmail.getCommunityName(),
+                    commentReplyEmail.getPostUsername(),
+                    commentReplyEmail.getPostTimestamp(),
+                    commentReplyEmail.getPostTitle(),
+                    commentReplyEmail.getCommentTimestamp(),
+                    commentReplyEmail.getCommentText(),
                     commentReplyEmail.getReplyUsername(),
                     commentReplyEmail.getReplyUserProfileImage(),
-                    commentReplyEmail.getPostUsername(),
-                    commentReplyEmail.getPostTitle(),
-                    commentReplyEmail.getPostTimestamp(),
-                    commentReplyEmail.getCommunityName(),
-                    commentReplyEmail.getCommentText(),
-                    commentReplyEmail.getCommentTimestamp(),
                     commentReplyEmail.getReplyText()
             ));
         };

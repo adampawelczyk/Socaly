@@ -12,13 +12,13 @@ public class CommentReplyEmail {
     private String recipientEmail;
     private String recipientUsername;
     private String recipientProfileImage;
+    private String communityName;
+    private String postUsername;
+    private String postTimestamp;
+    private String postTitle;
+    private String commentTimestamp;
+    private String commentText;
     private String replyUsername;
     private String replyUserProfileImage;
-    private String postUsername;
-    private String postTitle;
-    private String postTimestamp;
-    private String communityName;
-    private String commentText;
-    private String commentTimestamp;
     private String replyText;
 }

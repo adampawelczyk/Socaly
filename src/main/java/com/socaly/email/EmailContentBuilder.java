@@ -37,22 +37,22 @@ public class EmailContentBuilder {
         return templateEngine.process("postCommentEmailTemplate", context);
     }
 
-    String buildCommentReplyEmail(String recipientUsername, String recipientProfileImage, String replyUsername,
-                                  String replyUserProfileImage, String postUsername, String postTitle,
-                                  String postTimestamp, String communityName, String commentText, String commentTimestamp,
+    String buildCommentReplyEmail(String recipientUsername, String recipientProfileImage, String communityName,
+                                  String postUsername, String postTimestamp, String postTitle, String commentTimestamp,
+                                  String commentText, String replyUsername, String replyUserProfileImage,
                                   String replyText) {
         Context context = new Context();
 
         context.setVariable("recipientUsername", recipientUsername);
         context.setVariable("recipientProfileImage", recipientProfileImage);
+        context.setVariable("communityName", communityName);
+        context.setVariable("postUsername", postUsername);
+        context.setVariable("postTimestamp", postTimestamp);
+        context.setVariable("postTitle", postTitle);
+        context.setVariable("commentTimestamp", commentTimestamp);
+        context.setVariable("commentText", commentText);
         context.setVariable("replyUsername", replyUsername);
         context.setVariable("replyUserProfileImage", replyUserProfileImage);
-        context.setVariable("postUsername", postUsername);
-        context.setVariable("postTitle", postTitle);
-        context.setVariable("postTimestamp", postTimestamp);
-        context.setVariable("communityName", communityName);
-        context.setVariable("commentText", commentText);
-        context.setVariable("commentTimestamp", commentTimestamp);
         context.setVariable("replyText", replyText);
 
         return templateEngine.process("commentReplyEmailTemplate", context);
