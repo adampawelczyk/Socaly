@@ -11,7 +11,7 @@ public class PostUpVoteEmail {
     private String subject;
     private String recipient;
     private String recipientUsername;
-    private String profileImage;
+    private String recipientProfileImage;
     private String communityName;
     private String postTimestamp;
     private String postTitle;
