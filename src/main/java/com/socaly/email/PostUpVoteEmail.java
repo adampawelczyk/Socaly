@@ -17,5 +17,5 @@ public class PostUpVoteEmail {
     private String postTitle;
     private String postPoints;
     private String upVoteUsername;
-    private String upVotingUserProfileImage;
+    private String upVoteUserProfileImage;
 }

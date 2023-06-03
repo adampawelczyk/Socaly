@@ -112,7 +112,7 @@ public class EmailService {
                     postUpVoteEmail.getPostTitle(),
                     postUpVoteEmail.getPostPoints(),
                     postUpVoteEmail.getUpVoteUsername(),
-                    postUpVoteEmail.getUpVotingUserProfileImage()
+                    postUpVoteEmail.getUpVoteUserProfileImage()
             ));
         };
         try {
