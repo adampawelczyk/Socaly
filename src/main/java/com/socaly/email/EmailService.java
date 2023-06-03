@@ -111,7 +111,7 @@ public class EmailService {
                     postUpVoteEmail.getPostTimestamp(),
                     postUpVoteEmail.getPostTitle(),
                     postUpVoteEmail.getPostPoints(),
-                    postUpVoteEmail.getUpVotingUserUsername(),
+                    postUpVoteEmail.getUpVoteUsername(),
                     postUpVoteEmail.getUpVotingUserProfileImage()
             ));
         };

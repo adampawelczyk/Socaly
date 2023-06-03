@@ -16,6 +16,6 @@ public class PostUpVoteEmail {
     private String postTimestamp;
     private String postTitle;
     private String postPoints;
-    private String upVotingUserUsername;
+    private String upVoteUsername;
     private String upVotingUserProfileImage;
 }
