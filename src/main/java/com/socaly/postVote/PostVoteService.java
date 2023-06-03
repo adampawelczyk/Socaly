@@ -51,6 +51,10 @@ public class PostVoteService {
         } else {
             if (VoteType.UPVOTE.equals(postVoteDto.getVoteType())) {
                 post.setVoteCount(post.getVoteCount() + 1);
+
+                if (post.getUser().getSettings().getPostUpVoteEmails()) {
+                    sendPostUpVoteEmail(post);
+                }
             } else {
                 post.setVoteCount(post.getVoteCount() - 1);
             }
