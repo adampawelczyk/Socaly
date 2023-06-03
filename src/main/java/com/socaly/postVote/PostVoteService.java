@@ -2,6 +2,7 @@ package com.socaly.postVote;
 
 import com.github.marlonlom.utilities.timeago.TimeAgo;
 import com.socaly.auth.AuthService;
+import com.socaly.comment.CommentRepository;
 import com.socaly.email.EmailService;
 import com.socaly.email.PostUpVoteEmail;
 import com.socaly.post.Post;
@@ -20,6 +21,7 @@ import java.util.Optional;
 public class PostVoteService {
     private final PostVoteRepository postVoteRepository;
     private final PostRepository postRepository;
+    private final CommentRepository commentRepository;
     private final AuthService authService;
     private final EmailService emailService;
 
@@ -66,11 +68,19 @@ public class PostVoteService {
     private void sendPostUpVoteEmail(Post post) {
         User currentUser = authService.getCurrentUser();
         String postPoints;
+        int commentCount = commentRepository.findByPost(post).size();
+        String commentCountText;
 
         if (post.getVoteCount() == 1) {
             postPoints = "1 point";
         } else {
             postPoints = post.getVoteCount() + " points";
+        }
+
+        if (commentCount == 1) {
+            commentCountText = "1 comment";
+        } else {
+            commentCountText = commentCount + " comments";
         }
 
         emailService.sendPostUpVoteEmail(new PostUpVoteEmail(
@@ -82,6 +92,7 @@ public class PostVoteService {
                 TimeAgo.using(post.getCreatedDate().toEpochMilli()),
                 post.getPostName(),
                 postPoints,
+                commentCountText,
                 currentUser.getUsername(),
                 currentUser.getProfileImage().getImageUrl()
         ));
