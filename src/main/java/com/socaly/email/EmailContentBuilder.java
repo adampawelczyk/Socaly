@@ -64,7 +64,7 @@ public class EmailContentBuilder {
                                 String upVotingUserProfileImage) {
         Context context = new Context();
 
-        context.setVariable("username", recipientUsername);
+        context.setVariable("recipientUsername", recipientUsername);
         context.setVariable("profileImage", profileImage);
         context.setVariable("communityName", communityName);
         context.setVariable("postTimestamp", postTimestamp);
