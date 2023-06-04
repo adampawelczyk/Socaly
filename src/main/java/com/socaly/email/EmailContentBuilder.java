@@ -76,4 +76,26 @@ public class EmailContentBuilder {
 
         return templateEngine.process("postUpVoteEmailTemplate", context);
     }
+
+    String buildCommentUpVoteEmail(String recipientUsername, String recipientProfileImage, String communityName,
+                                   String postUsername, String postTimestamp, String postTitle, String postPoints,
+                                   String commentCount, String commentTimestamp, String commentText,
+                                   String upVoteUsername, String upVoteUserProfileImage) {
+        Context context = new Context();
+
+        context.setVariable("recipientUsername", recipientUsername);
+        context.setVariable("recipientProfileImage", recipientProfileImage);
+        context.setVariable("communityName", communityName);
+        context.setVariable("postUsername", postUsername);
+        context.setVariable("postTimestamp", postTimestamp);
+        context.setVariable("postTitle", postTitle);
+        context.setVariable("postPoints", postPoints);
+        context.setVariable("commentCount", commentCount);
+        context.setVariable("commentTimestamp", commentTimestamp);
+        context.setVariable("commentText", commentText);
+        context.setVariable("upVoteUsername", upVoteUsername);
+        context.setVariable("upVoteUserProfileImage", upVoteUserProfileImage);
+
+        return templateEngine.process("commentUpVoteEmailTemplate", context);
+    }
 }
