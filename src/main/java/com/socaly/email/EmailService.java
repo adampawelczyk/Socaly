@@ -123,4 +123,35 @@ public class EmailService {
                     + postUpVoteEmail.getRecipient());
         }
     }
+
+    @Async
+    public void sendCommentUpVoteEmail(CommentUpVoteEmail commentUpVoteEmail) {
+        MimeMessagePreparator messagePreparer = mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+
+            messageHelper.setFrom("noreply@socaly.com");
+            messageHelper.setTo(commentUpVoteEmail.getRecipient());
+            messageHelper.setSubject(commentUpVoteEmail.getSubject());
+            messageHelper.setText(emailContentBuilder.buildCommentUpVoteEmail(
+                    commentUpVoteEmail.getRecipientUsername(),
+                    commentUpVoteEmail.getRecipientProfileImage(),
+                    commentUpVoteEmail.getCommunityName(),
+                    commentUpVoteEmail.getPostUsername(),
+                    commentUpVoteEmail.getPostTimestamp(),
+                    commentUpVoteEmail.getPostTitle(),
+                    commentUpVoteEmail.getPostPoints(),
+                    commentUpVoteEmail.getCommentCount(),
+                    commentUpVoteEmail.getCommentTimestamp(),
+                    commentUpVoteEmail.getCommentText(),
+                    commentUpVoteEmail.getUpVoteUsername(),
+                    commentUpVoteEmail.getUpVoteUserProfileImage()
+            ));
+        };
+        try {
+            emailSender.send(messagePreparer);
+        } catch (MailException e) {
+            throw new EmailException("Exception occurred when sending comment up vote email to "
+                    + commentUpVoteEmail.getRecipient());
+        }
+    }
 }
