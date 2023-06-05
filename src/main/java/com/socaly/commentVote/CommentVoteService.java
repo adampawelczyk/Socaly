@@ -49,6 +49,12 @@ public class CommentVoteService {
         } else {
             if (VoteType.UPVOTE.equals(commentVoteDto.getVoteType())) {
                 comment.setVoteCount(comment.getVoteCount() + 1);
+                User currentUser = authService.getCurrentUser();
+
+                if (!currentUser.getUsername().equals(comment.getUser().getUsername())
+                    && comment.getUser().getSettings().getCommentUpVoteEmails()) {
+                    sendCommentUpVoteEmail(comment);
+                }
             } else {
                 comment.setVoteCount(comment.getVoteCount() - 1);
             }
