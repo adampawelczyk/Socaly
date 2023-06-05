@@ -143,6 +143,8 @@ public class EmailService {
                     commentUpVoteEmail.getCommentCount(),
                     commentUpVoteEmail.getCommentTimestamp(),
                     commentUpVoteEmail.getCommentText(),
+                    commentUpVoteEmail.getCommentPoints(),
+                    commentUpVoteEmail.getCommentReplyCount(),
                     commentUpVoteEmail.getUpVoteUsername(),
                     commentUpVoteEmail.getUpVoteUserProfileImage()
             ));

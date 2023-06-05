@@ -18,6 +18,8 @@ public class CommentUpVoteEmail {
     private String commentCount;
     private String commentTimestamp;
     private String commentText;
+    private String commentPoints;
+    private String commentReplyCount;
     private String upVoteUsername;
     private String upVoteUserProfileImage;
 }
