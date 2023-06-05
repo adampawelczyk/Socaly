@@ -156,4 +156,42 @@ public class EmailService {
                     + commentUpVoteEmail.getRecipient());
         }
     }
+
+    @Async
+    public void sendReplyUpVoteEmail(ReplyUpVoteEmail replyUpVoteEmail) {
+        MimeMessagePreparator messagePreparer = mimeMessage -> {
+            MimeMessageHelper messageHelper = new MimeMessageHelper(mimeMessage);
+
+            messageHelper.setFrom("noreply@socaly.com");
+            messageHelper.setTo(replyUpVoteEmail.getRecipient());
+            messageHelper.setSubject(replyUpVoteEmail.getSubject());
+            messageHelper.setText(emailContentBuilder.buildReplyUpVoteEmail(
+                    replyUpVoteEmail.getRecipientUsername(),
+                    replyUpVoteEmail.getRecipientProfileImage(),
+                    replyUpVoteEmail.getCommunityName(),
+                    replyUpVoteEmail.getPostUsername(),
+                    replyUpVoteEmail.getPostTimestamp(),
+                    replyUpVoteEmail.getPostTitle(),
+                    replyUpVoteEmail.getPostPoints(),
+                    replyUpVoteEmail.getCommentCount(),
+                    replyUpVoteEmail.getCommentUsername(),
+                    replyUpVoteEmail.getCommentTimestamp(),
+                    replyUpVoteEmail.getCommentText(),
+                    replyUpVoteEmail.getCommentPoints(),
+                    replyUpVoteEmail.getCommentReplyCount(),
+                    replyUpVoteEmail.getReplyTimestamp(),
+                    replyUpVoteEmail.getReplyText(),
+                    replyUpVoteEmail.getReplyPoints(),
+                    replyUpVoteEmail.getReplyReplyCount(),
+                    replyUpVoteEmail.getUpVoteUsername(),
+                    replyUpVoteEmail.getUpVoteUserProfileImage()
+            ));
+        };
+        try {
+            emailSender.send(messagePreparer);
+        } catch (MailException e) {
+            throw new EmailException("Exception occurred when sending reply up vote email to "
+                    + replyUpVoteEmail.getRecipient());
+        }
+    }
 }
