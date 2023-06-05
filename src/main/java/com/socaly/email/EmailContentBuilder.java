@@ -101,4 +101,35 @@ public class EmailContentBuilder {
 
         return templateEngine.process("commentUpVoteEmailTemplate", context);
     }
+
+    String buildReplyUpVoteEmail(String recipientUsername, String recipientProfileImage, String communityName,
+                                 String postUsername, String postTimestamp, String postTitle, String postPoints,
+                                 String commentCount, String commentUsername, String commentTimestamp,
+                                 String commentText, String commentPoints, String commentReplyCount,
+                                 String replyTimestamp, String replyText, String replyPoints, String replyReplyCount,
+                                 String upVoteUsername, String upVoteUserProfileImage) {
+        Context context = new Context();
+
+        context.setVariable("recipientUsername", recipientUsername);
+        context.setVariable("recipientProfileImage", recipientProfileImage);
+        context.setVariable("communityName", communityName);
+        context.setVariable("postUsername", postUsername);
+        context.setVariable("postTimestamp", postTimestamp);
+        context.setVariable("postTitle", postTitle);
+        context.setVariable("postPoints", postPoints);
+        context.setVariable("commentCount", commentCount);
+        context.setVariable("commentUsername", commentUsername);
+        context.setVariable("commentTimestamp", commentTimestamp);
+        context.setVariable("commentText", commentText);
+        context.setVariable("commentPoints", commentPoints);
+        context.setVariable("commentReplyCount", commentReplyCount);
+        context.setVariable("replyTimestamp", replyTimestamp);
+        context.setVariable("replyText", replyText);
+        context.setVariable("replyPoints", replyPoints);
+        context.setVariable("replyReplyCount", replyReplyCount);
+        context.setVariable("upVoteUsername", upVoteUsername);
+        context.setVariable("upVoteUserProfileImage", upVoteUserProfileImage);
+
+        return templateEngine.process("replyUpVoteEmailTemplate", context);
+    }
 }
