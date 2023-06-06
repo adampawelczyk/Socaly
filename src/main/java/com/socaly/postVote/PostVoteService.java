@@ -84,7 +84,8 @@ public class PostVoteService {
         }
 
         emailService.sendPostUpVoteEmail(new PostUpVoteEmail(
-                post.getUser().getUsername() + " upvoted your post " + post.getPostName(),
+                currentUser.getUsername() + " upvoted your post " + post.getPostName() + " in s\\"
+                        + post.getCommunity().getName(),
                 post.getUser().getEmail(),
                 post.getUser().getUsername(),
                 post.getUser().getProfileImage().getImageUrl(),

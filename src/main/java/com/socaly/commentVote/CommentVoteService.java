@@ -129,7 +129,7 @@ public class CommentVoteService {
             }
 
             emailService.sendReplyUpVoteEmail(new ReplyUpVoteEmail(
-                    currentUser.getUsername() + " upvoted your reply on " + comment.getPost().getPostName()
+                    currentUser.getUsername() + " upvoted your reply on post " + comment.getPost().getPostName()
                             + " in s\\" + comment.getPost().getCommunity().getName(),
                     comment.getUser().getEmail(),
                     comment.getUser().getUsername(),
@@ -154,7 +154,7 @@ public class CommentVoteService {
             ));
         } else {
             emailService.sendCommentUpVoteEmail(new CommentUpVoteEmail(
-                    currentUser.getUsername() + " upvoted your comment on " + comment.getPost().getPostName()
+                    currentUser.getUsername() + " upvoted your comment on post " + comment.getPost().getPostName()
                             + " in s\\" + comment.getPost().getCommunity().getName(),
                     comment.getUser().getEmail(),
                     comment.getUser().getUsername(),
