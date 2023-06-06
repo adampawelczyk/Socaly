@@ -67,21 +67,6 @@ public class PostVoteService {
 
     private void sendPostUpVoteEmail(Post post) {
         User currentUser = authService.getCurrentUser();
-        String postPoints;
-        int commentCount = commentRepository.findByPost(post).size();
-        String commentCountText;
-
-        if (post.getVoteCount() == 1) {
-            postPoints = "1 point";
-        } else {
-            postPoints = post.getVoteCount() + " points";
-        }
-
-        if (commentCount == 1) {
-            commentCountText = "1 comment";
-        } else {
-            commentCountText = commentCount + " comments";
-        }
 
         emailService.sendPostUpVoteEmail(new PostUpVoteEmail(
                 currentUser.getUsername() + " upvoted your post " + post.getPostName() + " in s\\"
@@ -92,8 +77,8 @@ public class PostVoteService {
                 post.getCommunity().getName(),
                 TimeAgo.using(post.getCreatedDate().toEpochMilli()),
                 post.getPostName(),
-                postPoints,
-                commentCountText,
+                Post.getPostPointsText(post.getVoteCount()),
+                Post.getPostCommentCountText(commentRepository.findByPost(post).size()),
                 currentUser.getUsername(),
                 currentUser.getProfileImage().getImageUrl()
         ));

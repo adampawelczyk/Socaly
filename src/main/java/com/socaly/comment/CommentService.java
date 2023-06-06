@@ -53,24 +53,6 @@ public class CommentService {
     }
 
     private void sendPostCommentEmail(Post post, Comment comment) {
-        int postPoints = post.getVoteCount();
-        String postPointsText;
-
-        int commentCount = commentRepository.findByPost(comment.getPost()).size();
-        String commentCountText;
-
-        if (postPoints == 1 || postPoints == -1) {
-            postPointsText = "1 point";
-        } else {
-            postPointsText = comment.getPost().getVoteCount() + " points";
-        }
-
-        if (commentCount == 1) {
-            commentCountText = "1 comment";
-        } else {
-            commentCountText = commentCount + " comments";
-        }
-
         emailService.sendPostCommentEmail(new PostCommentEmail(
                 comment.getUser().getUsername() + " commented on your post " + post.getPostName() + " in s\\"
                         + post.getCommunity().getName(),
@@ -80,8 +62,8 @@ public class CommentService {
                 post.getCommunity().getName(),
                 TimeAgo.using(post.getCreatedDate().toEpochMilli()),
                 post.getPostName(),
-                postPointsText,
-                commentCountText,
+                Post.getPostPointsText(post.getVoteCount()),
+                Post.getPostCommentCountText(commentRepository.findByPost(comment.getPost()).size()),
                 comment.getUser().getUsername(),
                 comment.getUser().getProfileImage().getImageUrl(),
                 comment.getText()
@@ -89,42 +71,6 @@ public class CommentService {
     }
 
     private void sendCommentReplyEmail(Post post, Comment comment, Comment reply) {
-        int postPoints = post.getVoteCount();
-        String postPointsText;
-
-        int commentCount = commentRepository.findByPost(comment.getPost()).size();
-        String commentCountText;
-
-        int commentPoints = comment.getVoteCount();
-        String commentPointsText;
-
-        int commentReplyCount = commentRepository.findByParentCommentId(comment.getId()).size();
-        String commentReplyCountText;
-
-        if (postPoints == 1 || postPoints == -1) {
-            postPointsText = "1 point";
-        } else {
-            postPointsText = comment.getPost().getVoteCount() + " points";
-        }
-
-        if (commentCount == 1) {
-            commentCountText = "1 comment";
-        } else {
-            commentCountText = commentCount + " comments";
-        }
-
-        if (commentPoints == 1 || commentPoints == -1) {
-            commentPointsText = "1 point";
-        } else {
-            commentPointsText = commentPoints + " points";
-        }
-
-        if (commentReplyCount == 1) {
-            commentReplyCountText = "1 reply";
-        } else {
-            commentReplyCountText = commentReplyCount + " replies";
-        }
-
         emailService.sendCommentReplyEmail(new CommentReplyEmail(
                 reply.getUser().getUsername() + " replied to your comment on post " + post.getPostName()
                         + "in s\\" + post.getCommunity().getName(),
@@ -135,12 +81,12 @@ public class CommentService {
                 post.getUser().getUsername(),
                 TimeAgo.using(post.getCreatedDate().toEpochMilli()),
                 post.getPostName(),
-                postPointsText,
-                commentCountText,
+                Post.getPostPointsText(comment.getPost().getVoteCount()),
+                Post.getPostCommentCountText(commentRepository.findByPost(comment.getPost()).size()),
                 TimeAgo.using(comment.getCreationDate().toEpochMilli()),
                 comment.getText(),
-                commentPointsText,
-                commentReplyCountText,
+                Comment.getCommentPointsText(comment.getVoteCount()),
+                Comment.getCommentReplyCountText(commentRepository.findByParentCommentId(comment.getId()).size()),
                 reply.getUser().getUsername(),
                 reply.getUser().getProfileImage().getImageUrl(),
                 reply.getText()
