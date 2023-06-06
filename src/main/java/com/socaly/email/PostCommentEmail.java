@@ -13,6 +13,8 @@ public class PostCommentEmail {
     private String communityName;
     private String postTimestamp;
     private String postTitle;
+    private String postPoints;
+    private String commentCount;
     private String commentUsername;
     private String commentUserProfileImage;
     private String commentText;

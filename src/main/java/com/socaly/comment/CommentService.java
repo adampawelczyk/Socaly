@@ -53,6 +53,24 @@ public class CommentService {
     }
 
     private void sendPostCommentEmail(Post post, Comment comment) {
+        int postPoints = post.getVoteCount();
+        String postPointsText;
+
+        int commentCount = commentRepository.findByPost(comment.getPost()).size();
+        String commentCountText;
+
+        if (postPoints == 1 || postPoints == -1) {
+            postPointsText = "1 point";
+        } else {
+            postPointsText = comment.getPost().getVoteCount() + " points";
+        }
+
+        if (commentCount == 1) {
+            commentCountText = "1 comment";
+        } else {
+            commentCountText = commentCount + " comments";
+        }
+
         emailService.sendPostCommentEmail(new PostCommentEmail(
                 comment.getUser().getUsername() + " commented on your post: " + post.getPostName(),
                 post.getUser().getEmail(),
@@ -61,6 +79,8 @@ public class CommentService {
                 post.getCommunity().getName(),
                 TimeAgo.using(post.getCreatedDate().toEpochMilli()),
                 post.getPostName(),
+                postPointsText,
+                commentCountText,
                 comment.getUser().getUsername(),
                 comment.getUser().getProfileImage().getImageUrl(),
                 comment.getText()
