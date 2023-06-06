@@ -72,7 +72,8 @@ public class CommentService {
         }
 
         emailService.sendPostCommentEmail(new PostCommentEmail(
-                comment.getUser().getUsername() + " commented on your post: " + post.getPostName(),
+                comment.getUser().getUsername() + " commented on your post " + post.getPostName() + " in s\\"
+                        + post.getCommunity().getName(),
                 post.getUser().getEmail(),
                 post.getUser().getUsername(),
                 post.getUser().getProfileImage().getImageUrl(),
@@ -125,7 +126,8 @@ public class CommentService {
         }
 
         emailService.sendCommentReplyEmail(new CommentReplyEmail(
-                reply.getUser().getUsername() + " replied to your comment on post: " + post.getPostName(),
+                reply.getUser().getUsername() + " replied to your comment on post " + post.getPostName()
+                        + "in s\\" + post.getCommunity().getName(),
                 comment.getUser().getEmail(),
                 comment.getUser().getUsername(),
                 comment.getUser().getProfileImage().getImageUrl(),
