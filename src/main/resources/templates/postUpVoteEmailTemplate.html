@@ -30,7 +30,8 @@
       <a th:href="@{'http://localhost:4200/user-profile/' + ${recipientUsername}}" target="_blank"
          style="text-decoration: none; display: flex">
         <img style="height: 16px; width: auto; margin-right: 0.3rem; border-radius: 50%"
-             th:alt="${'Image containing the ' + recipientUsername + ' profile image'}" th:src="${recipientProfileImage}"/>
+             th:alt="${'Image containing the ' + recipientUsername + ' profile image'}"
+             th:src="${recipientProfileImage}"/>
         u/<span th:text="${recipientUsername}"></span>
       </a>
     </div>
@@ -41,8 +42,8 @@
         <img style="height: 100px; width: auto; border-radius: 50%"
              th:alt="${'Image containing the ' + upVoteUsername + ' profile image'}"
              th:src="${upVoteUserProfileImage}"/>
-        <span style="color: #0079d3; position: relative; left: 2rem; top: -2rem; padding: 0.5rem; background-color: white;
-                     border-radius: 50%; border: 1px solid #f6f7f8" class="material-symbols-outlined">
+        <span style="color: #0079d3; position: relative; left: 2rem; top: -2rem; background-color: white;
+                     padding: 0.5rem; border-radius: 50%; border: 1px solid #f6f7f8" class="material-symbols-outlined">
           arrow_upward
         </span>
       </div>
