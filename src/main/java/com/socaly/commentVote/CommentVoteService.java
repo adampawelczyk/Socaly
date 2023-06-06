@@ -96,9 +96,9 @@ public class CommentVoteService {
         }
 
         if (commentReplyCount == 1) {
-            commentReplyCountText = "1 comment";
+            commentReplyCountText = "1 reply";
         } else {
-            commentReplyCountText = commentReplyCount + " comments";
+            commentReplyCountText = commentReplyCount + " replies";
         }
 
         emailService.sendCommentUpVoteEmail(new CommentUpVoteEmail(
