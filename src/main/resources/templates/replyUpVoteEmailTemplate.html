@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Reply upvote email</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <style>
+      * {
+          box-sizing: border-box;
+      }
+      p {
+          margin: 0;
+      }
+  </style>
+</head>
+<body>
+<div style="display: flex; width: 100%; align-items: center; flex-direction: column; font-size: 1rem; color: black;
+                      line-height: 18px; font-family: Arial, sans-serif; text-align: left">
+  <header style="display: flex; flex-direction: row; width: 600px; margin-top: 2rem; margin-bottom: 3rem;
+                        justify-content: space-between; padding-left: 1rem; padding-right: 1rem">
+    <div>
+      <a style="text-decoration: none" href="http://localhost:4200/">
+        <img style="height: 30px; width: auto" alt="Image containing the Socaly logo"
+             src="https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static%2Fsocaly-image-logo.png?alt=media&token=9ff49c88-38db-4c16-8156-7249cde35e9c">
+        <img style="height: 30px; width: auto" alt="Image containing the Socaly text logo"
+             src="https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static%2Fsocaly-text-logo-black.png?alt=media&token=e30e5f38-605d-4d7a-80cc-f61fbe638a5e">
+      </a>
+    </div>
+    <div style="display: flex; align-content: center; flex-wrap: wrap; font-size: 0.75rem; color: #7a9299">
+      <a th:href="@{'http://localhost:4200/user-profile/' + ${recipientUsername}}" target="_blank"
+         style="text-decoration: none; display: flex">
+        <img style="height: 16px; width: auto; margin-right: 0.3rem; border-radius: 50%"
+             th:alt="${'Image containing the ' + recipientUsername + ' profile image'}" th:src="${recipientProfileImage}"/>
+        u/<span th:text="${recipientUsername}"></span>
+      </a>
+    </div>
+  </header>
+  <main style="width: 600px; padding-left: 1rem; padding-right: 1rem">
+    <div style="display: flex; justify-content: center; align-items: center; flex-flow: column">
+      <div style="display: flex; flex-flow: column; align-items: center; margin-bottom: -1.5rem">
+        <img style="height: 100px; width: auto; border-radius: 50%"
+             th:alt="${'Image containing the ' + upVoteUsername + ' profile image'}"
+             th:src="${upVoteUserProfileImage}"/>
+        <span style="color: #0079d3; position: relative; left: 2rem; top: -2rem; padding: 0.5rem; background-color: white;
+                     border-radius: 50%; border: 1px solid #f6f7f8" class="material-symbols-outlined">
+          arrow_upward
+        </span>
+      </div>
+      <div>
+        <p>
+          <a style="text-decoration: none; font-weight: bold"
+             th:href="@{'http://localhost:4200/user-profile/' + ${upVoteUsername}}" target="_blank">
+            u/<span th:text="${upVoteUsername}"></span>
+          </a>
+          upvoted your reply on post in s/<span th:text="${communityName}"></span>
+        </p>
+      </div>
+    </div>
+    <div style="margin-top: 3rem">
+      <div>
+        <div style="display: flex; flex-flow: row">
+          <img style="height: 32px; width: auto; border-radius: 50%"
+               th:src=""/>
+          <div style="display: flex; flex-flow: column; margin-left: 0.3rem;">
+            <p style="font-size: 0.87rem; font-weight: bold">
+              s/<span th:text="${communityName}"></span>
+            </p>
+            <p style="font-size: 0.75rem; color: #878a8c">
+              u/<span th:text="${postUsername}"></span> • <span th:text="${postTimestamp}"></span>
+            </p>
+          </div>
+        </div>
+        <div style="padding-bottom: 0.5rem; border-bottom: 1px solid #f6f7f8">
+          <p style="margin: 0.2rem 0 0.2rem 0; font-weight: bold">
+            <span th:text="${postTitle}"></span>
+          </p>
+          <p style="font-size: 0.75rem; color: #878a8c">
+            <span th:text="${postPoints}"></span> · <span th:text="${commentCount}"></span>
+          </p>
+        </div>
+      </div>
+      <div style="margin-top: 0.5rem">
+        <p style="font-size: 0.75rem; color: #878a8c; margin-bottom: 0.2rem">
+          u/<span th:text="${commentUsername}"></span> • <span th:text="${commentTimestamp}"></span>
+        </p>
+        <p>
+          <span th:utext="${commentText}"></span>
+        </p>
+        <p style="font-size: 0.75rem; color: #878a8c; margin-top: 0.2rem">
+          <span th:text="${commentPoints}"></span> · <span th:text="${commentReplyCount}"></span>
+        </p>
+      </div>
+      <div style="margin: 0.5rem 0 0 1rem; border-left: 2px dashed #edeff1">
+        <div style="padding-left: 0.5rem">
+          <p style="font-size: 0.75rem; color: #878a8c; margin-bottom: 0.2rem">
+            u/<span th:text="${recipientUsername}"></span> • <span th:text="${replyTimestamp}"></span>
+          </p>
+          <p>
+            <span th:utext="${replyText}"></span>
+          </p>
+          <p style="font-size: 0.75rem; color: #878a8c; margin-top: 0.2rem">
+            <span th:text="${replyPoints}"></span> · <span th:text="${replyReplyCount}"></span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div style="display: flex; justify-content: center; margin: 3rem 0 3rem 0">
+      <a style="display: block; width: 200px; padding: 0.5rem; background-color: #0079d3; color: white;
+                text-decoration: none; border-radius: 4px; text-align: center">
+        View Reply
+      </a>
+    </div>
+  </main>
+  <footer style="width: 600px; background-color: #f1f5f6">
+    <div style="display: flex; justify-content: center; padding: 1rem 1rem 0 1rem; text-align: center">
+      <p style="font-size: 0.87rem">
+        This email was intended for u/<span th:text="${recipientUsername}"></span>.<br/>
+        Visit your <a style="text-decoration: none" href="http://localhost:4200/settings/emails">settings</a> to manage
+        what email Socaly sends you.
+      </p>
+    </div>
+    <img src="https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static%2Ffooter-logo.png?alt=media&token=2208e322-2d2a-43f2-a485-9671ff4be270"
+         style="max-width: 100%" alt="footer image containing the socaly logo"/>
+  </footer>
+</div>
+</body>
+</html>
