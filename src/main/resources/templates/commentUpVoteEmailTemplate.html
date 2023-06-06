@@ -53,7 +53,7 @@
              th:href="@{'http://localhost:4200/user-profile/' + ${upVoteUsername}}" target="_blank">
             u/<span th:text="${upVoteUsername}"></span>
           </a>
-          upvoted your comment on post in s/<span th:text="${communityName}"></span>
+          upvoted your comment on post <span th:text="${postTitle}"></span> in s/<span th:text="${communityName}"></span>
         </p>
       </div>
     </div>

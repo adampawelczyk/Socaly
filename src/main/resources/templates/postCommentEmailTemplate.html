@@ -53,7 +53,7 @@
              th:href="@{'http://localhost:4200/user-profile/' + ${commentUsername}}" target="_blank">
             u/<span th:text="${commentUsername}"></span>
           </a>
-          commented on your post in s/<span th:text="${communityName}"></span>
+          commented on your post <span th:text="${postTitle}"></span> in s/<span th:text="${communityName}"></span>
         </p>
       </div>
     </div>
