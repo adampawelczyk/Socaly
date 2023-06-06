@@ -39,8 +39,9 @@ public class EmailContentBuilder {
     }
 
     String buildCommentReplyEmail(String recipientUsername, String recipientProfileImage, String communityName,
-                                  String postUsername, String postTimestamp, String postTitle, String commentTimestamp,
-                                  String commentText, String replyUsername, String replyUserProfileImage,
+                                  String postUsername, String postTimestamp, String postTitle, String postPoints,
+                                  String commentCount, String commentTimestamp, String commentText, String commentPoints,
+                                  String commentReplyCount, String replyUsername, String replyUserProfileImage,
                                   String replyText) {
         Context context = new Context();
 
@@ -50,8 +51,12 @@ public class EmailContentBuilder {
         context.setVariable("postUsername", postUsername);
         context.setVariable("postTimestamp", postTimestamp);
         context.setVariable("postTitle", postTitle);
+        context.setVariable("postPoints", postPoints);
+        context.setVariable("commentCount", commentCount);
         context.setVariable("commentTimestamp", commentTimestamp);
         context.setVariable("commentText", commentText);
+        context.setVariable("commentPoints", commentPoints);
+        context.setVariable("commentReplyCount", commentReplyCount);
         context.setVariable("replyUsername", replyUsername);
         context.setVariable("replyUserProfileImage", replyUserProfileImage);
         context.setVariable("replyText", replyText);

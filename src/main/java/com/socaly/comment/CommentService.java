@@ -68,6 +68,42 @@ public class CommentService {
     }
 
     private void sendCommentReplyEmail(Post post, Comment comment, Comment reply) {
+        int postPoints = post.getVoteCount();
+        String postPointsText;
+
+        int commentCount = commentRepository.findByPost(comment.getPost()).size();
+        String commentCountText;
+
+        int commentPoints = comment.getVoteCount();
+        String commentPointsText;
+
+        int commentReplyCount = commentRepository.findByParentCommentId(comment.getId()).size();
+        String commentReplyCountText;
+
+        if (postPoints == 1 || postPoints == -1) {
+            postPointsText = "1 point";
+        } else {
+            postPointsText = comment.getPost().getVoteCount() + " points";
+        }
+
+        if (commentCount == 1) {
+            commentCountText = "1 comment";
+        } else {
+            commentCountText = commentCount + " comments";
+        }
+
+        if (commentPoints == 1 || commentPoints == -1) {
+            commentPointsText = "1 point";
+        } else {
+            commentPointsText = commentPoints + " points";
+        }
+
+        if (commentReplyCount == 1) {
+            commentReplyCountText = "1 reply";
+        } else {
+            commentReplyCountText = commentReplyCount + " replies";
+        }
+
         emailService.sendCommentReplyEmail(new CommentReplyEmail(
                 reply.getUser().getUsername() + " replied to your comment on post: " + post.getPostName(),
                 comment.getUser().getEmail(),
@@ -77,8 +113,12 @@ public class CommentService {
                 post.getUser().getUsername(),
                 TimeAgo.using(post.getCreatedDate().toEpochMilli()),
                 post.getPostName(),
+                postPointsText,
+                commentCountText,
                 TimeAgo.using(comment.getCreationDate().toEpochMilli()),
                 comment.getText(),
+                commentPointsText,
+                commentReplyCountText,
                 reply.getUser().getUsername(),
                 reply.getUser().getProfileImage().getImageUrl(),
                 reply.getText()

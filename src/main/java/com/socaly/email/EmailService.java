@@ -81,8 +81,12 @@ public class EmailService {
                     commentReplyEmail.getPostUsername(),
                     commentReplyEmail.getPostTimestamp(),
                     commentReplyEmail.getPostTitle(),
+                    commentReplyEmail.getPostPoints(),
+                    commentReplyEmail.getCommentCount(),
                     commentReplyEmail.getCommentTimestamp(),
                     commentReplyEmail.getCommentText(),
+                    commentReplyEmail.getCommentPoints(),
+                    commentReplyEmail.getCommentReplyCount(),
                     commentReplyEmail.getReplyUsername(),
                     commentReplyEmail.getReplyUserProfileImage(),
                     commentReplyEmail.getReplyText()
