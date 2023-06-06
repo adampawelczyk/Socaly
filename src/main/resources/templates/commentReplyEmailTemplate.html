@@ -37,11 +37,11 @@
   </header>
   <main style="width: 600px; padding-left: 1rem; padding-right: 1rem">
     <div style="display: flex; justify-content: center; align-items: center; flex-flow: column">
-      <div>
+      <div style="display: flex; flex-flow: column; align-items: center; margin-bottom: -1.5rem">
         <img style="height: 100px; width: auto; border-radius: 50%"
              th:alt="${'Image containing the ' + replyUsername + ' profile image'}"
              th:src="${replyUserProfileImage}"/>
-        <span style="color: #0079d3; position: relative; left: -2.7rem; padding: 0.5rem; background-color: white;
+        <span style="color: #0079d3; position: relative; left: 2rem; top: -2rem; padding: 0.5rem; background-color: white;
                      border-radius: 50%; border: 1px solid #f6f7f8" class="material-symbols-outlined">
           reply
         </span>
