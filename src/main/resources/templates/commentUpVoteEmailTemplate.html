@@ -57,39 +57,37 @@
         </p>
       </div>
     </div>
-    <div style="margin-top: 2rem">
-      <div style="display: flex; flex-flow: row">
-                <img style="height: 32px; width: auto; border-radius: 50%"
-                     th:src=""/>
-        <div style="display: flex; flex-flow: column; margin-left: 0.3rem;">
-          <p style="font-size: 0.87rem; font-weight: bold">
-            s/<span th:text="${communityName}"></span>
+    <div style="margin-top: 3rem">
+      <div>
+        <div style="display: flex; flex-flow: row">
+          <img style="height: 32px; width: auto; border-radius: 50%"
+               th:src=""/>
+          <div style="display: flex; flex-flow: column; margin-left: 0.3rem;">
+            <p style="font-size: 0.87rem; font-weight: bold">
+              s/<span th:text="${communityName}"></span>
+            </p>
+            <p style="font-size: 0.75rem; color: #878a8c">
+              u/<span th:text="${postUsername}"></span> • <span th:text="${postTimestamp}"></span>
+            </p>
+          </div>
+        </div>
+        <div style="padding-bottom: 0.5rem; border-bottom: 1px solid #f6f7f8">
+          <p style="margin: 0.2rem 0 0.2rem 0; font-weight: bold">
+            <span th:text="${postTitle}"></span>
           </p>
           <p style="font-size: 0.75rem; color: #878a8c">
-            u/<span th:text="${postUsername}"></span> • <span th:text="${postTimestamp}"></span>
+            <span th:text="${postPoints}"></span> · <span th:text="${commentCount}"></span>
           </p>
         </div>
       </div>
-      <div style="padding-bottom: 0.5rem; border-bottom: 1px solid #f6f7f8">
-        <p style="margin: 0.2rem 0 0 0; font-weight: bold">
-          <span th:text="${postTitle}"></span>
-        </p>
-      </div>
-      <div style="display: flex; flex-flow: row">
-        <p style="font-size: 0.75rem; color: #878a8c">
-          <span th:text="${postPoints}"></span> · <span th:text="${commentCount}"></span>
-        </p>
-      </div>
-      <div style="padding-top: 0.5rem">
-        <p style="font-size: 0.75rem; color: #878a8c">
+      <div style="margin-top: 0.5rem">
+        <p style="font-size: 0.75rem; color: #878a8c; margin-bottom: 0.2rem">
           u/<span th:text="${recipientUsername}"></span> • <span th:text="${commentTimestamp}"></span>
         </p>
-        <p style="margin: 0.2rem 0 0 0; font-size: 0.87rem">
+        <p>
           <span th:utext="${commentText}"></span>
         </p>
-      </div>
-      <div style="display: flex; flex-flow: row">
-        <p style="font-size: 0.75rem; color: #878a8c">
+        <p style="font-size: 0.75rem; color: #878a8c; margin-top: 0.2rem">
           <span th:text="${commentPoints}"></span> · <span th:text="${commentReplyCount}"></span>
         </p>
       </div>
