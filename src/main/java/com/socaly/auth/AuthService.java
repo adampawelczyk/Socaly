@@ -3,7 +3,7 @@ package com.socaly.auth;
 import com.socaly.refreshToken.RefreshTokenRequest;
 import com.socaly.image.Image;
 import com.socaly.email.EmailService;
-import com.socaly.email.NotificationEmail;
+import com.socaly.email.EmailVerificationEmail;
 import com.socaly.user.User;
 import com.socaly.userSettings.UserSettings;
 import com.socaly.userSettings.UserSettingsRepository;
@@ -74,9 +74,13 @@ public class AuthService {
         userRepository.save(user);
         
         String token = generateVerificationToken(user);
-        emailService.sendMail(new NotificationEmail("Please activate your account", user.getEmail(),
-                "Thank you for signing up to Socaly, please click on the below url to activate your account: " +
-                        "http://localhost:8090/api/auth/verify-account/" + token));
+        emailService.sendEmailVerificationEmail(new EmailVerificationEmail(
+                "Verify your Socaly email address",
+                user.getEmail(),
+                user.getUsername(),
+                user.getProfileImage().getImageUrl(),
+                "http://localhost:8090/api/auth/verify-account/" + token
+                ));
     }
 
     private String generateProfileImage() {

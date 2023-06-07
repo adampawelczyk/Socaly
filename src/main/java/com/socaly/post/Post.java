@@ -42,4 +42,28 @@ public class Post {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Community community;
+
+    public static String getPostPointsText(int postPoints) {
+        String postPointsText;
+
+        if (postPoints == 1 || postPoints == -1) {
+            postPointsText = "1 point";
+        } else {
+            postPointsText = postPoints + " points";
+        }
+
+        return postPointsText;
+    }
+
+    public static String getPostCommentCountText(int postCommentCount) {
+        String postCommentCountText;
+
+        if (postCommentCount == 1) {
+            postCommentCountText = "1 comment";
+        } else {
+            postCommentCountText = postCommentCount + " comments";
+        }
+
+        return postCommentCountText;
+    }
 }

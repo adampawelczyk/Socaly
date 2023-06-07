@@ -7,8 +7,10 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class NotificationEmail {
+public class EmailVerificationEmail {
     private String subject;
-    private String recipient;
-    private String body;
+    private String recipientEmail;
+    private String recipientUsername;
+    private String recipientProfileImage;
+    private String verificationLink;
 }

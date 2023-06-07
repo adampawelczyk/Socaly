@@ -1,6 +1,8 @@
 package com.socaly.comment;
 
-import com.socaly.email.NotificationEmail;
+import com.github.marlonlom.utilities.timeago.TimeAgo;
+import com.socaly.email.CommentReplyEmail;
+import com.socaly.email.PostCommentEmail;
 import com.socaly.post.Post;
 import com.socaly.user.User;
 import com.socaly.post.PostNotFoundException;
@@ -35,8 +37,60 @@ public class CommentService {
         Comment comment = commentMapper.mapToComment(commentRequest, post, user);
         commentRepository.save(comment);
 
-        String message = post.getUser().getUsername() + " posted a comment on your post.";
-        sendCommentNotification(message, post.getUser());
+        if (!post.getUser().getUsername().equals(comment.getUser().getUsername()) && comment.getParentCommentId() == null
+            && post.getUser().getSettings().getPostCommentEmails()) {
+            sendPostCommentEmail(post, comment);
+        } else if (comment.getParentCommentId() != null) {
+            Comment parentComment = commentRepository.findById(comment.getParentCommentId()).orElseThrow(
+                    () -> new CommentNotFoundException(comment.getParentCommentId().toString())
+            );
+
+            if (!comment.getUser().getUsername().equals(parentComment.getUser().getUsername())
+                    && parentComment.getUser().getSettings().getCommentReplyEmails()) {
+                sendCommentReplyEmail(post, parentComment, comment);
+            }
+        }
+    }
+
+    private void sendPostCommentEmail(Post post, Comment comment) {
+        emailService.sendPostCommentEmail(new PostCommentEmail(
+                comment.getUser().getUsername() + " commented on your post " + post.getPostName() + " in s\\"
+                        + post.getCommunity().getName(),
+                post.getUser().getEmail(),
+                post.getUser().getUsername(),
+                post.getUser().getProfileImage().getImageUrl(),
+                post.getCommunity().getName(),
+                TimeAgo.using(post.getCreatedDate().toEpochMilli()),
+                post.getPostName(),
+                Post.getPostPointsText(post.getVoteCount()),
+                Post.getPostCommentCountText(commentRepository.findByPost(comment.getPost()).size()),
+                comment.getUser().getUsername(),
+                comment.getUser().getProfileImage().getImageUrl(),
+                comment.getText()
+        ));
+    }
+
+    private void sendCommentReplyEmail(Post post, Comment comment, Comment reply) {
+        emailService.sendCommentReplyEmail(new CommentReplyEmail(
+                reply.getUser().getUsername() + " replied to your comment on post " + post.getPostName()
+                        + "in s\\" + post.getCommunity().getName(),
+                comment.getUser().getEmail(),
+                comment.getUser().getUsername(),
+                comment.getUser().getProfileImage().getImageUrl(),
+                post.getCommunity().getName(),
+                post.getUser().getUsername(),
+                TimeAgo.using(post.getCreatedDate().toEpochMilli()),
+                post.getPostName(),
+                Post.getPostPointsText(comment.getPost().getVoteCount()),
+                Post.getPostCommentCountText(commentRepository.findByPost(comment.getPost()).size()),
+                TimeAgo.using(comment.getCreationDate().toEpochMilli()),
+                comment.getText(),
+                Comment.getCommentPointsText(comment.getVoteCount()),
+                Comment.getCommentReplyCountText(commentRepository.findByParentCommentId(comment.getId()).size()),
+                reply.getUser().getUsername(),
+                reply.getUser().getProfileImage().getImageUrl(),
+                reply.getText()
+        ));
     }
 
     public void edit(Long commentId, String text) {
@@ -50,11 +104,6 @@ public class CommentService {
             commentToEdit.setEditDate(Instant.now());
             commentRepository.save(commentToEdit);
         }
-    }
-
-    private void sendCommentNotification(String message, User user) {
-        emailService.sendMail(new NotificationEmail(
-                user.getUsername() + " commented on your post", user.getEmail(), message));
     }
 
     public CommentResponse getComment(Long commentId) {

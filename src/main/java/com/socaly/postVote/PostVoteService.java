@@ -1,7 +1,12 @@
 package com.socaly.postVote;
 
+import com.github.marlonlom.utilities.timeago.TimeAgo;
 import com.socaly.auth.AuthService;
+import com.socaly.comment.CommentRepository;
+import com.socaly.email.EmailService;
+import com.socaly.email.PostUpVoteEmail;
 import com.socaly.post.Post;
+import com.socaly.user.User;
 import com.socaly.util.VoteType;
 import com.socaly.post.PostNotFoundException;
 import com.socaly.post.PostRepository;
@@ -16,7 +21,9 @@ import java.util.Optional;
 public class PostVoteService {
     private final PostVoteRepository postVoteRepository;
     private final PostRepository postRepository;
+    private final CommentRepository commentRepository;
     private final AuthService authService;
+    private final EmailService emailService;
 
     @Transactional
     public void vote(PostVoteDto postVoteDto) {
@@ -46,12 +53,35 @@ public class PostVoteService {
         } else {
             if (VoteType.UPVOTE.equals(postVoteDto.getVoteType())) {
                 post.setVoteCount(post.getVoteCount() + 1);
+
+                if (post.getUser().getSettings().getPostUpVoteEmails()) {
+                    sendPostUpVoteEmail(post);
+                }
             } else {
                 post.setVoteCount(post.getVoteCount() - 1);
             }
 
             postVoteRepository.save(mapToVote(postVoteDto, post));
         }
+    }
+
+    private void sendPostUpVoteEmail(Post post) {
+        User currentUser = authService.getCurrentUser();
+
+        emailService.sendPostUpVoteEmail(new PostUpVoteEmail(
+                currentUser.getUsername() + " upvoted your post " + post.getPostName() + " in s\\"
+                        + post.getCommunity().getName(),
+                post.getUser().getEmail(),
+                post.getUser().getUsername(),
+                post.getUser().getProfileImage().getImageUrl(),
+                post.getCommunity().getName(),
+                TimeAgo.using(post.getCreatedDate().toEpochMilli()),
+                post.getPostName(),
+                Post.getPostPointsText(post.getVoteCount()),
+                Post.getPostCommentCountText(commentRepository.findByPost(post).size()),
+                currentUser.getUsername(),
+                currentUser.getProfileImage().getImageUrl()
+        ));
     }
 
     private PostVote mapToVote(PostVoteDto postVoteDto, Post post) {

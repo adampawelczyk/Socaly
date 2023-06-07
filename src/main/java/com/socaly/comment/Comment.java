@@ -35,4 +35,28 @@ public class Comment {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
+
+    public static String getCommentPointsText(int commentPoints) {
+        String commentPointsText;
+
+        if (commentPoints == 1 || commentPoints == -1) {
+            commentPointsText = "1 point";
+        } else {
+            commentPointsText = commentPoints + " points";
+        }
+
+        return commentPointsText;
+    }
+
+    public static String getCommentReplyCountText(int commentReplyCount) {
+        String commentReplyCountText;
+
+        if (commentReplyCount == 1) {
+            commentReplyCountText = "1 reply";
+        } else {
+            commentReplyCountText = commentReplyCount + " replies";
+        }
+
+        return commentReplyCountText;
+    }
 }
