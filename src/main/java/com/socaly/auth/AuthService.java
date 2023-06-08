@@ -51,6 +51,7 @@ public class AuthService {
         user.setEmail(signUpRequest.getEmail());
         user.setCreatedDate(Instant.now());
         user.setEmailVerified(false);
+        user.setDeleted(false);
         user.setDescription("");
 
         UserSettings settings = new UserSettings();
