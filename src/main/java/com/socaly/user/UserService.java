@@ -43,6 +43,14 @@ public class UserService {
                 );
     }
 
+    public String getUserProfileImage(String username) {
+        User user = userRepository.findByUsername(username).orElseThrow(
+                    () -> new UsernameNotFoundException(username)
+            );
+
+        return user.getProfileImage().getImageUrl();
+    }
+
     void changeProfileImage(String imageUrl) {
         User currentUser = authService.getCurrentUser();
         currentUser.getProfileImage().setImageUrl(imageUrl);
