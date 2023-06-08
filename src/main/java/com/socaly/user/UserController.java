@@ -31,6 +31,11 @@ public class UserController {
         return userService.getUser(username);
     }
 
+    @GetMapping("/get/profile/image/{username}")
+    public String getUserProfileImage(@PathVariable String username) {
+        return userService.getUserProfileImage(username);
+    }
+
     @PatchMapping("/change/profile/image")
     public ResponseEntity<Void> changeProfileImage(@RequestBody String imageUrl) {
         userService.changeProfileImage(imageUrl);
