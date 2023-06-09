@@ -76,7 +76,7 @@ public class CommentVoteService {
                     );
 
             emailService.sendReplyUpVoteEmail(new ReplyUpVoteEmail(
-                    currentUser.getUsername() + " upvoted your reply on post " + comment.getPost().getPostName()
+                    currentUser.getUsername() + " upvoted your reply on post " + comment.getPost().getPostTitle()
                             + " in s\\" + comment.getPost().getCommunity().getName(),
                     comment.getUser().getEmail(),
                     comment.getUser().getUsername(),
@@ -84,7 +84,7 @@ public class CommentVoteService {
                     comment.getPost().getCommunity().getName(),
                     comment.getPost().getUser().getUsername(),
                     TimeAgo.using(comment.getPost().getCreatedDate().toEpochMilli()),
-                    comment.getPost().getPostName(),
+                    comment.getPost().getPostTitle(),
                     Post.getPostPointsText(comment.getPost().getVoteCount()),
                     Post.getPostCommentCountText(commentRepository.findByPost(comment.getPost()).size()),
                     parentComment.getUser().getUsername(),
@@ -101,7 +101,7 @@ public class CommentVoteService {
             ));
         } else {
             emailService.sendCommentUpVoteEmail(new CommentUpVoteEmail(
-                    currentUser.getUsername() + " upvoted your comment on post " + comment.getPost().getPostName()
+                    currentUser.getUsername() + " upvoted your comment on post " + comment.getPost().getPostTitle()
                             + " in s\\" + comment.getPost().getCommunity().getName(),
                     comment.getUser().getEmail(),
                     comment.getUser().getUsername(),
@@ -109,7 +109,7 @@ public class CommentVoteService {
                     comment.getPost().getCommunity().getName(),
                     comment.getPost().getUser().getUsername(),
                     TimeAgo.using(comment.getPost().getCreatedDate().toEpochMilli()),
-                    comment.getPost().getPostName(),
+                    comment.getPost().getPostTitle(),
                     Post.getPostPointsText(comment.getPost().getVoteCount()),
                     Post.getPostCommentCountText(commentRepository.findByPost(comment.getPost()).size()),
                     TimeAgo.using(comment.getCreationDate().toEpochMilli()),

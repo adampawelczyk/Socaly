@@ -25,7 +25,7 @@ public class Post {
     private long id;
 
     @NotBlank(message = "Post name cannot be empty or null")
-    private String postName;
+    private String postTitle;
 
     @Nullable
     @Lob
