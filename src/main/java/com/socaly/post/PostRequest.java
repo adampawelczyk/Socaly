@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 public class PostRequest {
     private String communityName;
-    private String postName;
+    private String postTitle;
     private String description;
     private List<String> images;
 }
