@@ -103,7 +103,8 @@ public class UserService {
             currentUser.setPassword("");
 
             Image profileImage = new Image();
-            profileImage.setImageUrl("https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static%2Favatar-deleted.png?alt=media&token=7edbd58b-d829-4716-bac2-f80d958027ab");
+            profileImage.setImageUrl("https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static" +
+                    "%2Favatar-deleted.png?alt=media&token=7edbd58b-d829-4716-bac2-f80d958027ab");
             imageRepository.save(profileImage);
 
             currentUser.setProfileImage(profileImage);
@@ -111,8 +112,8 @@ public class UserService {
             userRepository.save(currentUser);
 
             Image profileBanner = new Image();
-            profileBanner.setImageUrl("https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static%2F" +
-                    "banner-default.png?alt=media&token=72a29594-4e22-43b6-83de-d93048a90edc");
+            profileBanner.setImageUrl("https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static" +
+                    "%2Fbanner-default.png?alt=media&token=72a29594-4e22-43b6-83de-d93048a90edc");
             imageRepository.save(profileBanner);
 
             currentUser.setProfileBanner(profileBanner);
