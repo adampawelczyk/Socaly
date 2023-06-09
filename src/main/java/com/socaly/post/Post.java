@@ -24,7 +24,7 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank(message = "Post name cannot be empty or null")
+    @NotBlank(message = "Post title cannot be empty or null")
     private String postTitle;
 
     @Nullable
