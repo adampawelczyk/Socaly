@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 public class PostResponse {
     private Long id;
-    private String postName;
+    private String postTitle;
     private String description;
     private List<String> images;
     private String userName;
