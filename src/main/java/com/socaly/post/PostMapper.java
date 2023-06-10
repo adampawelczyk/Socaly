@@ -37,7 +37,7 @@ public abstract class PostMapper {
     public abstract Post mapToPost(PostRequest postRequest, Community community, User user);
 
     @Mapping(target = "communityName", source = "community.name")
-    @Mapping(target = "userName", source = "user.username")
+    @Mapping(target = "username", source = "user.username")
     @Mapping(target = "commentCount", expression = "java(commentCount(post))")
     @Mapping(target = "duration", expression = "java(getDuration(post))")
     @Mapping(target = "upVote", expression = "java(isPostUpVoted(post))")
