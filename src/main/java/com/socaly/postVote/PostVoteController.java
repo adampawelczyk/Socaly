@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @AllArgsConstructor
-@RequestMapping("api/votes/")
+@RequestMapping("api/post/vote")
 public class PostVoteController {
     private final PostVoteService postVoteService;
 
