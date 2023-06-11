@@ -33,7 +33,7 @@ public abstract class CommentMapper {
     @Mapping(target = "username", expression = "java(comment.getUser().getUsername())")
     @Mapping(target = "upVote", expression = "java(isCommentUpVoted(comment))")
     @Mapping(target = "downVote", expression = "java(isCommentDownVoted(comment))")
-    @Mapping(target = "timeSinceCreation", expression = "java(getTimeSinceCreation(comment))")
+    @Mapping(target = "timestamp", expression = "java(getTimeSinceCreation(comment))")
     @Mapping(target = "timeSinceEdit", expression = "java(getTimeSinceEdit(comment))")
     public abstract CommentResponse mapToCommentResponse(Comment comment);
 
