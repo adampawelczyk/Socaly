@@ -12,7 +12,7 @@ class CommentResponse {
     private Long postId;
     private Long parentCommentId;
     private String timestamp;
-    private String timeSinceEdit;
+    private String editTimestamp;
     private Integer voteCount;
     private String text;
     private String username;

@@ -34,7 +34,7 @@ public abstract class CommentMapper {
     @Mapping(target = "upVote", expression = "java(isCommentUpVoted(comment))")
     @Mapping(target = "downVote", expression = "java(isCommentDownVoted(comment))")
     @Mapping(target = "timestamp", expression = "java(getTimestamp(comment))")
-    @Mapping(target = "timeSinceEdit", expression = "java(getTimeSinceEdit(comment))")
+    @Mapping(target = "editTimestamp", expression = "java(getTimeSinceEdit(comment))")
     public abstract CommentResponse mapToCommentResponse(Comment comment);
 
     boolean isCommentUpVoted(Comment comment) {
