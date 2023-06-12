@@ -51,7 +51,7 @@ public class UserService {
         return user.getProfileImage().getImageUrl();
     }
 
-    void changeProfileImage(String imageUrl) {
+    void updateProfileImage(String imageUrl) {
         User currentUser = authService.getCurrentUser();
         currentUser.getProfileImage().setImageUrl(imageUrl);
 

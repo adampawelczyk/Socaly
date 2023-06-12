@@ -38,7 +38,7 @@ public class UserController {
 
     @PatchMapping("/change/profile/image")
     public ResponseEntity<Void> changeProfileImage(@RequestBody String imageUrl) {
-        userService.changeProfileImage(imageUrl);
+        userService.updateProfileImage(imageUrl);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
