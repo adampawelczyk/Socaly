@@ -50,7 +50,7 @@ public class UserController {
 
     @PatchMapping("/change/description")
     public ResponseEntity<Void> changeDescription(@RequestBody(required = false) String description) {
-        userService.changeDescription(description);
+        userService.updateDescription(description);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
