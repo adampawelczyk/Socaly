@@ -36,8 +36,8 @@ public class UserController {
         return userService.getUserProfileImage(username);
     }
 
-    @PatchMapping("/change/profile/image")
-    public ResponseEntity<Void> changeProfileImage(@RequestBody String imageUrl) {
+    @PatchMapping("/update/profile/image")
+    public ResponseEntity<Void> updateProfileImage(@RequestBody String imageUrl) {
         userService.updateProfileImage(imageUrl);
         return new ResponseEntity<>(HttpStatus.OK);
     }
