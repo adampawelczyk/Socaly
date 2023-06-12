@@ -48,8 +48,8 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping("/change/description")
-    public ResponseEntity<Void> changeDescription(@RequestBody(required = false) String description) {
+    @PatchMapping("/update/description")
+    public ResponseEntity<Void> updateDescription(@RequestBody(required = false) String description) {
         userService.updateDescription(description);
         return new ResponseEntity<>(HttpStatus.OK);
     }
