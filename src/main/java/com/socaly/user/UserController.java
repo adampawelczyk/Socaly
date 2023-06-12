@@ -44,7 +44,7 @@ public class UserController {
 
     @PatchMapping("/change/profile/banner")
     public ResponseEntity<Void> changeProfileBanner(@RequestBody String imageUrl) {
-        userService.changeProfileBanner(imageUrl);
+        userService.updateProfileBanner(imageUrl);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
