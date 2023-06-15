@@ -16,7 +16,7 @@ public class PostResponse {
     private List<String> images;
     private String username;
     private String communityName;
-    private Integer voteCount;
+    private Integer points;
     private Integer commentCount;
     private String timeSinceCreation;
     private boolean upVote;

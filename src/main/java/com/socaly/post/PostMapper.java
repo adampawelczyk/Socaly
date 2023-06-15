@@ -32,7 +32,7 @@ public abstract class PostMapper {
     @Mapping(target = "creationDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "description", source = "postRequest.description")
     @Mapping(target = "user", source = "user")
-    @Mapping(target = "voteCount", constant = "0")
+    @Mapping(target = "points", constant = "0")
     @Mapping(target = "images", expression = "java(mapStringsToImages(postRequest.getImages()))")
     public abstract Post mapToPost(PostRequest postRequest, Community community, User user);
 

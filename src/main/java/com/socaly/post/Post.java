@@ -31,7 +31,7 @@ public class Post {
     @Lob
     private String description;
 
-    private Integer voteCount = 0;
+    private Integer points = 0;
     private Instant creationDate;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
