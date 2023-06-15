@@ -29,7 +29,7 @@ public abstract class PostMapper {
     private PostVoteRepository postVoteRepository;
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
+    @Mapping(target = "creationDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "description", source = "postRequest.description")
     @Mapping(target = "user", source = "user")
     @Mapping(target = "voteCount", constant = "0")
