@@ -18,7 +18,7 @@ public class PostResponse {
     private String communityName;
     private Integer voteCount;
     private Integer commentCount;
-    private String timestamp;
+    private String timeSinceCreation;
     private boolean upVote;
     private boolean downVote;
 }

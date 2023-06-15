@@ -39,7 +39,7 @@ public abstract class PostMapper {
     @Mapping(target = "communityName", source = "community.name")
     @Mapping(target = "username", source = "user.username")
     @Mapping(target = "commentCount", expression = "java(commentCount(post))")
-    @Mapping(target = "timestamp", expression = "java(getTimestamp(post))")
+    @Mapping(target = "timeSinceCreation", expression = "java(getTimeSinceCreation(post))")
     @Mapping(target = "upVote", expression = "java(isPostUpVoted(post))")
     @Mapping(target = "downVote", expression = "java(isPostDownVoted(post))")
     @Mapping(target = "images", expression = "java(mapImagesToStrings(post.getImages()))")
@@ -49,7 +49,7 @@ public abstract class PostMapper {
         return commentRepository.findByPost(post).size();
     }
 
-    String getTimestamp(Post post) {
+    String getTimeSinceCreation(Post post) {
         return TimeAgo.using(post.getCreationDate().toEpochMilli());
     }
 
