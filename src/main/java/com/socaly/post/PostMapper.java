@@ -50,7 +50,7 @@ public abstract class PostMapper {
     }
 
     String getTimestamp(Post post) {
-        return TimeAgo.using(post.getCreatedDate().toEpochMilli());
+        return TimeAgo.using(post.getCreationDate().toEpochMilli());
     }
 
     boolean isPostUpVoted(Post post) {

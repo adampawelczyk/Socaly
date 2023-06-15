@@ -32,7 +32,7 @@ public class Post {
     private String description;
 
     private Integer voteCount = 0;
-    private Instant createdDate;
+    private Instant creationDate;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Image> images;
