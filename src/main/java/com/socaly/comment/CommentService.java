@@ -54,14 +54,14 @@ public class CommentService {
 
     private void sendPostCommentEmail(Post post, Comment comment) {
         emailService.sendPostCommentEmail(new PostCommentEmail(
-                comment.getUser().getUsername() + " commented on your post " + post.getPostTitle() + " in s\\"
+                comment.getUser().getUsername() + " commented on your post " + post.getTitle() + " in s\\"
                         + post.getCommunity().getName(),
                 post.getUser().getEmail(),
                 post.getUser().getUsername(),
                 post.getUser().getProfileImage().getImageUrl(),
                 post.getCommunity().getName(),
                 TimeAgo.using(post.getCreationDate().toEpochMilli()),
-                post.getPostTitle(),
+                post.getTitle(),
                 Post.getPostPointsText(post.getVoteCount()),
                 Post.getPostCommentCountText(commentRepository.findByPost(comment.getPost()).size()),
                 comment.getUser().getUsername(),
@@ -72,7 +72,7 @@ public class CommentService {
 
     private void sendCommentReplyEmail(Post post, Comment comment, Comment reply) {
         emailService.sendCommentReplyEmail(new CommentReplyEmail(
-                reply.getUser().getUsername() + " replied to your comment on post " + post.getPostTitle()
+                reply.getUser().getUsername() + " replied to your comment on post " + post.getTitle()
                         + "in s\\" + post.getCommunity().getName(),
                 comment.getUser().getEmail(),
                 comment.getUser().getUsername(),
@@ -80,7 +80,7 @@ public class CommentService {
                 post.getCommunity().getName(),
                 post.getUser().getUsername(),
                 TimeAgo.using(post.getCreationDate().toEpochMilli()),
-                post.getPostTitle(),
+                post.getTitle(),
                 Post.getPostPointsText(comment.getPost().getVoteCount()),
                 Post.getPostCommentCountText(commentRepository.findByPost(comment.getPost()).size()),
                 TimeAgo.using(comment.getCreationDate().toEpochMilli()),

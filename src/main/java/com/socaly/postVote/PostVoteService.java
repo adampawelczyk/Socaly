@@ -69,14 +69,14 @@ public class PostVoteService {
         User currentUser = authService.getCurrentUser();
 
         emailService.sendPostUpVoteEmail(new PostUpVoteEmail(
-                currentUser.getUsername() + " upvoted your post " + post.getPostTitle() + " in s\\"
+                currentUser.getUsername() + " upvoted your post " + post.getTitle() + " in s\\"
                         + post.getCommunity().getName(),
                 post.getUser().getEmail(),
                 post.getUser().getUsername(),
                 post.getUser().getProfileImage().getImageUrl(),
                 post.getCommunity().getName(),
                 TimeAgo.using(post.getCreationDate().toEpochMilli()),
-                post.getPostTitle(),
+                post.getTitle(),
                 Post.getPostPointsText(post.getVoteCount()),
                 Post.getPostCommentCountText(commentRepository.findByPost(post).size()),
                 currentUser.getUsername(),
