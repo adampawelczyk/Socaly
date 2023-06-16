@@ -34,7 +34,7 @@ public abstract class CommentMapper {
     @Mapping(target = "upVote", expression = "java(isCommentUpVoted(comment))")
     @Mapping(target = "downVote", expression = "java(isCommentDownVoted(comment))")
     @Mapping(target = "timeSinceCreation", expression = "java(getTimeSinceCreation(comment))")
-    @Mapping(target = "editTimestamp", expression = "java(getEditTimestamp(comment))")
+    @Mapping(target = "timeSinceEdit", expression = "java(getTimeSinceEdit(comment))")
     public abstract CommentResponse mapToCommentResponse(Comment comment);
 
     boolean isCommentUpVoted(Comment comment) {
@@ -59,7 +59,7 @@ public abstract class CommentMapper {
         return TimeAgo.using(comment.getCreationDate().toEpochMilli());
     }
 
-    String getEditTimestamp(Comment comment) {
+    String getTimeSinceEdit(Comment comment) {
         if (comment.getEditDate() != null) {
             return TimeAgo.using(comment.getEditDate().toEpochMilli());
         }
