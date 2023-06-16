@@ -13,7 +13,7 @@ class CommentResponse {
     private Long parentCommentId;
     private String timeSinceCreation;
     private String timeSinceEdit;
-    private Integer voteCount;
+    private Integer points;
     private String text;
     private String username;
     private boolean upVote;
