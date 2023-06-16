@@ -33,24 +33,24 @@ public class CommentVoteService {
 
         if (voteByCommentAndUser.isPresent() && voteByCommentAndUser.get().getVoteType().equals(commentVoteDto.getVoteType())) {
             if (VoteType.UPVOTE.equals(commentVoteDto.getVoteType())) {
-                comment.setVoteCount(comment.getVoteCount() - 1);
+                comment.setPoints(comment.getPoints() - 1);
             } else {
-                comment.setVoteCount(comment.getVoteCount() + 1);
+                comment.setPoints(comment.getPoints() + 1);
             }
             commentVoteRepository.deleteById(voteByCommentAndUser.get().getId());
 
         } else if (voteByCommentAndUser.isPresent()) {
             if (VoteType.UPVOTE.equals(commentVoteDto.getVoteType())) {
-                comment.setVoteCount(comment.getVoteCount() + 2);
+                comment.setPoints(comment.getPoints() + 2);
             } else {
-                comment.setVoteCount(comment.getVoteCount() - 2);
+                comment.setPoints(comment.getPoints() - 2);
             }
             commentVoteRepository.deleteById(voteByCommentAndUser.get().getId());
             commentVoteRepository.save(mapToCommentVote(commentVoteDto, comment));
 
         } else {
             if (VoteType.UPVOTE.equals(commentVoteDto.getVoteType())) {
-                comment.setVoteCount(comment.getVoteCount() + 1);
+                comment.setPoints(comment.getPoints() + 1);
                 User currentUser = authService.getCurrentUser();
 
                 if (!currentUser.getUsername().equals(comment.getUser().getUsername())
@@ -58,7 +58,7 @@ public class CommentVoteService {
                     sendCommentUpVoteEmail(comment);
                 }
             } else {
-                comment.setVoteCount(comment.getVoteCount() - 1);
+                comment.setPoints(comment.getPoints() - 1);
             }
             commentVoteRepository.save(mapToCommentVote(commentVoteDto, comment));
         }
@@ -90,11 +90,11 @@ public class CommentVoteService {
                     parentComment.getUser().getUsername(),
                     TimeAgo.using(parentComment.getCreationDate().toEpochMilli()),
                     parentComment.getText(),
-                    Comment.getCommentPointsText(parentComment.getVoteCount()),
+                    Comment.getCommentPointsText(parentComment.getPoints()),
                     Comment.getCommentReplyCountText(commentRepository.findByParentCommentId(parentComment.getId()).size()),
                     TimeAgo.using(comment.getCreationDate().toEpochMilli()),
                     comment.getText(),
-                    Comment.getCommentPointsText(comment.getVoteCount()),
+                    Comment.getCommentPointsText(comment.getPoints()),
                     Comment.getCommentReplyCountText(commentRepository.findByParentCommentId(comment.getId()).size()),
                     currentUser.getUsername(),
                     currentUser.getProfileImage().getImageUrl()
@@ -114,7 +114,7 @@ public class CommentVoteService {
                     Post.getPostCommentCountText(commentRepository.findByPost(comment.getPost()).size()),
                     TimeAgo.using(comment.getCreationDate().toEpochMilli()),
                     comment.getText(),
-                    Comment.getCommentPointsText(comment.getVoteCount()),
+                    Comment.getCommentPointsText(comment.getPoints()),
                     Comment.getCommentReplyCountText(commentRepository.findByParentCommentId(comment.getId()).size()),
                     currentUser.getUsername(),
                     currentUser.getProfileImage().getImageUrl()

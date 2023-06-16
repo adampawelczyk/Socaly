@@ -23,7 +23,7 @@ public class Comment {
     @NotEmpty
     private String text;
 
-    private Integer voteCount = 0;
+    private Integer points = 0;
     private Instant creationDate;
     private Instant editDate;
 

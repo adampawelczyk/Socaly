@@ -85,7 +85,7 @@ public class CommentService {
                 Post.getPostCommentCountText(commentRepository.findByPost(comment.getPost()).size()),
                 TimeAgo.using(comment.getCreationDate().toEpochMilli()),
                 comment.getText(),
-                Comment.getCommentPointsText(comment.getVoteCount()),
+                Comment.getCommentPointsText(comment.getPoints()),
                 Comment.getCommentReplyCountText(commentRepository.findByParentCommentId(comment.getId()).size()),
                 reply.getUser().getUsername(),
                 reply.getUser().getProfileImage().getImageUrl(),
