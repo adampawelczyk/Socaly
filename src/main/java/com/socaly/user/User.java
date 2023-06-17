@@ -27,7 +27,7 @@ public class User {
     private String password;
     @Email
     private String email;
-    private Instant createdDate;
+    private Instant creationDate;
     private boolean isEmailVerified;
     private boolean isDeleted;
     private String description;
