@@ -24,15 +24,15 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotBlank(message = "Post name cannot be empty or null")
-    private String postName;
+    @NotBlank(message = "Post title cannot be empty or null")
+    private String title;
 
     @Nullable
     @Lob
     private String description;
 
-    private Integer voteCount = 0;
-    private Instant createdDate;
+    private Integer points = 0;
+    private Instant creationDate;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Image> images;

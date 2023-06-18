@@ -31,21 +31,26 @@ public class UserController {
         return userService.getUser(username);
     }
 
-    @PatchMapping("/change/profile/image")
-    public ResponseEntity<Void> changeProfileImage(@RequestBody String imageUrl) {
-        userService.changeProfileImage(imageUrl);
+    @GetMapping("/get/profile/image/{username}")
+    public String getUserProfileImage(@PathVariable String username) {
+        return userService.getUserProfileImage(username);
+    }
+
+    @PatchMapping("/update/profile/image")
+    public ResponseEntity<Void> updateProfileImage(@RequestBody String imageUrl) {
+        userService.updateProfileImage(imageUrl);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping("/change/profile/banner")
-    public ResponseEntity<Void> changeProfileBanner(@RequestBody String imageUrl) {
-        userService.changeProfileBanner(imageUrl);
+    @PatchMapping("/update/profile/banner")
+    public ResponseEntity<Void> updateProfileBanner(@RequestBody String imageUrl) {
+        userService.updateProfileBanner(imageUrl);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping("/change/description")
-    public ResponseEntity<Void> changeDescription(@RequestBody(required = false) String description) {
-        userService.changeDescription(description);
+    @PatchMapping("/update/description")
+    public ResponseEntity<Void> updateDescription(@RequestBody(required = false) String description) {
+        userService.updateDescription(description);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

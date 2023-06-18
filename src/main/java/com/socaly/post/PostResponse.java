@@ -11,14 +11,14 @@ import java.util.List;
 @NoArgsConstructor
 public class PostResponse {
     private Long id;
-    private String postName;
+    private String title;
     private String description;
     private List<String> images;
-    private String userName;
+    private String username;
     private String communityName;
-    private Integer voteCount;
+    private Integer points;
     private Integer commentCount;
-    private String duration;
+    private String timeSinceCreation;
     private boolean upVote;
     private boolean downVote;
 }

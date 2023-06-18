@@ -33,24 +33,24 @@ public class CommentVoteService {
 
         if (voteByCommentAndUser.isPresent() && voteByCommentAndUser.get().getVoteType().equals(commentVoteDto.getVoteType())) {
             if (VoteType.UPVOTE.equals(commentVoteDto.getVoteType())) {
-                comment.setVoteCount(comment.getVoteCount() - 1);
+                comment.setPoints(comment.getPoints() - 1);
             } else {
-                comment.setVoteCount(comment.getVoteCount() + 1);
+                comment.setPoints(comment.getPoints() + 1);
             }
             commentVoteRepository.deleteById(voteByCommentAndUser.get().getId());
 
         } else if (voteByCommentAndUser.isPresent()) {
             if (VoteType.UPVOTE.equals(commentVoteDto.getVoteType())) {
-                comment.setVoteCount(comment.getVoteCount() + 2);
+                comment.setPoints(comment.getPoints() + 2);
             } else {
-                comment.setVoteCount(comment.getVoteCount() - 2);
+                comment.setPoints(comment.getPoints() - 2);
             }
             commentVoteRepository.deleteById(voteByCommentAndUser.get().getId());
             commentVoteRepository.save(mapToCommentVote(commentVoteDto, comment));
 
         } else {
             if (VoteType.UPVOTE.equals(commentVoteDto.getVoteType())) {
-                comment.setVoteCount(comment.getVoteCount() + 1);
+                comment.setPoints(comment.getPoints() + 1);
                 User currentUser = authService.getCurrentUser();
 
                 if (!currentUser.getUsername().equals(comment.getUser().getUsername())
@@ -58,7 +58,7 @@ public class CommentVoteService {
                     sendCommentUpVoteEmail(comment);
                 }
             } else {
-                comment.setVoteCount(comment.getVoteCount() - 1);
+                comment.setPoints(comment.getPoints() - 1);
             }
             commentVoteRepository.save(mapToCommentVote(commentVoteDto, comment));
         }
@@ -76,45 +76,45 @@ public class CommentVoteService {
                     );
 
             emailService.sendReplyUpVoteEmail(new ReplyUpVoteEmail(
-                    currentUser.getUsername() + " upvoted your reply on post " + comment.getPost().getPostName()
+                    currentUser.getUsername() + " upvoted your reply on post " + comment.getPost().getTitle()
                             + " in s\\" + comment.getPost().getCommunity().getName(),
                     comment.getUser().getEmail(),
                     comment.getUser().getUsername(),
                     comment.getUser().getProfileImage().getImageUrl(),
                     comment.getPost().getCommunity().getName(),
                     comment.getPost().getUser().getUsername(),
-                    TimeAgo.using(comment.getPost().getCreatedDate().toEpochMilli()),
-                    comment.getPost().getPostName(),
-                    Post.getPostPointsText(comment.getPost().getVoteCount()),
+                    TimeAgo.using(comment.getPost().getCreationDate().toEpochMilli()),
+                    comment.getPost().getTitle(),
+                    Post.getPostPointsText(comment.getPost().getPoints()),
                     Post.getPostCommentCountText(commentRepository.findByPost(comment.getPost()).size()),
                     parentComment.getUser().getUsername(),
                     TimeAgo.using(parentComment.getCreationDate().toEpochMilli()),
                     parentComment.getText(),
-                    Comment.getCommentPointsText(parentComment.getVoteCount()),
+                    Comment.getCommentPointsText(parentComment.getPoints()),
                     Comment.getCommentReplyCountText(commentRepository.findByParentCommentId(parentComment.getId()).size()),
                     TimeAgo.using(comment.getCreationDate().toEpochMilli()),
                     comment.getText(),
-                    Comment.getCommentPointsText(comment.getVoteCount()),
+                    Comment.getCommentPointsText(comment.getPoints()),
                     Comment.getCommentReplyCountText(commentRepository.findByParentCommentId(comment.getId()).size()),
                     currentUser.getUsername(),
                     currentUser.getProfileImage().getImageUrl()
             ));
         } else {
             emailService.sendCommentUpVoteEmail(new CommentUpVoteEmail(
-                    currentUser.getUsername() + " upvoted your comment on post " + comment.getPost().getPostName()
+                    currentUser.getUsername() + " upvoted your comment on post " + comment.getPost().getTitle()
                             + " in s\\" + comment.getPost().getCommunity().getName(),
                     comment.getUser().getEmail(),
                     comment.getUser().getUsername(),
                     comment.getUser().getProfileImage().getImageUrl(),
                     comment.getPost().getCommunity().getName(),
                     comment.getPost().getUser().getUsername(),
-                    TimeAgo.using(comment.getPost().getCreatedDate().toEpochMilli()),
-                    comment.getPost().getPostName(),
-                    Post.getPostPointsText(comment.getPost().getVoteCount()),
+                    TimeAgo.using(comment.getPost().getCreationDate().toEpochMilli()),
+                    comment.getPost().getTitle(),
+                    Post.getPostPointsText(comment.getPost().getPoints()),
                     Post.getPostCommentCountText(commentRepository.findByPost(comment.getPost()).size()),
                     TimeAgo.using(comment.getCreationDate().toEpochMilli()),
                     comment.getText(),
-                    Comment.getCommentPointsText(comment.getVoteCount()),
+                    Comment.getCommentPointsText(comment.getPoints()),
                     Comment.getCommentReplyCountText(commentRepository.findByParentCommentId(comment.getId()).size()),
                     currentUser.getUsername(),
                     currentUser.getProfileImage().getImageUrl()

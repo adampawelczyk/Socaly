@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserResponse {
-    private String createdDate;
+    private String creationDate;
     private String profileImage;
     private String profileBanner;
     private String description;

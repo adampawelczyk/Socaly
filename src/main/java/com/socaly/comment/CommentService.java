@@ -54,15 +54,15 @@ public class CommentService {
 
     private void sendPostCommentEmail(Post post, Comment comment) {
         emailService.sendPostCommentEmail(new PostCommentEmail(
-                comment.getUser().getUsername() + " commented on your post " + post.getPostName() + " in s\\"
+                comment.getUser().getUsername() + " commented on your post " + post.getTitle() + " in s\\"
                         + post.getCommunity().getName(),
                 post.getUser().getEmail(),
                 post.getUser().getUsername(),
                 post.getUser().getProfileImage().getImageUrl(),
                 post.getCommunity().getName(),
-                TimeAgo.using(post.getCreatedDate().toEpochMilli()),
-                post.getPostName(),
-                Post.getPostPointsText(post.getVoteCount()),
+                TimeAgo.using(post.getCreationDate().toEpochMilli()),
+                post.getTitle(),
+                Post.getPostPointsText(post.getPoints()),
                 Post.getPostCommentCountText(commentRepository.findByPost(comment.getPost()).size()),
                 comment.getUser().getUsername(),
                 comment.getUser().getProfileImage().getImageUrl(),
@@ -72,20 +72,20 @@ public class CommentService {
 
     private void sendCommentReplyEmail(Post post, Comment comment, Comment reply) {
         emailService.sendCommentReplyEmail(new CommentReplyEmail(
-                reply.getUser().getUsername() + " replied to your comment on post " + post.getPostName()
+                reply.getUser().getUsername() + " replied to your comment on post " + post.getTitle()
                         + "in s\\" + post.getCommunity().getName(),
                 comment.getUser().getEmail(),
                 comment.getUser().getUsername(),
                 comment.getUser().getProfileImage().getImageUrl(),
                 post.getCommunity().getName(),
                 post.getUser().getUsername(),
-                TimeAgo.using(post.getCreatedDate().toEpochMilli()),
-                post.getPostName(),
-                Post.getPostPointsText(comment.getPost().getVoteCount()),
+                TimeAgo.using(post.getCreationDate().toEpochMilli()),
+                post.getTitle(),
+                Post.getPostPointsText(comment.getPost().getPoints()),
                 Post.getPostCommentCountText(commentRepository.findByPost(comment.getPost()).size()),
                 TimeAgo.using(comment.getCreationDate().toEpochMilli()),
                 comment.getText(),
-                Comment.getCommentPointsText(comment.getVoteCount()),
+                Comment.getCommentPointsText(comment.getPoints()),
                 Comment.getCommentReplyCountText(commentRepository.findByParentCommentId(comment.getId()).size()),
                 reply.getUser().getUsername(),
                 reply.getUser().getProfileImage().getImageUrl(),

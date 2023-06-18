@@ -49,8 +49,9 @@ public class AuthService {
         user.setUsername(signUpRequest.getUsername());
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         user.setEmail(signUpRequest.getEmail());
-        user.setCreatedDate(Instant.now());
+        user.setCreationDate(Instant.now());
         user.setEmailVerified(false);
+        user.setDeleted(false);
         user.setDescription("");
 
         UserSettings settings = new UserSettings();

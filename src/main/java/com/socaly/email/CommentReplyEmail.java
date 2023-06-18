@@ -12,11 +12,11 @@ public class CommentReplyEmail {
     private String recipientProfileImage;
     private String communityName;
     private String postUsername;
-    private String postTimestamp;
+    private String postTimeSinceCreation;
     private String postTitle;
     private String postPoints;
     private String commentCount;
-    private String commentTimestamp;
+    private String commentTimeSinceCreation;
     private String commentText;
     private String commentPoints;
     private String commentReplyCount;

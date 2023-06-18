@@ -33,18 +33,18 @@ public class PostVoteService {
 
         if (voteByPostAndUser.isPresent() && voteByPostAndUser.get().getVoteType().equals(postVoteDto.getVoteType())) {
             if (VoteType.UPVOTE.equals(postVoteDto.getVoteType())) {
-                post.setVoteCount(post.getVoteCount() - 1);
+                post.setPoints(post.getPoints() - 1);
             } else {
-                post.setVoteCount(post.getVoteCount() + 1);
+                post.setPoints(post.getPoints() + 1);
             }
 
             postVoteRepository.deleteById(voteByPostAndUser.get().getId());
 
         } else if (voteByPostAndUser.isPresent()) {
             if (VoteType.UPVOTE.equals(postVoteDto.getVoteType())) {
-                post.setVoteCount(post.getVoteCount() + 2);
+                post.setPoints(post.getPoints() + 2);
             } else {
-                post.setVoteCount(post.getVoteCount() - 2);
+                post.setPoints(post.getPoints() - 2);
             }
 
             postVoteRepository.deleteById(voteByPostAndUser.get().getId());
@@ -52,13 +52,13 @@ public class PostVoteService {
 
         } else {
             if (VoteType.UPVOTE.equals(postVoteDto.getVoteType())) {
-                post.setVoteCount(post.getVoteCount() + 1);
+                post.setPoints(post.getPoints() + 1);
 
                 if (post.getUser().getSettings().getPostUpVoteEmails()) {
                     sendPostUpVoteEmail(post);
                 }
             } else {
-                post.setVoteCount(post.getVoteCount() - 1);
+                post.setPoints(post.getPoints() - 1);
             }
 
             postVoteRepository.save(mapToVote(postVoteDto, post));
@@ -69,15 +69,15 @@ public class PostVoteService {
         User currentUser = authService.getCurrentUser();
 
         emailService.sendPostUpVoteEmail(new PostUpVoteEmail(
-                currentUser.getUsername() + " upvoted your post " + post.getPostName() + " in s\\"
+                currentUser.getUsername() + " upvoted your post " + post.getTitle() + " in s\\"
                         + post.getCommunity().getName(),
                 post.getUser().getEmail(),
                 post.getUser().getUsername(),
                 post.getUser().getProfileImage().getImageUrl(),
                 post.getCommunity().getName(),
-                TimeAgo.using(post.getCreatedDate().toEpochMilli()),
-                post.getPostName(),
-                Post.getPostPointsText(post.getVoteCount()),
+                TimeAgo.using(post.getCreationDate().toEpochMilli()),
+                post.getTitle(),
+                Post.getPostPointsText(post.getPoints()),
                 Post.getPostCommentCountText(commentRepository.findByPost(post).size()),
                 currentUser.getUsername(),
                 currentUser.getProfileImage().getImageUrl()

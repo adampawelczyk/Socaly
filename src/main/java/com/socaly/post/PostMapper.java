@@ -29,17 +29,17 @@ public abstract class PostMapper {
     private PostVoteRepository postVoteRepository;
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "createdDate", expression = "java(java.time.Instant.now())")
+    @Mapping(target = "creationDate", expression = "java(java.time.Instant.now())")
     @Mapping(target = "description", source = "postRequest.description")
     @Mapping(target = "user", source = "user")
-    @Mapping(target = "voteCount", constant = "0")
+    @Mapping(target = "points", constant = "0")
     @Mapping(target = "images", expression = "java(mapStringsToImages(postRequest.getImages()))")
     public abstract Post mapToPost(PostRequest postRequest, Community community, User user);
 
     @Mapping(target = "communityName", source = "community.name")
-    @Mapping(target = "userName", source = "user.username")
+    @Mapping(target = "username", source = "user.username")
     @Mapping(target = "commentCount", expression = "java(commentCount(post))")
-    @Mapping(target = "duration", expression = "java(getDuration(post))")
+    @Mapping(target = "timeSinceCreation", expression = "java(getTimeSinceCreation(post))")
     @Mapping(target = "upVote", expression = "java(isPostUpVoted(post))")
     @Mapping(target = "downVote", expression = "java(isPostDownVoted(post))")
     @Mapping(target = "images", expression = "java(mapImagesToStrings(post.getImages()))")
@@ -49,8 +49,8 @@ public abstract class PostMapper {
         return commentRepository.findByPost(post).size();
     }
 
-    String getDuration(Post post) {
-        return TimeAgo.using(post.getCreatedDate().toEpochMilli());
+    String getTimeSinceCreation(Post post) {
+        return TimeAgo.using(post.getCreationDate().toEpochMilli());
     }
 
     boolean isPostUpVoted(Post post) {
