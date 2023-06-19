@@ -82,6 +82,7 @@ public class EmailService {
                     commentReplyEmail.getCommunityName(),
                     commentReplyEmail.getPostUsername(),
                     commentReplyEmail.getPostTimeSinceCreation(),
+                    commentReplyEmail.getPostId(),
                     commentReplyEmail.getPostTitle(),
                     commentReplyEmail.getPostPoints(),
                     commentReplyEmail.getCommentCount(),
@@ -89,6 +90,7 @@ public class EmailService {
                     commentReplyEmail.getCommentText(),
                     commentReplyEmail.getCommentPoints(),
                     commentReplyEmail.getCommentReplyCount(),
+                    commentReplyEmail.getReplyId(),
                     commentReplyEmail.getReplyUsername(),
                     commentReplyEmail.getReplyUserProfileImage(),
                     commentReplyEmail.getReplyText()
