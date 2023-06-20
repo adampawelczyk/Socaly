@@ -60,10 +60,12 @@ public class CommentService {
                 post.getUser().getUsername(),
                 post.getUser().getProfileImage().getImageUrl(),
                 post.getCommunity().getName(),
+                String.valueOf(post.getId()),
                 TimeAgo.using(post.getCreationDate().toEpochMilli()),
                 post.getTitle(),
                 Post.getPostPointsText(post.getPoints()),
                 Post.getPostCommentCountText(commentRepository.findByPost(comment.getPost()).size()),
+                String.valueOf(comment.getId()),
                 comment.getUser().getUsername(),
                 comment.getUser().getProfileImage().getImageUrl(),
                 comment.getText()

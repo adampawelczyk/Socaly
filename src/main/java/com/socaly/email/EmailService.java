@@ -51,10 +51,12 @@ public class EmailService {
                     postCommentEmail.getRecipientUsername(),
                     postCommentEmail.getRecipientProfileImage(),
                     postCommentEmail.getCommunityName(),
+                    postCommentEmail.getPostId(),
                     postCommentEmail.getPostTimeSinceCreation(),
                     postCommentEmail.getPostTitle(),
                     postCommentEmail.getPostPoints(),
                     postCommentEmail.getCommentCount(),
+                    postCommentEmail.getCommentId(),
                     postCommentEmail.getCommentUsername(),
                     postCommentEmail.getCommentUserProfileImage(),
                     postCommentEmail.getCommentText()
