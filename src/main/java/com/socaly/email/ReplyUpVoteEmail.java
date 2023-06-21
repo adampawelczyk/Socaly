@@ -11,6 +11,7 @@ public class ReplyUpVoteEmail {
     private String recipientUsername;
     private String recipientProfileImage;
     private String communityName;
+    private String postId;
     private String postUsername;
     private String postTimeSinceCreation;
     private String postTitle;
@@ -21,6 +22,7 @@ public class ReplyUpVoteEmail {
     private String commentText;
     private String commentPoints;
     private String commentReplyCount;
+    private String replyId;
     private String replyTimeSinceCreation;
     private String replyText;
     private String replyPoints;
