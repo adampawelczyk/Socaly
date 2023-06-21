@@ -72,13 +72,14 @@ public class EmailContentBuilder {
     }
 
     String buildPostUpVoteEmail(String recipientUsername, String recipientProfileImage, String communityName,
-                                String postTimeSinceCreation, String postTitle, String postPoints, String commentCount,
-                                String upVoteUsername, String upVoteUserProfileImage) {
+                                String postId,  String postTimeSinceCreation, String postTitle, String postPoints,
+                                String commentCount,  String upVoteUsername, String upVoteUserProfileImage) {
         Context context = new Context();
 
         context.setVariable("recipientUsername", recipientUsername);
         context.setVariable("recipientProfileImage", recipientProfileImage);
         context.setVariable("communityName", communityName);
+        context.setVariable("postId", postId);
         context.setVariable("postTimeSinceCreation", postTimeSinceCreation);
         context.setVariable("postTitle", postTitle);
         context.setVariable("postPoints", postPoints);

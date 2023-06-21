@@ -118,6 +118,7 @@ public class EmailService {
                     postUpVoteEmail.getRecipientUsername(),
                     postUpVoteEmail.getRecipientProfileImage(),
                     postUpVoteEmail.getCommunityName(),
+                    postUpVoteEmail.getPostId(),
                     postUpVoteEmail.getPostTimeSinceCreation(),
                     postUpVoteEmail.getPostTitle(),
                     postUpVoteEmail.getPostPoints(),
