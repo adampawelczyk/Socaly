@@ -11,11 +11,13 @@ public class CommentUpVoteEmail {
     private String recipientUsername;
     private String recipientProfileImage;
     private String communityName;
+    private String postId;
     private String postUsername;
     private String postTimeSinceCreation;
     private String postTitle;
     private String postPoints;
     private String commentCount;
+    private String commentId;
     private String commentTimeSinceCreation;
     private String commentText;
     private String commentPoints;

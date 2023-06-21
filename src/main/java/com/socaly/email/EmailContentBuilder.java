@@ -22,17 +22,20 @@ public class EmailContentBuilder {
     }
 
     String buildPostCommentEmail(String recipientUsername, String recipientProfileImage, String communityName,
-                                 String postTimeSinceCreation, String postTitle, String postPoints, String commentCount,
-                                 String commentUsername, String commentProfileImage, String commentText) {
+                                 String postId, String postTimeSinceCreation, String postTitle, String postPoints,
+                                 String commentCount, String commentId, String commentUsername,
+                                 String commentProfileImage, String commentText) {
         Context context = new Context();
 
         context.setVariable("recipientUsername", recipientUsername);
         context.setVariable("recipientProfileImage", recipientProfileImage);
         context.setVariable("communityName", communityName);
+        context.setVariable("postId", postId);
         context.setVariable("postTimeSinceCreation", postTimeSinceCreation);
         context.setVariable("postTitle", postTitle);
         context.setVariable("postPoints", postPoints);
         context.setVariable("commentCount", commentCount);
+        context.setVariable("commentId", commentId);
         context.setVariable("commentUsername", commentUsername);
         context.setVariable("commentProfileImage", commentProfileImage);
         context.setVariable("commentText", commentText);
@@ -41,9 +44,9 @@ public class EmailContentBuilder {
     }
 
     String buildCommentReplyEmail(String recipientUsername, String recipientProfileImage, String communityName,
-                                  String postUsername, String postTimeSinceCreation, String postTitle,
+                                  String postUsername, String postTimeSinceCreation, String postId, String postTitle,
                                   String postPoints, String commentCount, String commentTimeSinceCreation,
-                                  String commentText, String commentPoints, String commentReplyCount,
+                                  String commentText, String commentPoints, String commentReplyCount, String replyId,
                                   String replyUsername, String replyUserProfileImage, String replyText) {
         Context context = new Context();
 
@@ -52,6 +55,7 @@ public class EmailContentBuilder {
         context.setVariable("communityName", communityName);
         context.setVariable("postUsername", postUsername);
         context.setVariable("postTimeSinceCreation", postTimeSinceCreation);
+        context.setVariable("postId", postId);
         context.setVariable("postTitle", postTitle);
         context.setVariable("postPoints", postPoints);
         context.setVariable("commentCount", commentCount);
@@ -59,6 +63,7 @@ public class EmailContentBuilder {
         context.setVariable("commentText", commentText);
         context.setVariable("commentPoints", commentPoints);
         context.setVariable("commentReplyCount", commentReplyCount);
+        context.setVariable("replyId", replyId);
         context.setVariable("replyUsername", replyUsername);
         context.setVariable("replyUserProfileImage", replyUserProfileImage);
         context.setVariable("replyText", replyText);
@@ -67,13 +72,14 @@ public class EmailContentBuilder {
     }
 
     String buildPostUpVoteEmail(String recipientUsername, String recipientProfileImage, String communityName,
-                                String postTimeSinceCreation, String postTitle, String postPoints, String commentCount,
-                                String upVoteUsername, String upVoteUserProfileImage) {
+                                String postId,  String postTimeSinceCreation, String postTitle, String postPoints,
+                                String commentCount,  String upVoteUsername, String upVoteUserProfileImage) {
         Context context = new Context();
 
         context.setVariable("recipientUsername", recipientUsername);
         context.setVariable("recipientProfileImage", recipientProfileImage);
         context.setVariable("communityName", communityName);
+        context.setVariable("postId", postId);
         context.setVariable("postTimeSinceCreation", postTimeSinceCreation);
         context.setVariable("postTitle", postTitle);
         context.setVariable("postPoints", postPoints);
@@ -85,19 +91,21 @@ public class EmailContentBuilder {
     }
 
     String buildCommentUpVoteEmail(String recipientUsername, String recipientProfileImage, String communityName,
-                                   String postUsername, String postTimeSinceCreation, String postTitle,
-                                   String postPoints, String commentCount, String commentTimeSinceCreation,
-                                   String commentText, String commentPoints, String commentReplyCount,
-                                   String upVoteUsername, String upVoteUserProfileImage) {
+                                   String postId, String postUsername, String postTimeSinceCreation, String postTitle,
+                                   String postPoints, String commentCount, String commentId,
+                                   String commentTimeSinceCreation, String commentText, String commentPoints,
+                                   String commentReplyCount, String upVoteUsername, String upVoteUserProfileImage) {
         Context context = new Context();
 
         context.setVariable("recipientUsername", recipientUsername);
         context.setVariable("recipientProfileImage", recipientProfileImage);
         context.setVariable("communityName", communityName);
+        context.setVariable("postId", postId);
         context.setVariable("postUsername", postUsername);
         context.setVariable("postTimeSinceCreation", postTimeSinceCreation);
         context.setVariable("postTitle", postTitle);
         context.setVariable("postPoints", postPoints);
+        context.setVariable("commentId", commentId);
         context.setVariable("commentCount", commentCount);
         context.setVariable("commentTimeSinceCreation", commentTimeSinceCreation);
         context.setVariable("commentText", commentText);
@@ -110,16 +118,18 @@ public class EmailContentBuilder {
     }
 
     String buildReplyUpVoteEmail(String recipientUsername, String recipientProfileImage, String communityName,
-                                 String postUsername, String postTimeSinceCreation, String postTitle, String postPoints,
-                                 String commentCount, String commentUsername, String commentTimeSinceCreation,
-                                 String commentText, String commentPoints, String commentReplyCount,
-                                 String replyTimeSinceCreation, String replyText, String replyPoints,
-                                 String replyReplyCount,  String upVoteUsername, String upVoteUserProfileImage) {
+                                 String postId, String postUsername, String postTimeSinceCreation, String postTitle,
+                                 String postPoints, String commentCount, String commentUsername,
+                                 String commentTimeSinceCreation, String commentText, String commentPoints,
+                                 String commentReplyCount, String replyId, String replyTimeSinceCreation,
+                                 String replyText, String replyPoints, String replyReplyCount,  String upVoteUsername,
+                                 String upVoteUserProfileImage) {
         Context context = new Context();
 
         context.setVariable("recipientUsername", recipientUsername);
         context.setVariable("recipientProfileImage", recipientProfileImage);
         context.setVariable("communityName", communityName);
+        context.setVariable("postId", postId);
         context.setVariable("postUsername", postUsername);
         context.setVariable("postTimeSinceCreation", postTimeSinceCreation);
         context.setVariable("postTitle", postTitle);
@@ -130,6 +140,7 @@ public class EmailContentBuilder {
         context.setVariable("commentText", commentText);
         context.setVariable("commentPoints", commentPoints);
         context.setVariable("commentReplyCount", commentReplyCount);
+        context.setVariable("replyId", replyId);
         context.setVariable("replyTimeSinceCreation", replyTimeSinceCreation);
         context.setVariable("replyText", replyText);
         context.setVariable("replyPoints", replyPoints);

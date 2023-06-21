@@ -60,10 +60,12 @@ public class CommentService {
                 post.getUser().getUsername(),
                 post.getUser().getProfileImage().getImageUrl(),
                 post.getCommunity().getName(),
+                String.valueOf(post.getId()),
                 TimeAgo.using(post.getCreationDate().toEpochMilli()),
                 post.getTitle(),
                 Post.getPostPointsText(post.getPoints()),
                 Post.getPostCommentCountText(commentRepository.findByPost(comment.getPost()).size()),
+                String.valueOf(comment.getId()),
                 comment.getUser().getUsername(),
                 comment.getUser().getProfileImage().getImageUrl(),
                 comment.getText()
@@ -78,6 +80,7 @@ public class CommentService {
                 comment.getUser().getUsername(),
                 comment.getUser().getProfileImage().getImageUrl(),
                 post.getCommunity().getName(),
+                String.valueOf(post.getId()),
                 post.getUser().getUsername(),
                 TimeAgo.using(post.getCreationDate().toEpochMilli()),
                 post.getTitle(),
@@ -87,6 +90,7 @@ public class CommentService {
                 comment.getText(),
                 Comment.getCommentPointsText(comment.getPoints()),
                 Comment.getCommentReplyCountText(commentRepository.findByParentCommentId(comment.getId()).size()),
+                String.valueOf(reply.getId()),
                 reply.getUser().getUsername(),
                 reply.getUser().getProfileImage().getImageUrl(),
                 reply.getText()

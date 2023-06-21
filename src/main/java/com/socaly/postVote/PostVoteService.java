@@ -75,6 +75,7 @@ public class PostVoteService {
                 post.getUser().getUsername(),
                 post.getUser().getProfileImage().getImageUrl(),
                 post.getCommunity().getName(),
+                String.valueOf(post.getId()),
                 TimeAgo.using(post.getCreationDate().toEpochMilli()),
                 post.getTitle(),
                 Post.getPostPointsText(post.getPoints()),
