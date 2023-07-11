@@ -1,6 +1,7 @@
 package com.socaly.post;
 
 import com.socaly.community.Community;
+import com.socaly.image.Image;
 import com.socaly.user.User;
 import com.socaly.community.CommunityNotFoundException;
 import com.socaly.community.CommunityRepository;
@@ -12,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,6 +44,31 @@ public class PostService {
         );
 
         return postMapper.mapToPostResponse(post);
+    }
+
+    public long updatePost(Long id, PostRequest postRequest) {
+        Post post = postRepository.findById(id).orElseThrow(
+                () -> new PostNotFoundException(id.toString())
+        );
+
+        Community community = communityRepository.findByName(postRequest.getCommunityName()).orElseThrow(
+                () -> new CommunityNotFoundException(postRequest.getCommunityName())
+        );
+
+        post.setCommunity(community);
+        post.setTitle(postRequest.getTitle());
+        post.setDescription(postRequest.getDescription());
+
+        List<Image> images = new ArrayList<>();
+        for (String string : postRequest.getImages()) {
+            Image image = new Image();
+            image.setImageUrl(string);
+            images.add(image);
+        }
+
+        post.setImages(images);
+
+        return postRepository.save(post).getId();
     }
 
     @Transactional
