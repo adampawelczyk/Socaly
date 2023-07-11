@@ -40,6 +40,7 @@ public abstract class PostMapper {
     @Mapping(target = "username", source = "user.username")
     @Mapping(target = "commentCount", expression = "java(commentCount(post))")
     @Mapping(target = "timeSinceCreation", expression = "java(getTimeSinceCreation(post))")
+    @Mapping(target = "timeSinceEdit", expression = "java(getTimeSinceEdit(post))")
     @Mapping(target = "upVote", expression = "java(isPostUpVoted(post))")
     @Mapping(target = "downVote", expression = "java(isPostDownVoted(post))")
     @Mapping(target = "images", expression = "java(mapImagesToStrings(post.getImages()))")
@@ -51,6 +52,13 @@ public abstract class PostMapper {
 
     String getTimeSinceCreation(Post post) {
         return TimeAgo.using(post.getCreationDate().toEpochMilli());
+    }
+
+    String getTimeSinceEdit(Post post) {
+        if (post.getEditDate() != null) {
+            return TimeAgo.using(post.getEditDate().toEpochMilli());
+        }
+        return "";
     }
 
     boolean isPostUpVoted(Post post) {
