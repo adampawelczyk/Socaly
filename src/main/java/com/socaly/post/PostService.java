@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -62,6 +63,7 @@ public class PostService {
             post.setCommunity(community);
             post.setTitle(postRequest.getTitle());
             post.setDescription(postRequest.getDescription());
+            post.setEditDate(Instant.now());
 
             List<Image> images = new ArrayList<>();
             for (String string : postRequest.getImages()) {
