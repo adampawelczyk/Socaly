@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Service
@@ -55,18 +56,22 @@ public class PostService {
                 () -> new CommunityNotFoundException(postRequest.getCommunityName())
         );
 
-        post.setCommunity(community);
-        post.setTitle(postRequest.getTitle());
-        post.setDescription(postRequest.getDescription());
+        User user = authService.getCurrentUser();
 
-        List<Image> images = new ArrayList<>();
-        for (String string : postRequest.getImages()) {
-            Image image = new Image();
-            image.setImageUrl(string);
-            images.add(image);
+        if (Objects.equals(post.getUser().getId(), user.getId())) {
+            post.setCommunity(community);
+            post.setTitle(postRequest.getTitle());
+            post.setDescription(postRequest.getDescription());
+
+            List<Image> images = new ArrayList<>();
+            for (String string : postRequest.getImages()) {
+                Image image = new Image();
+                image.setImageUrl(string);
+                images.add(image);
+            }
+
+            post.setImages(images);
         }
-
-        post.setImages(images);
 
         return postRepository.save(post).getId();
     }
