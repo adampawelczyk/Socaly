@@ -33,6 +33,7 @@ public class Post {
 
     private Integer points = 0;
     private Instant creationDate;
+    private Instant editDate;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Image> images;

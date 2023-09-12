@@ -19,6 +19,7 @@ public class PostResponse {
     private Integer points;
     private Integer commentCount;
     private String timeSinceCreation;
+    private String timeSinceEdit;
     private boolean upVote;
     private boolean downVote;
 }

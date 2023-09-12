@@ -23,6 +23,11 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(postService.getPost(id));
     }
 
+    @PutMapping("update/{id}")
+    public ResponseEntity<Long> updatePost(@PathVariable Long id, @RequestBody PostRequest postRequest) {
+        return ResponseEntity.status(HttpStatus.OK).body(postService.updatePost(id, postRequest));
+    }
+
     @GetMapping("get/all")
     public ResponseEntity<List<PostResponse>> getAllPosts() {
         return ResponseEntity.status(HttpStatus.OK).body(postService.getAllPosts());
