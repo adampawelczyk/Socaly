@@ -19,15 +19,13 @@ public class AuthController {
     @PostMapping("/sign-up")
     public ResponseEntity<String> signUp(@RequestBody SignUpRequest signUpRequest) {
         authService.signUp(signUpRequest);
-
-        return new ResponseEntity<>("User registration successful", HttpStatus.OK);
+        return ResponseEntity.ok("User registration successful");
     }
 
     @GetMapping("/verify-account/{token}")
     public ResponseEntity<String> verifyAccount(@PathVariable String token) {
         authService.verifyAccount(token);
-
-        return new ResponseEntity<>("Account activated successfully", HttpStatus.OK);
+        return ResponseEntity.ok("Account activated successfully");
     }
 
     @PostMapping("/log-in")
@@ -43,7 +41,6 @@ public class AuthController {
     @PostMapping("/log-out")
     public ResponseEntity<String> logOut(@Valid @RequestBody RefreshTokenRequest refreshTokenRequest) {
         refreshTokenService.deleteRefreshToken(refreshTokenRequest.getRefreshToken());
-
-        return ResponseEntity.status(HttpStatus.OK).body("Refresh token deleted successfully");
+        return ResponseEntity.ok("Refresh token deleted successfully");
     }
 }
