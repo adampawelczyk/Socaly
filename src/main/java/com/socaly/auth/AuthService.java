@@ -79,6 +79,22 @@ public class AuthService {
         return user;
     }
 
+    private Image createProfileImage() {
+        String imageUrl = generateProfileImage();
+        Image profileImage = new Image();
+        profileImage.setImageUrl(imageUrl);
+        imageRepository.save(profileImage);
+        return profileImage;
+    }
+
+    private Image createProfileBanner() {
+        String imageUrl = "https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static%2Fbanner-default.png?alt=media&token=72a29594-4e22-43b6-83de-d93048a90edc";
+        Image profileBanner = new Image();
+        profileBanner.setImageUrl(imageUrl);
+        imageRepository.save(profileBanner);
+        return profileBanner;
+    }
+
     private String generateProfileImage() {
         return "https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static%2Favatar-default-"
                 + new Random().nextInt(8)
