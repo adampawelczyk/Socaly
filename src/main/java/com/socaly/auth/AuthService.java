@@ -44,34 +44,7 @@ public class AuthService {
 
     @Transactional
     public void signUp(SignUpRequest signUpRequest) {
-        User user = new User();
-
-        user.setUsername(signUpRequest.getUsername());
-        user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
-        user.setEmail(signUpRequest.getEmail());
-        user.setCreationDate(Instant.now());
-        user.setEmailVerified(false);
-        user.setDeleted(false);
-        user.setDescription("");
-
-        UserSettings settings = new UserSettings();
-        userSettingsRepository.save(settings);
-
-        user.setSettings(settings);
-
-        Image profileImage = new Image();
-        profileImage.setImageUrl(generateProfileImage());
-        imageRepository.save(profileImage);
-
-        user.setProfileImage(profileImage);
-
-        Image profileBanner = new Image();
-        profileBanner.setImageUrl("https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static%2F" +
-                "banner-default.png?alt=media&token=72a29594-4e22-43b6-83de-d93048a90edc");
-        imageRepository.save(profileBanner);
-
-        user.setProfileBanner(profileBanner);
-
+        User user = createUserFromSignUpRequest(signUpRequest);
         userRepository.save(user);
         
         String token = generateVerificationToken(user);
@@ -82,6 +55,28 @@ public class AuthService {
                 user.getProfileImage().getImageUrl(),
                 "http://localhost:8090/api/auth/verify-account/" + token
                 ));
+    }
+
+    private User createUserFromSignUpRequest(SignUpRequest signUpRequest) {
+        User user = new User();
+        user.setUsername(signUpRequest.getUsername());
+        user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
+        user.setEmail(signUpRequest.getEmail());
+        user.setCreationDate(Instant.now());
+        user.setEmailVerified(false);
+        user.setDeleted(false);
+        user.setDescription("");
+
+        UserSettings settings = new UserSettings();
+        userSettingsRepository.save(settings);
+        user.setSettings(settings);
+
+        Image profileImage = createProfileImage();
+        Image profileBanner = createProfileBanner();
+        user.setProfileImage(profileImage);
+        user.setProfileBanner(profileBanner);
+
+        return user;
     }
 
     private String generateProfileImage() {
