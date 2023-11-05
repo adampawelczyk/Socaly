@@ -16,34 +16,32 @@ public class CommentController {
     @PostMapping("/create")
     public ResponseEntity<Void> createComment(@RequestBody CommentRequest commentRequest) {
         commentService.save(commentRequest);
-
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/get/{commentId}")
     public ResponseEntity<CommentResponse> getComment(@PathVariable Long commentId) {
-        return ResponseEntity.status(HttpStatus.OK).body(commentService.getComment(commentId));
+        return ResponseEntity.ok(commentService.getComment(commentId));
     }
 
     @GetMapping("get/all/by-post/{postId}")
     public ResponseEntity<List<CommentResponse>> getAllCommentsForPost(@PathVariable Long postId) {
-        return ResponseEntity.status(HttpStatus.OK).body(commentService.getAllCommentsForPost(postId));
+        return ResponseEntity.ok(commentService.getAllCommentsForPost(postId));
     }
 
     @GetMapping("get/all/by-user/{username}")
     public ResponseEntity<List<CommentResponse>> getAllCommentsForUser(@PathVariable String username) {
-        return ResponseEntity.status(HttpStatus.OK).body(commentService.getAllCommentsForUser(username));
+        return ResponseEntity.ok(commentService.getAllCommentsForUser(username));
     }
 
     @GetMapping("get/all/sub-comments/{commentId}")
     public ResponseEntity<List<CommentResponse>> getAllSubCommentsForComment(@PathVariable Long commentId) {
-        return ResponseEntity.status(HttpStatus.OK).body(commentService.getSubCommentsForComment(commentId));
+        return ResponseEntity.ok(commentService.getSubCommentsForComment(commentId));
     }
 
     @PostMapping("/edit/{commentId}")
     public ResponseEntity<Void> editComment(@PathVariable Long commentId, @RequestBody String text) {
         commentService.edit(commentId, text);
-
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
