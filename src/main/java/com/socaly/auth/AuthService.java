@@ -47,14 +47,8 @@ public class AuthService {
         User user = createUserFromSignUpRequest(signUpRequest);
         userRepository.save(user);
         
-        String token = generateVerificationToken(user);
-        emailService.sendEmailVerificationEmail(new EmailVerificationEmail(
-                "Verify your Socaly email address",
-                user.getEmail(),
-                user.getUsername(),
-                user.getProfileImage().getImageUrl(),
-                "http://localhost:8090/api/auth/verify-account/" + token
-                ));
+        String verificationToken = generateVerificationToken(user);
+        sendVerificationEmail(user, verificationToken);
     }
 
     private User createUserFromSignUpRequest(SignUpRequest signUpRequest) {
@@ -110,6 +104,16 @@ public class AuthService {
         verificationTokenRepository.save(verificationToken);
 
         return token;
+    }
+
+    private void sendVerificationEmail(User user, String token) {
+        emailService.sendEmailVerificationEmail(new EmailVerificationEmail(
+                "Verify your Socaly email address",
+                user.getEmail(),
+                user.getUsername(),
+                user.getProfileImage().getImageUrl(),
+                "http://localhost:8090/api/auth/verify-account/" + token
+        ));
     }
 
     public void verifyAccount(String token) {
