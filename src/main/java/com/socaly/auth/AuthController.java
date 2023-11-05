@@ -3,7 +3,6 @@ package com.socaly.auth;
 import com.socaly.refreshToken.RefreshTokenRequest;
 import com.socaly.refreshToken.RefreshTokenService;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
