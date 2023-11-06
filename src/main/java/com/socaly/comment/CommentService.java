@@ -38,9 +38,7 @@ public class CommentService {
         if (shouldSendPostCommentEmail(post, comment)) {
             sendPostCommentEmail(post, comment);
         } else if (comment.getParentCommentId() != null) {
-            Comment parentComment = commentRepository.findById(comment.getParentCommentId()).orElseThrow(
-                    () -> new CommentNotFoundException(comment.getParentCommentId().toString())
-            );
+            Comment parentComment = findCommentById(comment.getParentCommentId());
 
             if (!comment.getUser().getUsername().equals(parentComment.getUser().getUsername())
                     && parentComment.getUser().getSettings().getCommentReplyEmails()) {
@@ -59,6 +57,12 @@ public class CommentService {
         return !post.getUser().getUsername().equals(comment.getUser().getUsername()) &&
                 comment.getParentCommentId() == null &&
                 post.getUser().getSettings().getPostCommentEmails();
+    }
+
+    private Comment findCommentById(Long commentId) {
+        return commentRepository.findById(commentId).orElseThrow(
+                    () -> new CommentNotFoundException(commentId.toString())
+            );
     }
 
     private void sendPostCommentEmail(Post post, Comment comment) {
@@ -107,9 +111,7 @@ public class CommentService {
     }
 
     public void edit(Long commentId, String text) {
-        Comment commentToEdit = commentRepository.findById(commentId).orElseThrow(
-                () -> new CommentNotFoundException(commentId.toString())
-        );
+        Comment commentToEdit = findCommentById(commentId);
         User user = authService.getCurrentUser();
 
         if (Objects.equals(commentToEdit.getUser().getId(), user.getId())) {
