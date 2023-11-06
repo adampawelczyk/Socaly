@@ -40,8 +40,7 @@ public class CommentService {
         } else if (comment.getParentCommentId() != null) {
             Comment parentComment = findCommentById(comment.getParentCommentId());
 
-            if (!comment.getUser().getUsername().equals(parentComment.getUser().getUsername())
-                    && parentComment.getUser().getSettings().getCommentReplyEmails()) {
+            if (shouldSendCommentReplyEmail(comment, parentComment)) {
                 sendCommentReplyEmail(post, parentComment, comment);
             }
         }
@@ -63,6 +62,11 @@ public class CommentService {
         return commentRepository.findById(commentId).orElseThrow(
                     () -> new CommentNotFoundException(commentId.toString())
             );
+    }
+
+    private boolean shouldSendCommentReplyEmail(Comment comment, Comment parentComment) {
+        return !comment.getUser().getUsername().equals(parentComment.getUser().getUsername()) &&
+                parentComment.getUser().getSettings().getCommentReplyEmails();
     }
 
     private void sendPostCommentEmail(Post post, Comment comment) {
