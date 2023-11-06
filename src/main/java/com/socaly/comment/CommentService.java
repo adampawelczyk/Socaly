@@ -35,8 +35,7 @@ public class CommentService {
         Comment comment = commentMapper.mapToComment(commentRequest, post, user);
         commentRepository.save(comment);
 
-        if (!post.getUser().getUsername().equals(comment.getUser().getUsername()) && comment.getParentCommentId() == null
-            && post.getUser().getSettings().getPostCommentEmails()) {
+        if (shouldSendPostCommentEmail(post, comment)) {
             sendPostCommentEmail(post, comment);
         } else if (comment.getParentCommentId() != null) {
             Comment parentComment = commentRepository.findById(comment.getParentCommentId()).orElseThrow(
@@ -54,6 +53,12 @@ public class CommentService {
         return postRepository.findById(postId).orElseThrow(
                 () -> new PostNotFoundException(postId.toString())
         );
+    }
+
+    private boolean shouldSendPostCommentEmail(Post post, Comment comment) {
+        return !post.getUser().getUsername().equals(comment.getUser().getUsername()) &&
+                comment.getParentCommentId() == null &&
+                post.getUser().getSettings().getPostCommentEmails();
     }
 
     private void sendPostCommentEmail(Post post, Comment comment) {
