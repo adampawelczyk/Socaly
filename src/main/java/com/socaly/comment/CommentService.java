@@ -30,7 +30,7 @@ public class CommentService {
     private final EmailService emailService;
 
     public void save(CommentRequest commentRequest) {
-        Post post = findPost(commentRequest.getPostId());
+        Post post = findPostById(commentRequest.getPostId());
         User user = authService.getCurrentUser();
         Comment comment = commentMapper.mapToComment(commentRequest, post, user);
         commentRepository.save(comment);
@@ -47,7 +47,7 @@ public class CommentService {
         }
     }
 
-    private Post findPost(Long postId) {
+    private Post findPostById(Long postId) {
         return postRepository.findById(postId).orElseThrow(
                 () -> new PostNotFoundException(postId.toString())
         );
@@ -132,7 +132,7 @@ public class CommentService {
     }
 
     public List<CommentResponse> getAllCommentsForPost(Long postId) {
-        Post post = findPost(postId);
+        Post post = findPostById(postId);
 
         return commentRepository.findByPostAndParentCommentIdIsNull(post)
                 .stream()
