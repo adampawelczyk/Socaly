@@ -18,6 +18,6 @@ public class CommentVoteController {
     public ResponseEntity<Void> vote(@RequestBody CommentVoteDto commentVoteDto) {
         commentVoteService.vote(commentVoteDto);
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
