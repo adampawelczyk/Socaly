@@ -27,8 +27,7 @@ public class CommentVoteService {
 
     @Transactional
     public void vote(CommentVoteDto commentVoteDto) {
-        Comment comment = commentRepository.findById(commentVoteDto.getCommentId())
-                .orElseThrow(() -> new CommentNotFoundException(commentVoteDto.getCommentId().toString()));
+        Comment comment = findCommentById(commentVoteDto.getCommentId());
         Optional<CommentVote> voteByCommentAndUser = commentVoteRepository.findTopByCommentAndUserOrderByIdDesc(comment, authService.getCurrentUser());
 
         if (voteByCommentAndUser.isPresent() && voteByCommentAndUser.get().getVoteType().equals(commentVoteDto.getVoteType())) {
@@ -62,6 +61,13 @@ public class CommentVoteService {
             }
             commentVoteRepository.save(mapToCommentVote(commentVoteDto, comment));
         }
+    }
+
+    private Comment findCommentById(Long commentId) {
+        return commentRepository.findById(commentId)
+            .orElseThrow(
+                () -> new CommentNotFoundException(commentId.toString())
+            );
     }
 
     private void sendCommentUpVoteEmail(Comment comment) {
