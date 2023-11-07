@@ -26,7 +26,7 @@ public class CommentVoteService {
     private final EmailService emailService;
 
     @Transactional
-    public void vote(CommentVoteDto commentVoteDto) {
+    public void vote(final CommentVoteDto commentVoteDto) {
         Comment comment = findCommentById(commentVoteDto.getCommentId());
         Optional<CommentVote> voteByCommentAndUser = commentVoteRepository.findTopByCommentAndUserOrderByIdDesc(comment, authService.getCurrentUser());
 
