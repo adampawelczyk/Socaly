@@ -44,7 +44,7 @@ public class CommentVoteService {
             );
     }
 
-    private void handleExistingVote(Comment comment, CommentVoteDto commentVoteDto, CommentVote existingVote) {
+    private void handleExistingVote(final Comment comment, final CommentVoteDto commentVoteDto, final CommentVote existingVote) {
         if (existingVote.getVoteType() == commentVoteDto.getVoteType()) {
             comment.setPoints(comment.getPoints() + (commentVoteDto.getVoteType() == VoteType.UPVOTE ? -1 : 1));
             commentVoteRepository.deleteById(existingVote.getId());
