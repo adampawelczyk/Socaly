@@ -58,7 +58,7 @@ public class CommentVoteService {
 
     private void handleNewVote(Comment comment, CommentVoteDto commentVoteDto) {
         final User currentUser = authService.getCurrentUser();
-        int pointsChange = (commentVoteDto.getVoteType() == VoteType.UPVOTE ? 1 : -1);
+        final int pointsChange = (commentVoteDto.getVoteType() == VoteType.UPVOTE ? 1 : -1);
         comment.setPoints(comment.getPoints() + pointsChange);
 
         if (commentVoteDto.getVoteType() == VoteType.UPVOTE
