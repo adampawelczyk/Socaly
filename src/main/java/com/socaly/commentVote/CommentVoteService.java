@@ -37,7 +37,7 @@ public class CommentVoteService {
         }
     }
 
-    private Comment findCommentById(Long commentId) {
+    private Comment findCommentById(final Long commentId) {
         return commentRepository.findById(commentId)
             .orElseThrow(
                 () -> new CommentNotFoundException(commentId.toString())
