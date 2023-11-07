@@ -132,7 +132,7 @@ public class CommentVoteService {
         }
     }
 
-    private CommentVote mapToCommentVote(CommentVoteDto commentVoteDto, Comment comment) {
+    private CommentVote mapToCommentVote(final CommentVoteDto commentVoteDto, final Comment comment) {
         return CommentVote.builder()
                 .voteType(commentVoteDto.getVoteType())
                 .comment(comment)
