@@ -70,7 +70,7 @@ public class CommentVoteService {
         commentVoteRepository.save(mapToCommentVote(commentVoteDto, comment));
     }
 
-    private void sendCommentUpVoteEmail(Comment comment) {
+    private void sendCommentUpVoteEmail(final Comment comment) {
         User currentUser = authService.getCurrentUser();
 
         if (comment.getParentCommentId() != null) {
