@@ -27,7 +27,7 @@ public class CommentVoteService {
 
     @Transactional
     public void vote(final CommentVoteDto commentVoteDto) {
-        Comment comment = findCommentById(commentVoteDto.getCommentId());
+        final Comment comment = findCommentById(commentVoteDto.getCommentId());
         Optional<CommentVote> voteByCommentAndUser = commentVoteRepository.findTopByCommentAndUserOrderByIdDesc(comment, authService.getCurrentUser());
 
         if (voteByCommentAndUser.isPresent()) {
