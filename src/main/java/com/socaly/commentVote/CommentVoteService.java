@@ -71,7 +71,7 @@ public class CommentVoteService {
     }
 
     private void sendCommentUpVoteEmail(final Comment comment) {
-        User currentUser = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
 
         if (comment.getParentCommentId() != null) {
             Comment parentComment = commentRepository.findById(comment.getParentCommentId())
