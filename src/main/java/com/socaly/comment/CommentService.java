@@ -46,7 +46,7 @@ public class CommentService {
         }
     }
 
-    private Post findPostById(Long postId) {
+    private Post findPostById(final Long postId) {
         return postRepository.findById(postId).orElseThrow(
                 () -> new PostNotFoundException(postId.toString())
         );
