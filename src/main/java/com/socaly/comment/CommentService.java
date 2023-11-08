@@ -52,7 +52,7 @@ public class CommentService {
         );
     }
 
-    private boolean shouldSendPostCommentEmail(Post post, Comment comment) {
+    private boolean shouldSendPostCommentEmail(final Post post, final Comment comment) {
         return !post.getUser().getUsername().equals(comment.getUser().getUsername()) &&
                 comment.getParentCommentId() == null &&
                 post.getUser().getSettings().getPostCommentEmails();
