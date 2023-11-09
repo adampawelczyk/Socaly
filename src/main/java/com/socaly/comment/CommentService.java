@@ -125,7 +125,7 @@ public class CommentService {
         }
     }
 
-    public CommentResponse getComment(Long commentId) {
+    public CommentResponse getComment(final Long commentId) {
         return commentRepository.findById(commentId)
                 .stream()
                 .map(commentMapper::mapToCommentResponse)
