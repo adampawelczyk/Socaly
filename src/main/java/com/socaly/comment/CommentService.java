@@ -135,7 +135,7 @@ public class CommentService {
                 );
     }
 
-    public List<CommentResponse> getAllCommentsForPost(Long postId) {
+    public List<CommentResponse> getAllCommentsForPost(final Long postId) {
         Post post = findPostById(postId);
 
         return commentRepository.findByPostAndParentCommentIdIsNull(post)
