@@ -69,7 +69,7 @@ public class CommentService {
                 parentComment.getUser().getSettings().getCommentReplyEmails();
     }
 
-    private void sendPostCommentEmail(Post post, Comment comment) {
+    private void sendPostCommentEmail(final Post post, final Comment comment) {
         emailService.sendPostCommentEmail(new PostCommentEmail(
                 comment.getUser().getUsername() + " commented on your post " + post.getTitle() + " in s\\"
                         + post.getCommunity().getName(),
