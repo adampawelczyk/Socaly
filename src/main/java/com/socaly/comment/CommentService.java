@@ -64,7 +64,7 @@ public class CommentService {
             );
     }
 
-    private boolean shouldSendCommentReplyEmail(Comment comment, Comment parentComment) {
+    private boolean shouldSendCommentReplyEmail(final Comment comment, final Comment parentComment) {
         return !comment.getUser().getUsername().equals(parentComment.getUser().getUsername()) &&
                 parentComment.getUser().getSettings().getCommentReplyEmails();
     }
