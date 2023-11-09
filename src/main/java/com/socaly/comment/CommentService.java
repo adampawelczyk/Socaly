@@ -89,7 +89,7 @@ public class CommentService {
         ));
     }
 
-    private void sendCommentReplyEmail(Post post, Comment comment, Comment reply) {
+    private void sendCommentReplyEmail(final Post post, final Comment comment, final Comment reply) {
         emailService.sendCommentReplyEmail(new CommentReplyEmail(
                 reply.getUser().getUsername() + " replied to your comment on post " + post.getTitle()
                         + "in s\\" + post.getCommunity().getName(),
