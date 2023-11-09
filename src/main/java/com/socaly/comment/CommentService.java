@@ -115,7 +115,7 @@ public class CommentService {
     }
 
     public void edit(final Long commentId, final String text) {
-        Comment commentToEdit = findCommentById(commentId);
+        final Comment commentToEdit = findCommentById(commentId);
         User user = authService.getCurrentUser();
 
         if (Objects.equals(commentToEdit.getUser().getId(), user.getId())) {
