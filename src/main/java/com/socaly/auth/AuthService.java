@@ -51,7 +51,7 @@ public class AuthService {
         sendVerificationEmail(user, verificationToken);
     }
 
-    private User createUserFromSignUpRequest(SignUpRequest signUpRequest) {
+    private User createUserFromSignUpRequest(final SignUpRequest signUpRequest) {
         User user = new User();
         user.setUsername(signUpRequest.getUsername());
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
