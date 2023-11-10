@@ -52,7 +52,7 @@ public class AuthService {
     }
 
     private User createUserFromSignUpRequest(final SignUpRequest signUpRequest) {
-        User user = new User();
+        final User user = new User();
         user.setUsername(signUpRequest.getUsername());
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         user.setEmail(signUpRequest.getEmail());
