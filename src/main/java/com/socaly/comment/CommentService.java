@@ -151,7 +151,7 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
-    public List<CommentResponse> getAllCommentsForUser(String username) {
+    public List<CommentResponse> getAllCommentsForUser(final String username) {
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException(username)
         );
