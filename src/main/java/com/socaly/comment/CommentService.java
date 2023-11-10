@@ -136,7 +136,7 @@ public class CommentService {
     }
 
     public List<CommentResponse> getAllCommentsForPost(final Long postId) {
-        Post post = findPostById(postId);
+        final Post post = findPostById(postId);
 
         return commentRepository.findByPostAndParentCommentIdIsNull(post)
                 .stream()
