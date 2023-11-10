@@ -43,7 +43,7 @@ public class AuthService {
     private final RefreshTokenService refreshTokenService;
 
     @Transactional
-    public void signUp(SignUpRequest signUpRequest) {
+    public void signUp(final SignUpRequest signUpRequest) {
         User user = createUserFromSignUpRequest(signUpRequest);
         userRepository.save(user);
         
