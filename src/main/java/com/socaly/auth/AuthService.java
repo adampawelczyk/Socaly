@@ -47,7 +47,7 @@ public class AuthService {
         final User user = createUserFromSignUpRequest(signUpRequest);
         userRepository.save(user);
         
-        String verificationToken = generateVerificationToken(user);
+        final String verificationToken = generateVerificationToken(user);
         sendVerificationEmail(user, verificationToken);
     }
 
