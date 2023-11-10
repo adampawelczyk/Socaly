@@ -44,7 +44,7 @@ public class AuthService {
 
     @Transactional
     public void signUp(final SignUpRequest signUpRequest) {
-        User user = createUserFromSignUpRequest(signUpRequest);
+        final User user = createUserFromSignUpRequest(signUpRequest);
         userRepository.save(user);
         
         String verificationToken = generateVerificationToken(user);
