@@ -61,9 +61,9 @@ public class AuthService {
         user.setDeleted(false);
         user.setDescription("");
 
-        final UserSettings settings = new UserSettings();
-        userSettingsRepository.save(settings);
-        user.setSettings(settings);
+        final UserSettings userSettings = new UserSettings();
+        userSettingsRepository.save(userSettings);
+        user.setSettings(userSettings);
 
         Image profileImage = createProfileImage();
         Image profileBanner = createProfileBanner();
