@@ -75,7 +75,7 @@ public class AuthService {
 
     private Image createProfileImage() {
         final String imageUrl = generateProfileImage();
-        Image profileImage = new Image();
+        final Image profileImage = new Image();
         profileImage.setImageUrl(imageUrl);
         imageRepository.save(profileImage);
         return profileImage;
