@@ -61,7 +61,7 @@ public class AuthService {
         user.setDeleted(false);
         user.setDescription("");
 
-        UserSettings settings = new UserSettings();
+        final UserSettings settings = new UserSettings();
         userSettingsRepository.save(settings);
         user.setSettings(settings);
 
