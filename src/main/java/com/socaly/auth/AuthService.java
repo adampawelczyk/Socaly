@@ -66,7 +66,7 @@ public class AuthService {
         user.setSettings(userSettings);
 
         final Image profileImage = createProfileImage();
-        Image profileBanner = createProfileBanner();
+        final Image profileBanner = createProfileBanner();
         user.setProfileImage(profileImage);
         user.setProfileBanner(profileBanner);
 
