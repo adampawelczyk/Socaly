@@ -116,7 +116,7 @@ public class AuthService {
         ));
     }
 
-    public void verifyAccount(String token) {
+    public void verifyAccount(final String token) {
         Optional<VerificationToken> verificationToken = verificationTokenRepository.findByToken(token);
 
         verificationToken.orElseThrow(() -> new AuthException("Invalid token"));
