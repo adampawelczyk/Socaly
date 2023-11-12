@@ -106,7 +106,7 @@ public class AuthService {
         return token;
     }
 
-    private void sendVerificationEmail(User user, String token) {
+    private void sendVerificationEmail(final User user, final String token) {
         emailService.sendEmailVerificationEmail(new EmailVerificationEmail(
                 "Verify your Socaly email address",
                 user.getEmail(),
