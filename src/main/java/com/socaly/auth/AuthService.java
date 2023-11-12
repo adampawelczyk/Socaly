@@ -137,7 +137,7 @@ public class AuthService {
     }
 
     @Transactional
-    void fetchUserAndEnable(VerificationToken verificationToken) {
+    void fetchUserAndEnable(final VerificationToken verificationToken) {
         String username = verificationToken.getUser().getUsername();
 
         User user = userRepository.findByUsername(username).orElseThrow(
