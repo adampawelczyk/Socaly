@@ -95,7 +95,7 @@ public class AuthService {
                 +".png?alt=media&token=b00daa37-abf9-447d-9a52-80daa478e8ec";
     }
 
-    private String generateVerificationToken(User user) {
+    private String generateVerificationToken(final User user) {
         String token = UUID.randomUUID().toString();
         VerificationToken verificationToken = new VerificationToken();
 
