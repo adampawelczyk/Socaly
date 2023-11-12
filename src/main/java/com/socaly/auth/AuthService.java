@@ -138,7 +138,7 @@ public class AuthService {
 
     @Transactional
     void fetchUserAndEnable(final VerificationToken verificationToken) {
-        String username = verificationToken.getUser().getUsername();
+        final String username = verificationToken.getUser().getUsername();
 
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException("User not found with name - " + username));
