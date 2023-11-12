@@ -96,7 +96,7 @@ public class AuthService {
     }
 
     private String generateVerificationToken(final User user) {
-        String token = UUID.randomUUID().toString();
+        final String token = UUID.randomUUID().toString();
         VerificationToken verificationToken = new VerificationToken();
 
         verificationToken.setToken(token);
