@@ -182,7 +182,8 @@ public class AuthService {
     }
 
     public boolean isLoggedIn() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
         return !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
     }
 }
