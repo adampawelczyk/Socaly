@@ -171,7 +171,7 @@ public class AuthService {
     public AuthResponse refreshToken(final RefreshTokenRequest refreshTokenRequest) {
         refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
 
-        String token = jwtProvider.generateTokenWithUsername(refreshTokenRequest.getUsername());
+        final String token = jwtProvider.generateTokenWithUsername(refreshTokenRequest.getUsername());
 
         return AuthResponse.builder()
                 .authenticationToken(token)
