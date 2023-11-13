@@ -168,7 +168,7 @@ public class AuthService {
         return passwordEncoder.encode(password);
     }
 
-    public AuthResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
+    public AuthResponse refreshToken(final RefreshTokenRequest refreshTokenRequest) {
         refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
 
         String token = jwtProvider.generateTokenWithUsername(refreshTokenRequest.getUsername());
