@@ -150,7 +150,7 @@ public class AuthService {
         final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginRequest.getUsername(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = jwtProvider.generateToken(authentication);
+        final String token = jwtProvider.generateToken(authentication);
 
         return AuthResponse.builder()
                 .authenticationToken(token)
