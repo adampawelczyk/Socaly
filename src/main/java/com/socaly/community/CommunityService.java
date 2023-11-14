@@ -27,10 +27,10 @@ public class CommunityService {
     @Transactional
     public CommunityResponse save(final CommunityRequest communityRequest) {
         final User currentUser = authService.getCurrentUser();
-        Community save = communityRepository.save(communityMapper.mapToCommunity(communityRequest, currentUser));
+        Community savedCommunity = communityRepository.save(communityMapper.mapToCommunity(communityRequest, currentUser));
         join(communityRequest.getName());
 
-        return communityMapper.mapToCommunityResponse(save);
+        return communityMapper.mapToCommunityResponse(savedCommunity);
     }
 
     @Transactional(readOnly = true)
