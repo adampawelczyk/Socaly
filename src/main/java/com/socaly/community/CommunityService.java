@@ -7,7 +7,6 @@ import com.socaly.userCommunitySettings.UserCommunitySettings;
 import com.socaly.userCommunitySettings.UserCommunitySettingsNotFoundException;
 import com.socaly.userCommunitySettings.UserCommunitySettingsRepository;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +17,6 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-@Slf4j
 public class CommunityService {
     private final CommunityRepository communityRepository;
     private final UserCommunitySettingsRepository userCommunitySettingsRepository;
