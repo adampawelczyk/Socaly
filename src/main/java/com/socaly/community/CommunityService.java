@@ -43,7 +43,7 @@ public class CommunityService {
     }
 
     public CommunityResponse findCommunityByName(final String name) {
-        Community community = communityRepository.findByName(name).orElseThrow(
+        final Community community = communityRepository.findByName(name).orElseThrow(
                 () -> new CommunityNotFoundException(name));
 
         return communityMapper.mapToCommunityResponse(community);
