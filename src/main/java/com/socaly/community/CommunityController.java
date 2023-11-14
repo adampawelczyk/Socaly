@@ -20,7 +20,7 @@ public class CommunityController {
 
     @GetMapping("/get/{name}")
     public ResponseEntity<CommunityResponse> getCommunity(@PathVariable String name) {
-        return ResponseEntity.status(HttpStatus.OK).body(communityService.getCommunity(name));
+        return ResponseEntity.status(HttpStatus.OK).body(communityService.findCommunityByName(name));
     }
 
     @GetMapping("/get/all")
