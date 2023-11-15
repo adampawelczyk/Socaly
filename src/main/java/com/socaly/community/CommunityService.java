@@ -66,7 +66,7 @@ public class CommunityService {
         userRepository.save(currentUser);
     }
 
-    public void leave(String name) {
+    public void leave(final String name) {
         User currentUser = authService.getCurrentUser();
         Community community = communityRepository.findByName(name).orElseThrow(
                 () -> new CommunityNotFoundException(name)
