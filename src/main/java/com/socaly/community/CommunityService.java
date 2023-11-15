@@ -51,7 +51,7 @@ public class CommunityService {
 
     public void join(final String name) {
         final User currentUser = authService.getCurrentUser();
-        Community community = communityRepository.findByName(name).orElseThrow(
+        final Community community = communityRepository.findByName(name).orElseThrow(
                 () -> new CommunityNotFoundException(name)
         );
 
