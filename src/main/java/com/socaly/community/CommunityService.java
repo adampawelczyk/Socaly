@@ -89,7 +89,7 @@ public class CommunityService {
     }
 
     public List<CommunityResponse> getAllCommunitiesForUser(final String username) {
-        User user = userRepository.findByUsername(username).orElseThrow(
+        final User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException("No user found with name - " + username)
         );
 
