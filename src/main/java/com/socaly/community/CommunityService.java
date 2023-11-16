@@ -77,14 +77,24 @@ public class CommunityService {
     }
 
     public void leaveCommunity(final String communityName) {
-        final User currentUser = authService.getCurrentUser();
         final Community community = communityRepository.findByName(communityName).orElseThrow(
                 () -> new CommunityNotFoundException(communityName)
         );
 
+        removeCurrentUserFromCommunity(community);
+        removeCurrentUserCommunitySettings(community);
+    }
+
+    private void removeCurrentUserFromCommunity(final Community community) {
+        final User currentUser = authService.getCurrentUser();
+        
         community.getUsers().remove(currentUser);
         communityRepository.save(community);
+    }
 
+    private void removeCurrentUserCommunitySettings(final Community community) {
+        final User currentUser = authService.getCurrentUser();
+        
         List<UserCommunitySettings> userCommunitySettingsList = currentUser.getUserCommunitySettings();
         UserCommunitySettings userCommunitySettings = userCommunitySettingsList
                 .stream()
