@@ -15,7 +15,7 @@ public class CommunityController {
 
     @PostMapping("/create")
     public ResponseEntity<CommunityResponse> createCommunity(@RequestBody CommunityRequest communityRequest) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(communityService.save(communityRequest));
+        return ResponseEntity.status(HttpStatus.CREATED).body(communityService.saveCommunity(communityRequest));
     }
 
     @GetMapping("/get/{name}")
