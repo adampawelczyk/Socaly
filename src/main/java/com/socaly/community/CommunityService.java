@@ -28,7 +28,7 @@ public class CommunityService {
     public CommunityResponse saveCommunity(final CommunityRequest communityRequest) {
         final User currentUser = authService.getCurrentUser();
         final Community savedCommunity = communityRepository.save(communityMapper.mapToCommunity(communityRequest, currentUser));
-        join(communityRequest.getName());
+        joinCommunity(communityRequest.getName());
 
         return communityMapper.mapToCommunityResponse(savedCommunity);
     }
@@ -49,7 +49,7 @@ public class CommunityService {
         return communityMapper.mapToCommunityResponse(community);
     }
 
-    public void join(final String name) {
+    public void joinCommunity(final String name) {
         final User currentUser = authService.getCurrentUser();
         final Community community = communityRepository.findByName(name).orElseThrow(
                 () -> new CommunityNotFoundException(name)

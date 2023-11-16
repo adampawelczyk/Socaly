@@ -35,7 +35,7 @@ public class CommunityController {
 
     @GetMapping("/join/{name}")
     public ResponseEntity<Void> joinCommunity(@PathVariable String name) {
-        communityService.join(name);
+        communityService.joinCommunity(name);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
