@@ -50,13 +50,23 @@ public class CommunityService {
     }
 
     public void joinCommunity(final String communityName) {
-        final User currentUser = authService.getCurrentUser();
         final Community community = communityRepository.findByName(communityName).orElseThrow(
                 () -> new CommunityNotFoundException(communityName)
         );
 
+        addCurrentUserToCommunity(community);
+        saveCurrentUserCommunitySettings(community);
+    }
+
+    private void addCurrentUserToCommunity(final Community community) {
+        final User currentUser = authService.getCurrentUser();
+
         community.getUsers().add(currentUser);
         communityRepository.save(community);
+    }
+
+    private void saveCurrentUserCommunitySettings(final Community community) {
+        final User currentUser = authService.getCurrentUser();
 
         UserCommunitySettings userCommunitySettings = new UserCommunitySettings();
         userCommunitySettings.setCommunityId(community.getId());
