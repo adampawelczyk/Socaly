@@ -49,10 +49,10 @@ public class CommunityService {
         return communityMapper.mapToCommunityResponse(community);
     }
 
-    public void joinCommunity(final String name) {
+    public void joinCommunity(final String communityName) {
         final User currentUser = authService.getCurrentUser();
-        final Community community = communityRepository.findByName(name).orElseThrow(
-                () -> new CommunityNotFoundException(name)
+        final Community community = communityRepository.findByName(communityName).orElseThrow(
+                () -> new CommunityNotFoundException(communityName)
         );
 
         community.getUsers().add(currentUser);
