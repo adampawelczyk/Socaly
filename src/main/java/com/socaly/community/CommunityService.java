@@ -34,7 +34,7 @@ public class CommunityService {
     }
 
     @Transactional(readOnly = true)
-    public List<CommunityResponse> getAll() {
+    public List<CommunityResponse> getAllCommunities() {
         return communityRepository
                 .findAll()
                 .stream()

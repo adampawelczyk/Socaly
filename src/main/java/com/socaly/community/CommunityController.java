@@ -25,7 +25,7 @@ public class CommunityController {
 
     @GetMapping("/get/all")
     public ResponseEntity<List<CommunityResponse>> getAllCommunities() {
-        return ResponseEntity.status(HttpStatus.OK).body(communityService.getAll());
+        return ResponseEntity.status(HttpStatus.OK).body(communityService.getAllCommunities());
     }
 
     @GetMapping("/get/all/by-user/{name}")
