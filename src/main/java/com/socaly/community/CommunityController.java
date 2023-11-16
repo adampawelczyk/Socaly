@@ -42,7 +42,7 @@ public class CommunityController {
 
     @GetMapping("/leave/{name}")
     public ResponseEntity<Void> leaveCommunity(@PathVariable String name) {
-        communityService.leave(name);
+        communityService.leaveCommunity(name);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
