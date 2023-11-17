@@ -38,7 +38,7 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public PostResponse getPost(Long id) {
+    public PostResponse findPostById(Long id) {
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new PostNotFoundException(id.toString())
         );

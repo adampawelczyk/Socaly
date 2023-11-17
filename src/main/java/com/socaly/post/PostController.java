@@ -20,7 +20,7 @@ public class PostController {
 
     @GetMapping("get/{id}")
     public ResponseEntity<PostResponse> getPost(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(postService.getPost(id));
+        return ResponseEntity.status(HttpStatus.OK).body(postService.findPostById(id));
     }
 
     @PutMapping("update/{id}")
