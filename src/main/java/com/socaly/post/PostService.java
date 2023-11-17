@@ -29,7 +29,7 @@ public class PostService {
     private final UserRepository userRepository;
 
     public long savePost(final PostRequest postRequest) {
-        Community community = communityRepository.findByName(postRequest.getCommunityName()).orElseThrow(
+        final Community community = communityRepository.findByName(postRequest.getCommunityName()).orElseThrow(
                 () -> new CommunityNotFoundException(postRequest.getCommunityName())
         );
         User currentUser = authService.getCurrentUser();
