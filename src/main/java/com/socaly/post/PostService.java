@@ -38,9 +38,9 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public PostResponse findPostById(final Long id) {
-        Post post = postRepository.findById(id).orElseThrow(
-                () -> new PostNotFoundException(id.toString())
+    public PostResponse findPostById(final Long postId) {
+        Post post = postRepository.findById(postId).orElseThrow(
+                () -> new PostNotFoundException(postId.toString())
         );
 
         return postMapper.mapToPostResponse(post);
