@@ -15,7 +15,7 @@ public class PostController {
 
     @PostMapping("/create")
     public ResponseEntity<Long> createPost(@RequestBody PostRequest postRequest) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(postService.save(postRequest));
+        return ResponseEntity.status(HttpStatus.CREATED).body(postService.savePost(postRequest));
     }
 
     @GetMapping("get/{id}")
