@@ -8,7 +8,6 @@ import com.socaly.community.CommunityRepository;
 import com.socaly.user.UserRepository;
 import com.socaly.auth.AuthService;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +20,6 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-@Slf4j
 @Transactional
 public class PostService {
     private final CommunityRepository communityRepository;
