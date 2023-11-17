@@ -32,7 +32,7 @@ public class PostService {
         final Community community = communityRepository.findByName(postRequest.getCommunityName()).orElseThrow(
                 () -> new CommunityNotFoundException(postRequest.getCommunityName())
         );
-        User currentUser = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
 
         return postRepository.save(postMapper.mapToPost(postRequest, community, currentUser)).getId();
     }
