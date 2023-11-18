@@ -51,7 +51,7 @@ public class PostService {
                 () -> new PostNotFoundException(id.toString())
         );
 
-        Community community = communityRepository.findByName(postRequest.getCommunityName()).orElseThrow(
+        final Community community = communityRepository.findByName(postRequest.getCommunityName()).orElseThrow(
                 () -> new CommunityNotFoundException(postRequest.getCommunityName())
         );
 
