@@ -55,7 +55,7 @@ public class PostService {
                 () -> new CommunityNotFoundException(postRequest.getCommunityName())
         );
 
-        User user = authService.getCurrentUser();
+        final User user = authService.getCurrentUser();
 
         if (Objects.equals(post.getUser().getId(), user.getId())) {
             post.setCommunity(community);
