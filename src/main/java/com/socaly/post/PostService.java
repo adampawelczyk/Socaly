@@ -46,7 +46,7 @@ public class PostService {
         return postMapper.mapToPostResponse(post);
     }
 
-    public long updatePost(Long id, PostRequest postRequest) {
+    public long updatePost(final Long id, final PostRequest postRequest) {
         final Post post = postRepository.findById(id).orElseThrow(
                 () -> new PostNotFoundException(id.toString())
         );
