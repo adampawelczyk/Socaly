@@ -47,7 +47,7 @@ public class PostService {
     }
 
     public long updatePost(Long id, PostRequest postRequest) {
-        Post post = postRepository.findById(id).orElseThrow(
+        final Post post = postRepository.findById(id).orElseThrow(
                 () -> new PostNotFoundException(id.toString())
         );
 
