@@ -46,9 +46,9 @@ public class PostService {
         return postMapper.mapToPostResponse(post);
     }
 
-    public long updatePost(final Long id, final PostRequest postRequest) {
-        final Post post = postRepository.findById(id).orElseThrow(
-                () -> new PostNotFoundException(id.toString())
+    public long updatePost(final Long postId, final PostRequest postRequest) {
+        final Post post = postRepository.findById(postId).orElseThrow(
+                () -> new PostNotFoundException(postId.toString())
         );
 
         final Community community = communityRepository.findByName(postRequest.getCommunityName()).orElseThrow(
