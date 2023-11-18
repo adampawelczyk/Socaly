@@ -90,7 +90,7 @@ public class PostService {
         final Community community = communityRepository.findByName(communityName).orElseThrow(
                 () -> new CommunityNotFoundException(communityName)
         );
-        List<Post> posts = postRepository.findAllByCommunity(community);
+        final List<Post> posts = postRepository.findAllByCommunity(community);
 
         return posts
                 .stream()
