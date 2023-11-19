@@ -66,7 +66,7 @@ public class PostVoteService {
     }
 
     private void sendPostUpVoteEmail(final Post post) {
-        User currentUser = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
 
         emailService.sendPostUpVoteEmail(new PostUpVoteEmail(
                 currentUser.getUsername() + " upvoted your post " + post.getTitle() + " in s\\"
