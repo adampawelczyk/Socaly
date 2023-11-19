@@ -99,7 +99,7 @@ public class PostService {
     }
 
     @Transactional
-    public List<PostResponse> getAllPostsByUser(String username) {
+    public List<PostResponse> getAllPostsByUser(final String username) {
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException(username)
         );
