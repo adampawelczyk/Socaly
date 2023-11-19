@@ -85,7 +85,7 @@ public class PostVoteService {
         ));
     }
 
-    private PostVote mapToVote(PostVoteDto postVoteDto, Post post) {
+    private PostVote mapToVote(final PostVoteDto postVoteDto, final Post post) {
         return PostVote.builder()
                 .voteType(postVoteDto.getVoteType())
                 .post(post)
