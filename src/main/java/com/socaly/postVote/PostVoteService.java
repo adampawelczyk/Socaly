@@ -29,7 +29,7 @@ public class PostVoteService {
     public void saveVote(final PostVoteDto postVoteDto) {
         final Post post = postRepository.findById(postVoteDto.getPostId())
                 .orElseThrow(() -> new PostNotFoundException(postVoteDto.getPostId().toString()));
-        Optional<PostVote> voteByPostAndUser = postVoteRepository.findTopByPostAndUserOrderByIdDesc(post, authService.getCurrentUser());
+        final Optional<PostVote> voteByPostAndUser = postVoteRepository.findTopByPostAndUserOrderByIdDesc(post, authService.getCurrentUser());
 
         if (voteByPostAndUser.isPresent() && voteByPostAndUser.get().getVoteType().equals(postVoteDto.getVoteType())) {
             if (VoteType.UPVOTE.equals(postVoteDto.getVoteType())) {
