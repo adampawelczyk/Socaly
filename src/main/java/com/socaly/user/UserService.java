@@ -16,7 +16,7 @@ public class UserService {
     private final UserMapper userMapper;
 
     public UserResponse getCurrentUser() {
-        User currentUser = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
 
         return getUser(currentUser.getUsername());
     }
