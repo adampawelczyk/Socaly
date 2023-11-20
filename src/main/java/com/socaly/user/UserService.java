@@ -21,7 +21,7 @@ public class UserService {
         return getUser(currentUser.getUsername());
     }
 
-    public UserResponse getUser(String username) {
+    public UserResponse getUser(final String username) {
         return userRepository.findByUsername(username)
                 .stream()
                 .map(userMapper::mapToDto)
