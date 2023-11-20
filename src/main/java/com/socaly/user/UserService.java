@@ -21,6 +21,16 @@ public class UserService {
         return getUser(user.getUsername());
     }
 
+    public UserResponse getUser(String username) {
+        return userRepository.findByUsername(username)
+                .stream()
+                .map(userMapper::mapToDto)
+                .findFirst()
+                .orElseThrow(
+                    () -> new UsernameNotFoundException(username)
+                );
+    }
+
     public String getCurrentUserEmail() {
         User user = authService.getCurrentUser();
 
@@ -31,16 +41,6 @@ public class UserService {
         User user = authService.getCurrentUser();
 
         return user.isEmailVerified();
-    }
-
-    public UserResponse getUser(String username) {
-        return userRepository.findByUsername(username)
-                .stream()
-                .map(userMapper::mapToDto)
-                .findFirst()
-                .orElseThrow(
-                    () -> new UsernameNotFoundException(username)
-                );
     }
 
     public String getUserProfileImage(String username) {
