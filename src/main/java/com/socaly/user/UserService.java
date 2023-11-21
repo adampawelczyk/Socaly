@@ -32,7 +32,7 @@ public class UserService {
     }
 
     public String getCurrentUserEmail() {
-        User currentUser = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
 
         return currentUser.getEmail();
     }
