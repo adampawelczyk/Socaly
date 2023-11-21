@@ -32,9 +32,9 @@ public class UserService {
     }
 
     public String getCurrentUserEmail() {
-        User user = authService.getCurrentUser();
+        User currentUser = authService.getCurrentUser();
 
-        return user.getEmail();
+        return currentUser.getEmail();
     }
 
     public Boolean isEmailVerified() {
