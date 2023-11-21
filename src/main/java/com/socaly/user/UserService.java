@@ -45,8 +45,8 @@ public class UserService {
 
     public String getUserProfileImage(String username) {
         User user = userRepository.findByUsername(username).orElseThrow(
-                    () -> new UsernameNotFoundException(username)
-            );
+            () -> new UsernameNotFoundException(username)
+        );
 
         return user.getProfileImage().getImageUrl();
     }
