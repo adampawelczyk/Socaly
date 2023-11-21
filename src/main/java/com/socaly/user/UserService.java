@@ -38,7 +38,7 @@ public class UserService {
     }
 
     public Boolean isEmailVerified() {
-        User currentUser = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
 
         return currentUser.isEmailVerified();
     }
