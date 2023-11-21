@@ -38,9 +38,9 @@ public class UserService {
     }
 
     public Boolean isEmailVerified() {
-        User user = authService.getCurrentUser();
+        User currentUser = authService.getCurrentUser();
 
-        return user.isEmailVerified();
+        return currentUser.isEmailVerified();
     }
 
     public String getUserProfileImage(String username) {
