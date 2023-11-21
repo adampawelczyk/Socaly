@@ -43,7 +43,7 @@ public class UserService {
         return currentUser.isEmailVerified();
     }
 
-    public String getUserProfileImage(String username) {
+    public String getUserProfileImage(final String username) {
         final User user = userRepository.findByUsername(username).orElseThrow(
             () -> new UsernameNotFoundException(username)
         );
