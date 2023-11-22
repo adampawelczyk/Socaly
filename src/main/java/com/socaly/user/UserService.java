@@ -73,7 +73,7 @@ public class UserService {
     }
 
     void updateEmail(final EmailUpdateRequest emailUpdateRequest) {
-        User currentUser = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
 
         if (authService.isAuthenticated(currentUser.getUsername(), emailUpdateRequest.getPassword())) {
             currentUser.setEmail(emailUpdateRequest.getEmail());
