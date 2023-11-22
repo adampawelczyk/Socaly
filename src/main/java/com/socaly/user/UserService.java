@@ -66,7 +66,7 @@ public class UserService {
     }
 
     void updateDescription(final String description) {
-        User currentUser = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
         currentUser.setDescription(description);
 
         userRepository.save(currentUser);
