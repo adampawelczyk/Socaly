@@ -65,7 +65,7 @@ public class UserService {
         imageRepository.save(currentUser.getProfileBanner());
     }
 
-    void updateDescription(String description) {
+    void updateDescription(final String description) {
         User currentUser = authService.getCurrentUser();
         currentUser.setDescription(description);
 
