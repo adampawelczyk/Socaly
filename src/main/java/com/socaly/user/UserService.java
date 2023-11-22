@@ -59,7 +59,7 @@ public class UserService {
     }
 
     void updateProfileBanner(final String imageUrl) {
-        User currentUser = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
         currentUser.getProfileBanner().setImageUrl(imageUrl);
 
         imageRepository.save(currentUser.getProfileBanner());
