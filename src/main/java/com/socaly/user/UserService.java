@@ -84,7 +84,7 @@ public class UserService {
     }
 
     void updatePassword(final PasswordUpdateRequest passwordUpdateRequest) {
-        User currentUser = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
 
         if (authService.isAuthenticated(currentUser.getUsername(), passwordUpdateRequest.getCurrentPassword())) {
             currentUser.setPassword(authService.encodePassword(passwordUpdateRequest.getNewPassword()));
