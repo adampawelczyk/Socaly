@@ -121,7 +121,7 @@ public class UserService {
     }
 
     boolean isDeleted(final String username) {
-        User user = userRepository.findByUsername(username).orElseThrow(
+        final User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException(username)
         );
 
