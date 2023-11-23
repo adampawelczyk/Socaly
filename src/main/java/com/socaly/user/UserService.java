@@ -15,13 +15,13 @@ public class UserService {
     private final ImageRepository imageRepository;
     private final UserMapper userMapper;
 
-    public UserResponse getCurrentUser() {
+    UserResponse getCurrentUser() {
         final User currentUser = authService.getCurrentUser();
 
         return getUser(currentUser.getUsername());
     }
 
-    public UserResponse getUser(final String username) {
+    UserResponse getUser(final String username) {
         return userRepository.findByUsername(username)
                 .stream()
                 .map(userMapper::mapToDto)
@@ -31,19 +31,19 @@ public class UserService {
                 );
     }
 
-    public String getCurrentUserEmail() {
+    String getCurrentUserEmail() {
         final User currentUser = authService.getCurrentUser();
 
         return currentUser.getEmail();
     }
 
-    public Boolean isEmailVerified() {
+    Boolean isEmailVerified() {
         final User currentUser = authService.getCurrentUser();
 
         return currentUser.isEmailVerified();
     }
 
-    public String getUserProfileImage(final String username) {
+    String getUserProfileImage(final String username) {
         final User user = userRepository.findByUsername(username).orElseThrow(
             () -> new UsernameNotFoundException(username)
         );
