@@ -109,11 +109,11 @@ public class UserService {
         );
     }
 
-    private void wipeUserData(final User currentUser) {
-        currentUser.setDeleted(true);
-        currentUser.setEmail("");
-        currentUser.setEmailVerified(false);
-        currentUser.setPassword("");
+    private void wipeUserData(final User user) {
+        user.setDeleted(true);
+        user.setEmail("");
+        user.setEmailVerified(false);
+        user.setPassword("");
     }
 
     private void setDeletedUserProfileAndBanner(final User currentUser) {
