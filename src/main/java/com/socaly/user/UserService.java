@@ -96,12 +96,8 @@ public class UserService {
     void delete(final UserDeleteRequest userDeleteRequest) {
         if (authService.isAuthenticated(userDeleteRequest.getUsername(), userDeleteRequest.getPassword())) {
             User currentUser = authService.getCurrentUser();
-
-            currentUser.setDeleted(true);
-            currentUser.setEmail("");
-            currentUser.setEmailVerified(false);
-            currentUser.setPassword("");
-
+            
+            wipeUserData(currentUser);
             Image profileImage = new Image();
             profileImage.setImageUrl("https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static" +
                     "%2Favatar-deleted.png?alt=media&token=7edbd58b-d829-4716-bac2-f80d958027ab");
@@ -118,6 +114,13 @@ public class UserService {
 
             currentUser.setProfileBanner(profileBanner);
         }
+    }
+
+    private void wipeUserData(final User currentUser) {
+        currentUser.setDeleted(true);
+        currentUser.setEmail("");
+        currentUser.setEmailVerified(false);
+        currentUser.setPassword("");
     }
 
     boolean isDeleted(final String username) {
