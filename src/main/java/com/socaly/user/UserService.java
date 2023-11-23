@@ -93,7 +93,7 @@ public class UserService {
         }
     }
 
-    void delete(UserDeleteRequest userDeleteRequest) {
+    void delete(final UserDeleteRequest userDeleteRequest) {
         if (authService.isAuthenticated(userDeleteRequest.getUsername(), userDeleteRequest.getPassword())) {
             User currentUser = authService.getCurrentUser();
 
