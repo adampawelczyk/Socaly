@@ -83,7 +83,7 @@ public class UserService {
         }
     }
 
-    void updatePassword(PasswordUpdateRequest passwordUpdateRequest) {
+    void updatePassword(final PasswordUpdateRequest passwordUpdateRequest) {
         User currentUser = authService.getCurrentUser();
 
         if (authService.isAuthenticated(currentUser.getUsername(), passwordUpdateRequest.getCurrentPassword())) {
