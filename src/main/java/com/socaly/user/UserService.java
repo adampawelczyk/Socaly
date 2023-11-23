@@ -98,21 +98,7 @@ public class UserService {
             User currentUser = authService.getCurrentUser();
             
             wipeUserData(currentUser);
-            Image profileImage = new Image();
-            profileImage.setImageUrl("https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static" +
-                    "%2Favatar-deleted.png?alt=media&token=7edbd58b-d829-4716-bac2-f80d958027ab");
-            imageRepository.save(profileImage);
-
-            currentUser.setProfileImage(profileImage);
-
-            userRepository.save(currentUser);
-
-            Image profileBanner = new Image();
-            profileBanner.setImageUrl("https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static" +
-                    "%2Fbanner-default.png?alt=media&token=72a29594-4e22-43b6-83de-d93048a90edc");
-            imageRepository.save(profileBanner);
-
-            currentUser.setProfileBanner(profileBanner);
+            setDeletedUserProfileAndBanner(currentUser);
         }
     }
 
@@ -121,6 +107,22 @@ public class UserService {
         currentUser.setEmail("");
         currentUser.setEmailVerified(false);
         currentUser.setPassword("");
+    }
+
+    private void setDeletedUserProfileAndBanner(final User currentUser) {
+        Image profileImage = new Image();
+        profileImage.setImageUrl("https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static" +
+                "%2Favatar-deleted.png?alt=media&token=7edbd58b-d829-4716-bac2-f80d958027ab");
+        imageRepository.save(profileImage);
+        currentUser.setProfileImage(profileImage);
+
+        Image profileBanner = new Image();
+        profileBanner.setImageUrl("https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static" +
+                "%2Fbanner-default.png?alt=media&token=72a29594-4e22-43b6-83de-d93048a90edc");
+        imageRepository.save(profileBanner);
+        currentUser.setProfileBanner(profileBanner);
+
+        userRepository.save(currentUser);
     }
 
     boolean isDeleted(final String username) {
