@@ -120,7 +120,7 @@ public class UserService {
         }
     }
 
-    boolean isDeleted(String username) {
+    boolean isDeleted(final String username) {
         User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException(username)
         );
