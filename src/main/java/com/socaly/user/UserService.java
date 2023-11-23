@@ -94,12 +94,19 @@ public class UserService {
     }
 
     void delete(final UserDeleteRequest userDeleteRequest) {
-        if (authService.isAuthenticated(userDeleteRequest.getUsername(), userDeleteRequest.getPassword())) {
+        if (isUserAuthenticated(userDeleteRequest)) {
             User currentUser = authService.getCurrentUser();
             
             wipeUserData(currentUser);
             setDeletedUserProfileAndBanner(currentUser);
         }
+    }
+
+    private boolean isUserAuthenticated(UserDeleteRequest userDeleteRequest) {
+        return authService.isAuthenticated(
+                userDeleteRequest.getUsername(),
+                userDeleteRequest.getPassword()
+        );
     }
 
     private void wipeUserData(final User currentUser) {
