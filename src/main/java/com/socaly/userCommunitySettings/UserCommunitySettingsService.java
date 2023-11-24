@@ -26,7 +26,7 @@ public class UserCommunitySettingsService {
                 .orElseThrow(() -> new UserCommunitySettingsNotFoundException(currentUser.getUsername()));
     }
 
-    void changeCommunityContentSort(Long communityId, Sorting sorting) {
+    void changeCommunityContentSort(final Long communityId, final Sorting sorting) {
         User currentUser = authService.getCurrentUser();
 
         UserCommunitySettings userCommunitySettings =currentUser.getUserCommunitySettings()
