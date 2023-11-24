@@ -39,7 +39,7 @@ public class UserCommunitySettingsService {
         userCommunitySettingsRepository.save(userCommunitySettings);
     }
 
-    void changeShowTheme(Long communityId, boolean showTheme) {
+    void changeShowTheme(final Long communityId, final boolean showTheme) {
         User currentUser = authService.getCurrentUser();
 
         UserCommunitySettings userCommunitySettings =currentUser.getUserCommunitySettings()
