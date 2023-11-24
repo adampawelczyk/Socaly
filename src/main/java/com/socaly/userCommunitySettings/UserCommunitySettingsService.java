@@ -40,7 +40,7 @@ public class UserCommunitySettingsService {
     }
 
     void changeShowTheme(final Long communityId, final boolean showTheme) {
-        User currentUser = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
 
         UserCommunitySettings userCommunitySettings =currentUser.getUserCommunitySettings()
                 .stream()
