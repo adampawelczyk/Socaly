@@ -14,7 +14,7 @@ class UserSettingsService {
     private final UserSettingsMapper userSettingsMapper;
 
     UserSettingsResponse getCurrentUserSettings() {
-        User currentUser = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
 
         return userSettingsRepository.findById(currentUser.getSettings().getId())
                 .stream()
