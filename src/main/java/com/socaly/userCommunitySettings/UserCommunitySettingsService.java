@@ -16,7 +16,7 @@ public class UserCommunitySettingsService {
     private final UserCommunitySettingsRepository userCommunitySettingsRepository;
 
     UserCommunitySettingsResponse getUserCommunitySettingsById(final Long communityId) {
-        User currentUser = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
 
         return currentUser.getUserCommunitySettings()
                 .stream()
