@@ -27,7 +27,7 @@ public class UserCommunitySettingsService {
     }
 
     void changeCommunityContentSort(final Long communityId, final Sorting sorting) {
-        User currentUser = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
 
         UserCommunitySettings userCommunitySettings =currentUser.getUserCommunitySettings()
                 .stream()
