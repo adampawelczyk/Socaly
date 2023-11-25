@@ -42,7 +42,7 @@ class UserSettingsService {
     }
 
     void updatePostCommentEmails(final boolean postCommentEmails) {
-        User currentUser = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
 
         UserSettings userSettings = currentUser.getSettings();
         userSettings.setPostCommentEmails(postCommentEmails);
