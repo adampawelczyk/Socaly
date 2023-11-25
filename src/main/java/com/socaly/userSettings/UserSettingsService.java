@@ -33,7 +33,7 @@ class UserSettingsService {
         userSettingsRepository.save(userSettings);
     }
 
-    void updateOpenPostsInNewTab(boolean openPostsInNewTab) {
+    void updateOpenPostsInNewTab(final boolean openPostsInNewTab) {
         User currentUser = authService.getCurrentUser();
 
         UserSettings userSettings = currentUser.getSettings();
