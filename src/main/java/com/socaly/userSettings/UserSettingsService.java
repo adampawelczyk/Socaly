@@ -26,7 +26,7 @@ class UserSettingsService {
     }
 
     void updateCommunityContentSort(final Sorting sorting) {
-        User currentUser = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
 
         UserSettings userSettings = currentUser.getSettings();
         userSettings.setCommunityContentSort(sorting);
