@@ -34,7 +34,7 @@ class UserSettingsService {
     }
 
     void updateOpenPostsInNewTab(final boolean openPostsInNewTab) {
-        User currentUser = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
 
         UserSettings userSettings = currentUser.getSettings();
         userSettings.setOpenPostsInNewTab(openPostsInNewTab);
