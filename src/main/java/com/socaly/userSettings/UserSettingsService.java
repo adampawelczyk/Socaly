@@ -50,7 +50,7 @@ class UserSettingsService {
     }
 
     void updateCommentReplyEmails(final boolean commentReplyEmails) {
-        User currentUser = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
 
         UserSettings userSettings = currentUser.getSettings();
         userSettings.setCommentReplyEmails(commentReplyEmails);
