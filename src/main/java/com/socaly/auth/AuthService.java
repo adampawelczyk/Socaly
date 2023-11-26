@@ -124,7 +124,7 @@ public class AuthService {
     }
 
     @Transactional(readOnly = true)
-    public User getCurrentUser() {
+    User getCurrentUser() {
         org.springframework.security.core.userdetails.User principal =
                 (org.springframework.security.core.userdetails.User) SecurityContextHolder
                         .getContext()
