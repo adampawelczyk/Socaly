@@ -66,7 +66,7 @@ class UserSettingsService {
     }
 
     void updateCommentUpVoteEmails(final boolean commentUpVoteEmails) {
-        User currentUser = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
 
         UserSettings userSettings = currentUser.getSettings();
         userSettings.setCommentUpVoteEmails(commentUpVoteEmails);
