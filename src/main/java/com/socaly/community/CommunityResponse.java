@@ -16,6 +16,5 @@ public class CommunityResponse {
     private String name;
     private String description;
     private Instant createdDate;
-    private Integer numberOfPosts;
     private Integer numberOfUsers;
 }
