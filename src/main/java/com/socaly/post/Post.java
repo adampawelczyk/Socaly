@@ -31,7 +31,7 @@ public class Post {
     @Lob
     private String description;
 
-    private Integer points = 0;
+    private Integer points;
     private Instant creationDate;
     private Instant editDate;
 
