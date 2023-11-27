@@ -86,7 +86,7 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostResponse> getAllPostsByCommunity(final String communityName) {
+    List<PostResponse> getAllPostsByCommunity(final String communityName) {
         final Community community = communityRepository.findByName(communityName).orElseThrow(
                 () -> new CommunityNotFoundException(communityName)
         );
