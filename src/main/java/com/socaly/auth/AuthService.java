@@ -160,7 +160,7 @@ public class AuthService {
                 .build();
     }
 
-    Boolean isAuthenticated(final String username, final String password) {
+    public Boolean isAuthenticated(final String username, final String password) {
         return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password)).isAuthenticated();
     }
 
