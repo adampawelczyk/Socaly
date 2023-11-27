@@ -77,7 +77,7 @@ public class PostService {
     }
 
     @Transactional
-    public List<PostResponse> getAllPosts() {
+    List<PostResponse> getAllPosts() {
         return postRepository
                 .findAll()
                 .stream()
