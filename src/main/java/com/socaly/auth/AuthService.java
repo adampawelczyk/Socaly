@@ -164,7 +164,7 @@ public class AuthService {
         return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password)).isAuthenticated();
     }
 
-    String encodePassword(final String password) {
+    public String encodePassword(final String password) {
         return passwordEncoder.encode(password);
     }
 
