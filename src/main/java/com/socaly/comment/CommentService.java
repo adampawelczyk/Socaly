@@ -29,7 +29,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final EmailService emailService;
 
-    public void save(final CommentRequest commentRequest) {
+    public void saveComment(final CommentRequest commentRequest) {
         final Post post = findPostById(commentRequest.getPostId());
         final User user = authService.getCurrentUser();
         final Comment comment = commentMapper.mapToComment(commentRequest, post, user);
