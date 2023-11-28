@@ -114,7 +114,7 @@ public class CommentService {
         ));
     }
 
-    public void edit(final Long commentId, final String text) {
+    void edit(final Long commentId, final String text) {
         final Comment commentToEdit = findCommentById(commentId);
         final User user = authService.getCurrentUser();
 
