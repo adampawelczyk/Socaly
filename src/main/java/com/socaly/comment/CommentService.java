@@ -144,7 +144,7 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
-    public List<CommentResponse> getSubCommentsForComment(final Long commentId) {
+    List<CommentResponse> getSubCommentsForComment(final Long commentId) {
         return commentRepository.findByParentCommentId(commentId)
                 .stream()
                 .map(commentMapper::mapToCommentResponse)
