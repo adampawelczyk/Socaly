@@ -49,7 +49,7 @@ public class CommunityService {
         return communityMapper.mapToCommunityResponse(community);
     }
 
-    public void joinCommunity(final String communityName) {
+    void joinCommunity(final String communityName) {
         final Community community = communityRepository.findByName(communityName).orElseThrow(
                 () -> new CommunityNotFoundException(communityName)
         );
