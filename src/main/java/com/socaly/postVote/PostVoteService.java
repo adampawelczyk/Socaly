@@ -26,7 +26,7 @@ public class PostVoteService {
     private final EmailService emailService;
 
     @Transactional
-    public void saveVote(final PostVoteDto postVoteDto) {
+    public void savePostVote(final PostVoteDto postVoteDto) {
         final Post post = postRepository.findById(postVoteDto.getPostId())
                 .orElseThrow(() -> new PostNotFoundException(postVoteDto.getPostId().toString()));
         final Optional<PostVote> postVote = postVoteRepository.findTopByPostAndUserOrderByIdDesc(post, authService.getCurrentUser());
