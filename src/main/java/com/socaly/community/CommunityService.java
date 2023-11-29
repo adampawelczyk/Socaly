@@ -42,7 +42,7 @@ public class CommunityService {
                 .collect(Collectors.toList());
     }
 
-    public CommunityResponse findCommunityByName(final String communityName) {
+    CommunityResponse findCommunityByName(final String communityName) {
         final Community community = communityRepository.findByName(communityName).orElseThrow(
                 () -> new CommunityNotFoundException(communityName));
 
