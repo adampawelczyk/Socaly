@@ -108,7 +108,7 @@ public class CommunityService {
         userCommunitySettingsRepository.delete(userCommunitySettings);
     }
 
-    public List<CommunityResponse> getAllCommunitiesForUser(final String username) {
+    List<CommunityResponse> getAllCommunitiesForUser(final String username) {
         final User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException("No user found with name - " + username)
         );
