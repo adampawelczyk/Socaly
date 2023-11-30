@@ -16,7 +16,7 @@ public class CommentVoteController {
 
     @PostMapping
     public ResponseEntity<Void> vote(@RequestBody CommentVoteDto commentVoteDto) {
-        commentVoteService.saveCommentVote(commentVoteDto);
+        commentVoteService.save(commentVoteDto);
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }
