@@ -15,32 +15,32 @@ public class CommentController {
 
     @PostMapping("/create")
     public ResponseEntity<Void> createComment(@RequestBody CommentRequest commentRequest) {
-        commentService.saveComment(commentRequest);
+        commentService.create(commentRequest);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     @GetMapping("/get/{commentId}")
-    public ResponseEntity<CommentResponse> getComment(@PathVariable Long commentId) {
-        return ResponseEntity.ok(commentService.getComment(commentId));
+    public ResponseEntity<CommentResponse> get(@PathVariable Long commentId) {
+        return ResponseEntity.ok(commentService.get(commentId));
     }
 
     @GetMapping("get/all/by-post/{postId}")
-    public ResponseEntity<List<CommentResponse>> getAllCommentsForPost(@PathVariable Long postId) {
-        return ResponseEntity.ok(commentService.getAllCommentsForPost(postId));
+    public ResponseEntity<List<CommentResponse>> getAllByPost(@PathVariable Long postId) {
+        return ResponseEntity.ok(commentService.getAllByPost(postId));
     }
 
     @GetMapping("get/all/by-user/{username}")
-    public ResponseEntity<List<CommentResponse>> getAllCommentsForUser(@PathVariable String username) {
-        return ResponseEntity.ok(commentService.getAllCommentsForUser(username));
+    public ResponseEntity<List<CommentResponse>> getAllByUser(@PathVariable String username) {
+        return ResponseEntity.ok(commentService.getAllByUser(username));
     }
 
-    @GetMapping("get/all/sub-comments/{commentId}")
-    public ResponseEntity<List<CommentResponse>> getAllSubCommentsForComment(@PathVariable Long commentId) {
-        return ResponseEntity.ok(commentService.getSubCommentsForComment(commentId));
+    @GetMapping("get/sub-comments/{commentId}")
+    public ResponseEntity<List<CommentResponse>> getSubComments(@PathVariable Long commentId) {
+        return ResponseEntity.ok(commentService.getSubComments(commentId));
     }
 
-    @PostMapping("/edit/{commentId}")
-    public ResponseEntity<Void> editComment(@PathVariable Long commentId, @RequestBody String text) {
+    @PatchMapping("/edit/{commentId}")
+    public ResponseEntity<Void> edit(@PathVariable Long commentId, @RequestBody String text) {
         commentService.edit(commentId, text);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

@@ -29,7 +29,7 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final EmailService emailService;
 
-    void saveComment(final CommentRequest commentRequest) {
+    void create(final CommentRequest commentRequest) {
         final Post post = findPostById(commentRequest.getPostId());
         final User user = authService.getCurrentUser();
         final Comment comment = commentMapper.mapToComment(commentRequest, post, user);
@@ -125,7 +125,7 @@ public class CommentService {
         }
     }
 
-    CommentResponse getComment(final Long commentId) {
+    CommentResponse get(final Long commentId) {
         return commentRepository.findById(commentId)
                 .stream()
                 .map(commentMapper::mapToCommentResponse)
@@ -135,7 +135,7 @@ public class CommentService {
                 );
     }
 
-    List<CommentResponse> getAllCommentsForPost(final Long postId) {
+    List<CommentResponse> getAllByPost(final Long postId) {
         final Post post = findPostById(postId);
 
         return commentRepository.findByPostAndParentCommentIdIsNull(post)
@@ -144,14 +144,14 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
-    List<CommentResponse> getSubCommentsForComment(final Long commentId) {
+    List<CommentResponse> getSubComments(final Long commentId) {
         return commentRepository.findByParentCommentId(commentId)
                 .stream()
                 .map(commentMapper::mapToCommentResponse)
                 .collect(Collectors.toList());
     }
 
-    List<CommentResponse> getAllCommentsForUser(final String username) {
+    List<CommentResponse> getAllByUser(final String username) {
         final User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException(username)
         );
