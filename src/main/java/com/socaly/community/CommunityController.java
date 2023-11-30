@@ -14,35 +14,35 @@ public class CommunityController {
     private final CommunityService communityService;
 
     @PostMapping("/create")
-    public ResponseEntity<CommunityResponse> createCommunity(@RequestBody CommunityRequest communityRequest) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(communityService.saveCommunity(communityRequest));
+    public ResponseEntity<CommunityResponse> create(@RequestBody CommunityRequest communityRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(communityService.create(communityRequest));
     }
 
     @GetMapping("/get/{name}")
-    public ResponseEntity<CommunityResponse> getCommunity(@PathVariable String name) {
+    public ResponseEntity<CommunityResponse> get(@PathVariable String name) {
         return ResponseEntity.status(HttpStatus.OK).body(communityService.findCommunityByName(name));
     }
 
     @GetMapping("/get/all")
-    public ResponseEntity<List<CommunityResponse>> getAllCommunities() {
-        return ResponseEntity.status(HttpStatus.OK).body(communityService.getAllCommunities());
+    public ResponseEntity<List<CommunityResponse>> getAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(communityService.getAll());
     }
 
-    @GetMapping("/get/all/by-user/{name}")
-    public ResponseEntity<List<CommunityResponse>> getAllCommunitiesForUser(@PathVariable String name) {
-        return ResponseEntity.status(HttpStatus.OK).body(communityService.getAllCommunitiesForUser(name));
+    @GetMapping("/get/all/by-user/{username}")
+    public ResponseEntity<List<CommunityResponse>> getAllByUser(@PathVariable String username) {
+        return ResponseEntity.status(HttpStatus.OK).body(communityService.getAllByUser(username));
     }
 
-    @GetMapping("/join/{name}")
-    public ResponseEntity<Void> joinCommunity(@PathVariable String name) {
-        communityService.joinCommunity(name);
+    @PostMapping("/join/{communityName}")
+    public ResponseEntity<Void> join(@PathVariable String communityName) {
+        communityService.join(communityName);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/leave/{name}")
-    public ResponseEntity<Void> leaveCommunity(@PathVariable String name) {
-        communityService.leaveCommunity(name);
+    @PostMapping("/leave/{communityName}")
+    public ResponseEntity<Void> leave(@PathVariable String communityName) {
+        communityService.leave(communityName);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

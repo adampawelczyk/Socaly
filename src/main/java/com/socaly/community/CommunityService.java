@@ -25,16 +25,16 @@ public class CommunityService {
     private final UserRepository userRepository;
 
     @Transactional
-    CommunityResponse saveCommunity(final CommunityRequest communityRequest) {
+    CommunityResponse create(final CommunityRequest communityRequest) {
         final User currentUser = authService.getCurrentUser();
         final Community savedCommunity = communityRepository.save(communityMapper.mapToCommunity(communityRequest, currentUser));
-        joinCommunity(communityRequest.getName());
+        join(communityRequest.getName());
 
         return communityMapper.mapToCommunityResponse(savedCommunity);
     }
 
     @Transactional(readOnly = true)
-    List<CommunityResponse> getAllCommunities() {
+    List<CommunityResponse> getAll() {
         return communityRepository
                 .findAll()
                 .stream()
@@ -49,7 +49,7 @@ public class CommunityService {
         return communityMapper.mapToCommunityResponse(community);
     }
 
-    void joinCommunity(final String communityName) {
+    void join(final String communityName) {
         final Community community = communityRepository.findByName(communityName).orElseThrow(
                 () -> new CommunityNotFoundException(communityName)
         );
@@ -76,7 +76,7 @@ public class CommunityService {
         userRepository.save(currentUser);
     }
 
-    void leaveCommunity(final String communityName) {
+    void leave(final String communityName) {
         final Community community = communityRepository.findByName(communityName).orElseThrow(
                 () -> new CommunityNotFoundException(communityName)
         );
@@ -108,7 +108,7 @@ public class CommunityService {
         userCommunitySettingsRepository.delete(userCommunitySettings);
     }
 
-    List<CommunityResponse> getAllCommunitiesForUser(final String username) {
+    List<CommunityResponse> getAllByUser(final String username) {
         final User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException("No user found with name - " + username)
         );
