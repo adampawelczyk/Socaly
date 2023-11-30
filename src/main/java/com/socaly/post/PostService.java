@@ -28,7 +28,7 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
-    long savePost(final PostRequest postRequest) {
+    long create(final PostRequest postRequest) {
         final Community community = communityRepository.findByName(postRequest.getCommunityName()).orElseThrow(
                 () -> new CommunityNotFoundException(postRequest.getCommunityName())
         );
@@ -46,7 +46,7 @@ public class PostService {
         return postMapper.mapToPostResponse(post);
     }
 
-    long updatePost(final Long postId, final PostRequest postRequest) {
+    long update(final Long postId, final PostRequest postRequest) {
         final Post post = postRepository.findById(postId).orElseThrow(
                 () -> new PostNotFoundException(postId.toString())
         );
@@ -77,7 +77,7 @@ public class PostService {
     }
 
     @Transactional
-    List<PostResponse> getAllPosts() {
+    List<PostResponse> getAll() {
         return postRepository
                 .findAll()
                 .stream()
@@ -86,7 +86,7 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    List<PostResponse> getAllPostsByCommunity(final String communityName) {
+    List<PostResponse> getAllByCommunity(final String communityName) {
         final Community community = communityRepository.findByName(communityName).orElseThrow(
                 () -> new CommunityNotFoundException(communityName)
         );
@@ -99,7 +99,7 @@ public class PostService {
     }
 
     @Transactional
-    List<PostResponse> getAllPostsByUser(final String username) {
+    List<PostResponse> getAllByUser(final String username) {
         final User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException(username)
         );
