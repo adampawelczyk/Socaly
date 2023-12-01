@@ -29,7 +29,7 @@ public class UserCommunitySettingsService {
     void changeCommunityContentSort(final Long communityId, final Sorting sorting) {
         final User currentUser = authService.getCurrentUser();
 
-        UserCommunitySettings userCommunitySettings =currentUser.getUserCommunitySettings()
+        UserCommunitySettings userCommunitySettings = currentUser.getUserCommunitySettings()
                 .stream()
                 .filter(settings -> Objects.equals(settings.getCommunityId(), communityId))
                 .findFirst()
@@ -42,7 +42,7 @@ public class UserCommunitySettingsService {
     void changeShowTheme(final Long communityId, final boolean showTheme) {
         final User currentUser = authService.getCurrentUser();
 
-        UserCommunitySettings userCommunitySettings =currentUser.getUserCommunitySettings()
+        UserCommunitySettings userCommunitySettings = currentUser.getUserCommunitySettings()
                 .stream()
                 .filter(settings -> Objects.equals(settings.getCommunityId(), communityId))
                 .findFirst()
