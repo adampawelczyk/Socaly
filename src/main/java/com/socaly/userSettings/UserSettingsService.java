@@ -13,7 +13,7 @@ class UserSettingsService {
     private final UserSettingsRepository userSettingsRepository;
     private final UserSettingsMapper userSettingsMapper;
 
-    UserSettingsResponse getCurrentUserSettings() {
+    UserSettingsResponse get() {
         final User currentUser = authService.getCurrentUser();
 
         return userSettingsRepository.findById(currentUser.getSettings().getId())
