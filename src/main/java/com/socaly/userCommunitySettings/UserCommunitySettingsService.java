@@ -15,7 +15,7 @@ public class UserCommunitySettingsService {
     private final UserCommunitySettingsMapper userCommunitySettingsMapper;
     private final UserCommunitySettingsRepository userCommunitySettingsRepository;
 
-    UserCommunitySettingsResponse getUserCommunitySettingsById(final Long communityId) {
+    UserCommunitySettingsResponse get(final Long communityId) {
         final User currentUser = authService.getCurrentUser();
 
         return currentUser.getUserCommunitySettings()
@@ -26,7 +26,7 @@ public class UserCommunitySettingsService {
                 .orElseThrow(() -> new UserCommunitySettingsNotFoundException(currentUser.getUsername()));
     }
 
-    void changeCommunityContentSort(final Long communityId, final Sorting sorting) {
+    void changeContentSorting(final Long communityId, final Sorting sorting) {
         final User currentUser = authService.getCurrentUser();
 
         UserCommunitySettings userCommunitySettings = currentUser.getUserCommunitySettings()

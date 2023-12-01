@@ -13,13 +13,13 @@ public class UserCommunitySettingsController {
     private final UserCommunitySettingsService userCommunitySettingsService;
 
     @GetMapping("/get/{communityId}")
-    public UserCommunitySettingsResponse getUserCommunitySettingsById(@PathVariable Long communityId) {
-        return userCommunitySettingsService.getUserCommunitySettingsById(communityId);
+    public UserCommunitySettingsResponse get(@PathVariable Long communityId) {
+        return userCommunitySettingsService.get(communityId);
     }
 
     @PatchMapping("/change/community-content-sort/{communityId}")
-    public ResponseEntity<Void> changeCommunityContentSort(@PathVariable Long communityId, @RequestBody Sorting sorting) {
-        userCommunitySettingsService.changeCommunityContentSort(communityId, sorting);
+    public ResponseEntity<Void> changeContentSorting(@PathVariable Long communityId, @RequestBody Sorting sorting) {
+        userCommunitySettingsService.changeContentSorting(communityId, sorting);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
