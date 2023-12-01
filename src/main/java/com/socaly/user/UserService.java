@@ -15,13 +15,13 @@ public class UserService {
     private final ImageRepository imageRepository;
     private final UserMapper userMapper;
 
-    UserResponse getCurrentUser() {
+    UserResponse get() {
         final User currentUser = authService.getCurrentUser();
 
-        return getUser(currentUser.getUsername());
+        return get(currentUser.getUsername());
     }
 
-    UserResponse getUser(final String username) {
+    UserResponse get(final String username) {
         return userRepository.findByUsername(username)
                 .stream()
                 .map(userMapper::mapToDto)
@@ -31,7 +31,7 @@ public class UserService {
                 );
     }
 
-    String getCurrentUserEmail() {
+    String getEmail() {
         final User currentUser = authService.getCurrentUser();
 
         return currentUser.getEmail();
@@ -43,7 +43,7 @@ public class UserService {
         return currentUser.isEmailVerified();
     }
 
-    String getUserProfileImage(final String username) {
+    String getProfileImage(final String username) {
         final User user = userRepository.findByUsername(username).orElseThrow(
             () -> new UsernameNotFoundException(username)
         );
@@ -51,28 +51,28 @@ public class UserService {
         return user.getProfileImage().getImageUrl();
     }
 
-    void updateProfileImage(final String imageUrl) {
+    void changeProfileImage(final String imageUrl) {
         final User currentUser = authService.getCurrentUser();
         currentUser.getProfileImage().setImageUrl(imageUrl);
 
         imageRepository.save(currentUser.getProfileImage());
     }
 
-    void updateProfileBanner(final String imageUrl) {
+    void changeProfileBanner(final String imageUrl) {
         final User currentUser = authService.getCurrentUser();
         currentUser.getProfileBanner().setImageUrl(imageUrl);
 
         imageRepository.save(currentUser.getProfileBanner());
     }
 
-    void updateDescription(final String description) {
+    void changeDescription(final String description) {
         final User currentUser = authService.getCurrentUser();
         currentUser.setDescription(description);
 
         userRepository.save(currentUser);
     }
 
-    void updateEmail(final EmailUpdateRequest emailUpdateRequest) {
+    void changeEmail(final EmailUpdateRequest emailUpdateRequest) {
         final User currentUser = authService.getCurrentUser();
 
         if (authService.isAuthenticated(currentUser.getUsername(), emailUpdateRequest.getPassword())) {
@@ -83,7 +83,7 @@ public class UserService {
         }
     }
 
-    void updatePassword(final PasswordUpdateRequest passwordUpdateRequest) {
+    void changePassword(final PasswordUpdateRequest passwordUpdateRequest) {
         final User currentUser = authService.getCurrentUser();
 
         if (authService.isAuthenticated(currentUser.getUsername(), passwordUpdateRequest.getCurrentPassword())) {
