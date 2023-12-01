@@ -18,9 +18,9 @@ public class CommunityController {
         return ResponseEntity.status(HttpStatus.CREATED).body(communityService.create(communityRequest));
     }
 
-    @GetMapping("/get/{name}")
-    public ResponseEntity<CommunityResponse> get(@PathVariable String name) {
-        return ResponseEntity.status(HttpStatus.OK).body(communityService.findCommunityByName(name));
+    @GetMapping("/get/{communityName}")
+    public ResponseEntity<CommunityResponse> get(@PathVariable String communityName) {
+        return ResponseEntity.status(HttpStatus.OK).body(communityService.findCommunityByName(communityName));
     }
 
     @GetMapping("/get/all")
