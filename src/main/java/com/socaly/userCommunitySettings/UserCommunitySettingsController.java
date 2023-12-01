@@ -17,7 +17,7 @@ public class UserCommunitySettingsController {
         return userCommunitySettingsService.get(communityId);
     }
 
-    @PatchMapping("/change/community-content-sort/{communityId}")
+    @PatchMapping("/change/community-content-sorting/{communityId}")
     public ResponseEntity<Void> changeContentSorting(@PathVariable Long communityId, @RequestBody Sorting sorting) {
         userCommunitySettingsService.changeContentSorting(communityId, sorting);
         return new ResponseEntity<>(HttpStatus.OK);
