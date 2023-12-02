@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 public abstract class UserMapper {
 
     @Mapping(target = "profileImage", expression = "java(mapImageToString(user.getProfileImage()))")
-    public abstract UserResponse mapToDto(User user);
+    public abstract UserResponse mapToUserResponse(User user);
 
     Image mapStringToImage(String string) {
         Image image = new Image();

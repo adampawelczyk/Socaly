@@ -26,9 +26,9 @@ public class UserService {
 
     UserResponse get(final String username) {
         final Optional<User> user = userRepository.findByUsername(username);
-        
+
         if (user.isPresent()) {
-            return userMapper.mapToDto(user.get());
+            return userMapper.mapToUserResponse(user.get());
         } else {
             throw new UsernameNotFoundException(username);
         }
