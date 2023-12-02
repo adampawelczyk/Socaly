@@ -26,7 +26,7 @@ public class UserCommunitySettingsService {
                 .orElseThrow(() -> new UserCommunitySettingsNotFoundException(currentUser.getUsername()));
     }
 
-    void changeContentSorting(final Long communityId, final Sorting sorting) {
+    void updateContentSorting(final Long communityId, final Sorting sorting) {
         final User currentUser = authService.getCurrentUser();
 
         UserCommunitySettings userCommunitySettings = currentUser.getUserCommunitySettings()
@@ -39,7 +39,7 @@ public class UserCommunitySettingsService {
         userCommunitySettingsRepository.save(userCommunitySettings);
     }
 
-    void changeShowTheme(final Long communityId, final boolean showTheme) {
+    void updateShowTheme(final Long communityId, final boolean showTheme) {
         final User currentUser = authService.getCurrentUser();
 
         UserCommunitySettings userCommunitySettings = currentUser.getUserCommunitySettings()

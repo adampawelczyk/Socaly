@@ -17,15 +17,15 @@ public class UserCommunitySettingsController {
         return userCommunitySettingsService.get(communityId);
     }
 
-    @PatchMapping("/change/community-content-sorting/{communityId}")
-    public ResponseEntity<Void> changeContentSorting(@PathVariable Long communityId, @RequestBody Sorting sorting) {
-        userCommunitySettingsService.changeContentSorting(communityId, sorting);
+    @PatchMapping("/update/community-content-sorting/{communityId}")
+    public ResponseEntity<Void> updateContentSorting(@PathVariable Long communityId, @RequestBody Sorting sorting) {
+        userCommunitySettingsService.updateContentSorting(communityId, sorting);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping("/change/show-theme/{communityId}")
-    public ResponseEntity<Void> changeShowTheme(@PathVariable Long communityId, @RequestBody Boolean showTheme) {
-        userCommunitySettingsService.changeShowTheme(communityId, showTheme);
+    @PatchMapping("/update/show-theme/{communityId}")
+    public ResponseEntity<Void> updateShowTheme(@PathVariable Long communityId, @RequestBody Boolean showTheme) {
+        userCommunitySettingsService.updateShowTheme(communityId, showTheme);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
