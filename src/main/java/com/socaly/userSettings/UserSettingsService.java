@@ -4,6 +4,9 @@ import com.socaly.auth.AuthService;
 import com.socaly.user.User;
 import com.socaly.util.Sorting;
 import lombok.AllArgsConstructor;
+
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,14 +18,13 @@ class UserSettingsService {
 
     UserSettingsResponse get() {
         final User currentUser = authService.getCurrentUser();
+        final Optional<UserSettings> userSettings = userSettingsRepository.findById(currentUser.getSettings().getId());
 
-        return userSettingsRepository.findById(currentUser.getSettings().getId())
-                .stream()
-                .map(userSettingsMapper::mapToUserSettingsResponse)
-                .findFirst()
-                .orElseThrow(
-                        () -> new UserSettingsNotFoundException(currentUser.getUsername())
-                );
+        if (userSettings.isPresent()) {
+            return userSettingsMapper.mapToUserSettingsResponse(userSettings.get());
+        } else {
+            throw new UserSettingsNotFoundException(currentUser.getUsername());
+        }
     }
 
     void updateCommunityContentSort(final Sorting sorting) {
