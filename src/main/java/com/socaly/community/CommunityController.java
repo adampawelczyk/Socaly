@@ -18,9 +18,9 @@ public class CommunityController {
         return ResponseEntity.status(HttpStatus.CREATED).body(communityService.create(communityRequest));
     }
 
-    @GetMapping("/get/{communityName}")
-    public ResponseEntity<CommunityResponse> get(@PathVariable String communityName) {
-        return ResponseEntity.status(HttpStatus.OK).body(communityService.findCommunityByName(communityName));
+    @GetMapping("/get/{name}")
+    public ResponseEntity<CommunityResponse> get(@PathVariable String name) {
+        return ResponseEntity.status(HttpStatus.OK).body(communityService.findCommunityByName(name));
     }
 
     @GetMapping("/get/all")
@@ -33,16 +33,16 @@ public class CommunityController {
         return ResponseEntity.status(HttpStatus.OK).body(communityService.getAllByUser(username));
     }
 
-    @PostMapping("/join/{communityName}")
-    public ResponseEntity<Void> join(@PathVariable String communityName) {
-        communityService.join(communityName);
+    @PostMapping("/join/{name}")
+    public ResponseEntity<Void> join(@PathVariable String name) {
+        communityService.join(name);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PostMapping("/leave/{communityName}")
-    public ResponseEntity<Void> leave(@PathVariable String communityName) {
-        communityService.leave(communityName);
+    @PostMapping("/leave/{name}")
+    public ResponseEntity<Void> leave(@PathVariable String name) {
+        communityService.leave(name);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
