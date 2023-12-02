@@ -72,13 +72,14 @@ public class CommentVoteService {
 
     private void sendCommentUpVoteEmail(final Comment comment) {
         final User currentUser = authService.getCurrentUser();
+        final Long parentCommentId = comment.getParentCommentId();
 
-        if (comment.getParentCommentId() != null) {
-            Comment parentComment = commentRepository.findById(comment.getParentCommentId())
+        if (parentCommentId != null) {
+            Comment parentComment = commentRepository.findById(parentCommentId)
                     .stream()
                     .findFirst()
                     .orElseThrow(
-                            () -> new CommentNotFoundException(comment.getParentCommentId().toString())
+                            () -> new CommentNotFoundException(parentCommentId.toString())
                     );
 
             emailService.sendReplyUpVoteEmail(new ReplyUpVoteEmail(
