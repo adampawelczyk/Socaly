@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -126,13 +127,13 @@ public class CommentService {
     }
 
     CommentResponse get(final Long commentId) {
-        return commentRepository.findById(commentId)
-                .stream()
-                .map(commentMapper::mapToCommentResponse)
-                .findFirst()
-                .orElseThrow(
-                        () -> new CommentNotFoundException(commentId.toString())
-                );
+        final Optional<Comment> comment = commentRepository.findById(commentId);
+
+        if (comment.isPresent()) {
+            return commentMapper.mapToCommentResponse(comment.get());
+        } else {
+            throw new CommentNotFoundException(commentId.toString());
+        }
     }
 
     List<CommentResponse> getAllByPost(final Long postId) {
