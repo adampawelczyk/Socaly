@@ -19,14 +19,14 @@ public class CommentController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping("/get/{commentId}")
+    @GetMapping("/get/{id}")
     public ResponseEntity<CommentResponse> get(@PathVariable Long commentId) {
         return ResponseEntity.ok(commentService.get(commentId));
     }
 
-    @GetMapping("get/all/by-post/{postId}")
-    public ResponseEntity<List<CommentResponse>> getAllByPost(@PathVariable Long postId) {
-        return ResponseEntity.ok(commentService.getAllByPost(postId));
+    @GetMapping("get/all/by-post/{id}")
+    public ResponseEntity<List<CommentResponse>> getAllByPost(@PathVariable Long id) {
+        return ResponseEntity.ok(commentService.getAllByPost(id));
     }
 
     @GetMapping("get/all/by-user/{username}")
@@ -34,14 +34,14 @@ public class CommentController {
         return ResponseEntity.ok(commentService.getAllByUser(username));
     }
 
-    @GetMapping("get/sub-comments/{commentId}")
-    public ResponseEntity<List<CommentResponse>> getSubComments(@PathVariable Long commentId) {
-        return ResponseEntity.ok(commentService.getSubComments(commentId));
+    @GetMapping("get/sub-comments/{id}")
+    public ResponseEntity<List<CommentResponse>> getSubComments(@PathVariable Long id) {
+        return ResponseEntity.ok(commentService.getSubComments(id));
     }
 
-    @PatchMapping("/edit/{commentId}")
-    public ResponseEntity<Void> edit(@PathVariable Long commentId, @RequestBody String text) {
-        commentService.edit(commentId, text);
+    @PatchMapping("/edit/{id}")
+    public ResponseEntity<Void> edit(@PathVariable Long id, @RequestBody String text) {
+        commentService.edit(id, text);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
