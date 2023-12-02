@@ -4,6 +4,9 @@ import com.socaly.auth.AuthService;
 import com.socaly.image.Image;
 import com.socaly.image.ImageRepository;
 import lombok.AllArgsConstructor;
+
+import java.util.Optional;
+
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -22,13 +25,13 @@ public class UserService {
     }
 
     UserResponse get(final String username) {
-        return userRepository.findByUsername(username)
-                .stream()
-                .map(userMapper::mapToDto)
-                .findFirst()
-                .orElseThrow(
-                    () -> new UsernameNotFoundException(username)
-                );
+        final Optional<User> user = userRepository.findByUsername(username);
+        
+        if (user.isPresent()) {
+            return userMapper.mapToDto(user.get());
+        } else {
+            throw new UsernameNotFoundException(username);
+        }
     }
 
     String getEmail() {
