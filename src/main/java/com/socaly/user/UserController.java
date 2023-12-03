@@ -16,9 +16,9 @@ public class UserController {
         return userService.get();
     }
 
-    @GetMapping("/get/{username}")
-    public UserResponse get(@PathVariable String username) {
-        return userService.get(username);
+    @GetMapping("/get/{name}")
+    public UserResponse get(@PathVariable String name) {
+        return userService.get(name);
     }
 
     @GetMapping("/get/email")
@@ -31,9 +31,9 @@ public class UserController {
         return userService.isEmailVerified();
     }
 
-    @GetMapping("/get/profile/image/{username}")
-    public String getProfileImage(@PathVariable String username) {
-        return userService.getProfileImage(username);
+    @GetMapping("/get/profile/image/{name}")
+    public String getProfileImage(@PathVariable String name) {
+        return userService.getProfileImage(name);
     }
 
     @PatchMapping("/change/profile/image")
@@ -72,8 +72,8 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/is/deleted/{username}")
-    public Boolean isDeleted(@PathVariable String username) {
-        return userService.isDeleted(username);
+    @GetMapping("/is/deleted/{name}")
+    public Boolean isDeleted(@PathVariable String name) {
+        return userService.isDeleted(name);
     }
 }
