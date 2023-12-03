@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.*;
 public class UserCommunitySettingsController {
     private final UserCommunitySettingsService userCommunitySettingsService;
 
-    @GetMapping("/get/{communityId}")
-    public UserCommunitySettingsResponse get(@PathVariable Long communityId) {
-        return userCommunitySettingsService.get(communityId);
+    @GetMapping("/get/{id}")
+    public UserCommunitySettingsResponse get(@PathVariable Long id) {
+        return userCommunitySettingsService.get(id);
     }
 
-    @PatchMapping("/update/community-content-sorting/{communityId}")
-    public ResponseEntity<Void> updateContentSorting(@PathVariable Long communityId, @RequestBody Sorting sorting) {
-        userCommunitySettingsService.updateContentSorting(communityId, sorting);
+    @PatchMapping("/update/community-content-sorting/{id}")
+    public ResponseEntity<Void> updateContentSorting(@PathVariable Long id, @RequestBody Sorting sorting) {
+        userCommunitySettingsService.updateContentSorting(id, sorting);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping("/update/show-theme/{communityId}")
-    public ResponseEntity<Void> updateShowTheme(@PathVariable Long communityId, @RequestBody Boolean showTheme) {
-        userCommunitySettingsService.updateShowTheme(communityId, showTheme);
+    @PatchMapping("/update/show-theme/{id}")
+    public ResponseEntity<Void> updateShowTheme(@PathVariable Long id, @RequestBody Boolean showTheme) {
+        userCommunitySettingsService.updateShowTheme(id, showTheme);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
