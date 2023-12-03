@@ -28,9 +28,9 @@ public class CommunityController {
         return ResponseEntity.status(HttpStatus.OK).body(communityService.getAll());
     }
 
-    @GetMapping("/get/all/by-user/{username}")
-    public ResponseEntity<List<CommunityResponse>> getAllByUser(@PathVariable String username) {
-        return ResponseEntity.status(HttpStatus.OK).body(communityService.getAllByUser(username));
+    @GetMapping("/get/all/by-user/{name}")
+    public ResponseEntity<List<CommunityResponse>> getAllByUser(@PathVariable String name) {
+        return ResponseEntity.status(HttpStatus.OK).body(communityService.getAllByUser(name));
     }
 
     @PostMapping("/join/{name}")
