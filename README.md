@@ -61,6 +61,7 @@
         * [Update Default Community Content Sorting](#update-default-community-content-sorting)
         * [Update Open Posts In New Tab](#update-open-posts-in-new-tab)
 * [Acknowledgments](#acknowledgments)
+* [License](#license)
 
 ## General info
 Socaly-Backend is the backend application for Socaly, a Reddit-inspired social media platform. It's developed using Java and Spring Boot.
