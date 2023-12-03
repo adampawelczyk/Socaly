@@ -23,9 +23,9 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(postService.findPostById(id));
     }
 
-    @PatchMapping("/update/{id}")
-    public ResponseEntity<Long> update(@PathVariable Long id, @RequestBody PostRequest postRequest) {
-        return ResponseEntity.status(HttpStatus.OK).body(postService.update(id, postRequest));
+    @PatchMapping("/edit/{id}")
+    public ResponseEntity<Long> edit(@PathVariable Long id, @RequestBody PostRequest postRequest) {
+        return ResponseEntity.status(HttpStatus.OK).body(postService.edit(id, postRequest));
     }
 
     @GetMapping("/get/all")
@@ -33,12 +33,12 @@ public class PostController {
         return ResponseEntity.status(HttpStatus.OK).body(postService.getAll());
     }
 
-    @GetMapping("/get/all/by-user/{username}")
-    public ResponseEntity<List<PostResponse>> getAllByUser(@PathVariable String username) {
-        return ResponseEntity.status(HttpStatus.OK).body(postService.getAllByUser(username));
+    @GetMapping("/get/all/by-user/{name}")
+    public ResponseEntity<List<PostResponse>> getAllByUser(@PathVariable String name) {
+        return ResponseEntity.status(HttpStatus.OK).body(postService.getAllByUser(name));
     }
 
-    @GetMapping("/get/all/by-community/{communityName}")
+    @GetMapping("/get/all/by-community/{name}")
     public ResponseEntity<List<PostResponse>> getAllByCommunity(@PathVariable String name) {
         return ResponseEntity.status(HttpStatus.OK).body(postService.getAllByCommunity(name));
     }
