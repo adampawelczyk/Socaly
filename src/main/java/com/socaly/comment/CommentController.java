@@ -29,9 +29,9 @@ public class CommentController {
         return ResponseEntity.ok(commentService.getAllByPost(id));
     }
 
-    @GetMapping("get/all/by-user/{username}")
-    public ResponseEntity<List<CommentResponse>> getAllByUser(@PathVariable String username) {
-        return ResponseEntity.ok(commentService.getAllByUser(username));
+    @GetMapping("get/all/by-user/{name}")
+    public ResponseEntity<List<CommentResponse>> getAllByUser(@PathVariable String name) {
+        return ResponseEntity.ok(commentService.getAllByUser(name));
     }
 
     @GetMapping("get/sub-comments/{id}")
