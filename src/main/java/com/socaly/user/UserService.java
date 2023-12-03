@@ -4,6 +4,9 @@ import com.socaly.auth.AuthService;
 import com.socaly.image.Image;
 import com.socaly.image.ImageRepository;
 import lombok.AllArgsConstructor;
+
+import java.util.Optional;
+
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -15,65 +18,65 @@ public class UserService {
     private final ImageRepository imageRepository;
     private final UserMapper userMapper;
 
-    public UserResponse getCurrentUser() {
-        User user = authService.getCurrentUser();
+    UserResponse get() {
+        final User currentUser = authService.getCurrentUser();
 
-        return getUser(user.getUsername());
+        return get(currentUser.getUsername());
     }
 
-    public String getCurrentUserEmail() {
-        User user = authService.getCurrentUser();
+    UserResponse get(final String username) {
+        final Optional<User> user = userRepository.findByUsername(username);
 
-        return user.getEmail();
+        if (user.isPresent()) {
+            return userMapper.mapToUserResponse(user.get());
+        } else {
+            throw new UsernameNotFoundException(username);
+        }
     }
 
-    public Boolean isEmailVerified() {
-        User user = authService.getCurrentUser();
+    String getEmail() {
+        final User currentUser = authService.getCurrentUser();
 
-        return user.isEmailVerified();
+        return currentUser.getEmail();
     }
 
-    public UserResponse getUser(String username) {
-        return userRepository.findByUsername(username)
-                .stream()
-                .map(userMapper::mapToDto)
-                .findFirst()
-                .orElseThrow(
-                    () -> new UsernameNotFoundException(username)
-                );
+    Boolean isEmailVerified() {
+        final User currentUser = authService.getCurrentUser();
+
+        return currentUser.isEmailVerified();
     }
 
-    public String getUserProfileImage(String username) {
-        User user = userRepository.findByUsername(username).orElseThrow(
-                    () -> new UsernameNotFoundException(username)
-            );
+    String getProfileImage(final String username) {
+        final User user = userRepository.findByUsername(username).orElseThrow(
+            () -> new UsernameNotFoundException(username)
+        );
 
         return user.getProfileImage().getImageUrl();
     }
 
-    void updateProfileImage(String imageUrl) {
-        User currentUser = authService.getCurrentUser();
+    void changeProfileImage(final String imageUrl) {
+        final User currentUser = authService.getCurrentUser();
         currentUser.getProfileImage().setImageUrl(imageUrl);
 
         imageRepository.save(currentUser.getProfileImage());
     }
 
-    void updateProfileBanner(String imageUrl) {
-        User currentUser = authService.getCurrentUser();
+    void changeProfileBanner(final String imageUrl) {
+        final User currentUser = authService.getCurrentUser();
         currentUser.getProfileBanner().setImageUrl(imageUrl);
 
         imageRepository.save(currentUser.getProfileBanner());
     }
 
-    void updateDescription(String description) {
-        User currentUser = authService.getCurrentUser();
+    void changeDescription(final String description) {
+        final User currentUser = authService.getCurrentUser();
         currentUser.setDescription(description);
 
         userRepository.save(currentUser);
     }
 
-    void updateEmail(EmailUpdateRequest emailUpdateRequest) {
-        User currentUser = authService.getCurrentUser();
+    void changeEmail(final EmailUpdateRequest emailUpdateRequest) {
+        final User currentUser = authService.getCurrentUser();
 
         if (authService.isAuthenticated(currentUser.getUsername(), emailUpdateRequest.getPassword())) {
             currentUser.setEmail(emailUpdateRequest.getEmail());
@@ -83,8 +86,8 @@ public class UserService {
         }
     }
 
-    void updatePassword(PasswordUpdateRequest passwordUpdateRequest) {
-        User currentUser = authService.getCurrentUser();
+    void changePassword(final PasswordUpdateRequest passwordUpdateRequest) {
+        final User currentUser = authService.getCurrentUser();
 
         if (authService.isAuthenticated(currentUser.getUsername(), passwordUpdateRequest.getCurrentPassword())) {
             currentUser.setPassword(authService.encodePassword(passwordUpdateRequest.getNewPassword()));
@@ -93,35 +96,47 @@ public class UserService {
         }
     }
 
-    void delete(UserDeleteRequest userDeleteRequest) {
-        if (authService.isAuthenticated(userDeleteRequest.getUsername(), userDeleteRequest.getPassword())) {
+    void delete(final UserDeleteRequest userDeleteRequest) {
+        if (isUserAuthenticated(userDeleteRequest)) {
             User currentUser = authService.getCurrentUser();
-
-            currentUser.setDeleted(true);
-            currentUser.setEmail("");
-            currentUser.setEmailVerified(false);
-            currentUser.setPassword("");
-
-            Image profileImage = new Image();
-            profileImage.setImageUrl("https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static" +
-                    "%2Favatar-deleted.png?alt=media&token=7edbd58b-d829-4716-bac2-f80d958027ab");
-            imageRepository.save(profileImage);
-
-            currentUser.setProfileImage(profileImage);
-
-            userRepository.save(currentUser);
-
-            Image profileBanner = new Image();
-            profileBanner.setImageUrl("https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static" +
-                    "%2Fbanner-default.png?alt=media&token=72a29594-4e22-43b6-83de-d93048a90edc");
-            imageRepository.save(profileBanner);
-
-            currentUser.setProfileBanner(profileBanner);
+            
+            wipeUserData(currentUser);
+            setDeletedUserProfileAndBanner(currentUser);
         }
     }
 
-    boolean isDeleted(String username) {
-        User user = userRepository.findByUsername(username).orElseThrow(
+    private boolean isUserAuthenticated(UserDeleteRequest userDeleteRequest) {
+        return authService.isAuthenticated(
+                userDeleteRequest.getUsername(),
+                userDeleteRequest.getPassword()
+        );
+    }
+
+    private void wipeUserData(final User user) {
+        user.setDeleted(true);
+        user.setEmail("");
+        user.setEmailVerified(false);
+        user.setPassword("");
+    }
+
+    private void setDeletedUserProfileAndBanner(final User currentUser) {
+        Image profileImage = new Image();
+        profileImage.setImageUrl("https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static" +
+                "%2Favatar-deleted.png?alt=media&token=7edbd58b-d829-4716-bac2-f80d958027ab");
+        imageRepository.save(profileImage);
+        currentUser.setProfileImage(profileImage);
+
+        Image profileBanner = new Image();
+        profileBanner.setImageUrl("https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static" +
+                "%2Fbanner-default.png?alt=media&token=72a29594-4e22-43b6-83de-d93048a90edc");
+        imageRepository.save(profileBanner);
+        currentUser.setProfileBanner(profileBanner);
+
+        userRepository.save(currentUser);
+    }
+
+    boolean isDeleted(final String username) {
+        final User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException(username)
         );
 

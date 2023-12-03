@@ -1,7 +1,6 @@
 package com.socaly.community;
 
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,39 +10,38 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/community")
 @AllArgsConstructor
-@Slf4j
 public class CommunityController {
     private final CommunityService communityService;
 
     @PostMapping("/create")
-    public ResponseEntity<CommunityResponse> createCommunity(@RequestBody CommunityRequest communityRequest) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(communityService.save(communityRequest));
+    public ResponseEntity<CommunityResponse> create(@RequestBody CommunityRequest communityRequest) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(communityService.create(communityRequest));
     }
 
     @GetMapping("/get/{name}")
-    public ResponseEntity<CommunityResponse> getCommunity(@PathVariable String name) {
-        return ResponseEntity.status(HttpStatus.OK).body(communityService.getCommunity(name));
+    public ResponseEntity<CommunityResponse> get(@PathVariable String name) {
+        return ResponseEntity.status(HttpStatus.OK).body(communityService.findCommunityByName(name));
     }
 
     @GetMapping("/get/all")
-    public ResponseEntity<List<CommunityResponse>> getAllCommunities() {
+    public ResponseEntity<List<CommunityResponse>> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(communityService.getAll());
     }
 
     @GetMapping("/get/all/by-user/{name}")
-    public ResponseEntity<List<CommunityResponse>> getAllCommunitiesForUser(@PathVariable String name) {
-        return ResponseEntity.status(HttpStatus.OK).body(communityService.getAllCommunitiesForUser(name));
+    public ResponseEntity<List<CommunityResponse>> getAllByUser(@PathVariable String name) {
+        return ResponseEntity.status(HttpStatus.OK).body(communityService.getAllByUser(name));
     }
 
-    @GetMapping("/join/{name}")
-    public ResponseEntity<Void> joinCommunity(@PathVariable String name) {
+    @PostMapping("/join/{name}")
+    public ResponseEntity<Void> join(@PathVariable String name) {
         communityService.join(name);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/leave/{name}")
-    public ResponseEntity<Void> leaveCommunity(@PathVariable String name) {
+    @PostMapping("/leave/{name}")
+    public ResponseEntity<Void> leave(@PathVariable String name) {
         communityService.leave(name);
 
         return new ResponseEntity<>(HttpStatus.OK);

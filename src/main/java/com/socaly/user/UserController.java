@@ -12,13 +12,18 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/get")
-    public UserResponse getCurrentUser() {
-        return userService.getCurrentUser();
+    public UserResponse get() {
+        return userService.get();
+    }
+
+    @GetMapping("/get/{name}")
+    public UserResponse get(@PathVariable String name) {
+        return userService.get(name);
     }
 
     @GetMapping("/get/email")
-    public String getCurrentUserEmail() {
-        return userService.getCurrentUserEmail();
+    public String getEmail() {
+        return userService.getEmail();
     }
 
     @GetMapping("/is-email-verified")
@@ -26,43 +31,38 @@ public class UserController {
         return userService.isEmailVerified();
     }
 
-    @GetMapping("/get/{username}")
-    public UserResponse getUser(@PathVariable String username) {
-        return userService.getUser(username);
+    @GetMapping("/get/profile/image/{name}")
+    public String getProfileImage(@PathVariable String name) {
+        return userService.getProfileImage(name);
     }
 
-    @GetMapping("/get/profile/image/{username}")
-    public String getUserProfileImage(@PathVariable String username) {
-        return userService.getUserProfileImage(username);
-    }
-
-    @PatchMapping("/update/profile/image")
-    public ResponseEntity<Void> updateProfileImage(@RequestBody String imageUrl) {
-        userService.updateProfileImage(imageUrl);
+    @PatchMapping("/change/profile/image")
+    public ResponseEntity<Void> changeProfileImage(@RequestBody String imageUrl) {
+        userService.changeProfileImage(imageUrl);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping("/update/profile/banner")
-    public ResponseEntity<Void> updateProfileBanner(@RequestBody String imageUrl) {
-        userService.updateProfileBanner(imageUrl);
+    @PatchMapping("/change/profile/banner")
+    public ResponseEntity<Void> changeProfileBanner(@RequestBody String imageUrl) {
+        userService.changeProfileBanner(imageUrl);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping("/update/description")
-    public ResponseEntity<Void> updateDescription(@RequestBody(required = false) String description) {
-        userService.updateDescription(description);
+    @PatchMapping("/change/description")
+    public ResponseEntity<Void> changeDescription(@RequestBody(required = false) String description) {
+        userService.changeDescription(description);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping("/update/email")
-    public ResponseEntity<Void> updateEmail(@RequestBody EmailUpdateRequest emailUpdateRequest) {
-        userService.updateEmail(emailUpdateRequest);
+    @PatchMapping("/change/email")
+    public ResponseEntity<Void> changeEmail(@RequestBody EmailUpdateRequest emailUpdateRequest) {
+        userService.changeEmail(emailUpdateRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping("/update/password")
-    public ResponseEntity<Void> updatePassword(@RequestBody PasswordUpdateRequest passwordUpdateRequest) {
-        userService.updatePassword(passwordUpdateRequest);
+    @PatchMapping("/change/password")
+    public ResponseEntity<Void> changePassword(@RequestBody PasswordUpdateRequest passwordUpdateRequest) {
+        userService.changePassword(passwordUpdateRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -72,8 +72,8 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/is/deleted/{username}")
-    public Boolean isDeleted(@PathVariable String username) {
-        return userService.isDeleted(username);
+    @GetMapping("/is/deleted/{name}")
+    public Boolean isDeleted(@PathVariable String name) {
+        return userService.isDeleted(name);
     }
 }

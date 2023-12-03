@@ -37,26 +37,10 @@ public class Comment {
     private User user;
 
     public static String getCommentPointsText(int commentPoints) {
-        String commentPointsText;
-
-        if (commentPoints == 1 || commentPoints == -1) {
-            commentPointsText = "1 point";
-        } else {
-            commentPointsText = commentPoints + " points";
-        }
-
-        return commentPointsText;
+        return (commentPoints == 1 || commentPoints == -1) ? "1 point" : commentPoints + " points";
     }
 
     public static String getCommentReplyCountText(int commentReplyCount) {
-        String commentReplyCountText;
-
-        if (commentReplyCount == 1) {
-            commentReplyCountText = "1 reply";
-        } else {
-            commentReplyCountText = commentReplyCount + " replies";
-        }
-
-        return commentReplyCountText;
+        return (commentReplyCount == 1) ? "1 reply" : commentReplyCount + " replies";
     }
 }

@@ -26,47 +26,57 @@ public class PostVoteService {
     private final EmailService emailService;
 
     @Transactional
-    public void vote(PostVoteDto postVoteDto) {
-        Post post = postRepository.findById(postVoteDto.getPostId())
+    void vote(final PostVoteDto postVoteDto) {
+        final Post post = postRepository.findById(postVoteDto.getPostId())
                 .orElseThrow(() -> new PostNotFoundException(postVoteDto.getPostId().toString()));
-        Optional<PostVote> voteByPostAndUser = postVoteRepository.findTopByPostAndUserOrderByIdDesc(post, authService.getCurrentUser());
+        final Optional<PostVote> postVote = postVoteRepository.findTopByPostAndUserOrderByIdDesc(post, authService.getCurrentUser());
 
-        if (voteByPostAndUser.isPresent() && voteByPostAndUser.get().getVoteType().equals(postVoteDto.getVoteType())) {
-            if (VoteType.UPVOTE.equals(postVoteDto.getVoteType())) {
-                post.setPoints(post.getPoints() - 1);
-            } else {
-                post.setPoints(post.getPoints() + 1);
-            }
-
-            postVoteRepository.deleteById(voteByPostAndUser.get().getId());
-
-        } else if (voteByPostAndUser.isPresent()) {
-            if (VoteType.UPVOTE.equals(postVoteDto.getVoteType())) {
-                post.setPoints(post.getPoints() + 2);
-            } else {
-                post.setPoints(post.getPoints() - 2);
-            }
-
-            postVoteRepository.deleteById(voteByPostAndUser.get().getId());
-            postVoteRepository.save(mapToVote(postVoteDto, post));
-
+        if (postVote.isPresent() && postVote.get().getVoteType().equals(postVoteDto.getVoteType())) {
+            handleSameVoteType(post, postVote.get());
+        } else if (postVote.isPresent()) {
+            handleDifferentVoteType(post, postVote.get(), postVoteDto);
         } else {
-            if (VoteType.UPVOTE.equals(postVoteDto.getVoteType())) {
-                post.setPoints(post.getPoints() + 1);
-
-                if (post.getUser().getSettings().getPostUpVoteEmails()) {
-                    sendPostUpVoteEmail(post);
-                }
-            } else {
-                post.setPoints(post.getPoints() - 1);
-            }
-
-            postVoteRepository.save(mapToVote(postVoteDto, post));
+            handleNewVote(post, postVoteDto);
         }
     }
 
-    private void sendPostUpVoteEmail(Post post) {
-        User currentUser = authService.getCurrentUser();
+    private void handleSameVoteType(final Post post, final PostVote postVote) {
+        if (VoteType.UPVOTE.equals(postVote.getVoteType())) {
+            post.setPoints(post.getPoints() - 1);
+        } else {
+            post.setPoints(post.getPoints() + 1);
+        }
+
+        postVoteRepository.deleteById(postVote.getId());
+    }
+
+    private void handleDifferentVoteType(final Post post, final PostVote postVote, final PostVoteDto postVoteDto) {
+        if (VoteType.UPVOTE.equals(postVoteDto.getVoteType())) {
+            post.setPoints(post.getPoints() + 2);
+        } else {
+            post.setPoints(post.getPoints() - 2);
+        }
+
+        postVoteRepository.deleteById(postVote.getId());
+        postVoteRepository.save(mapToVote(postVoteDto, post));
+    }
+
+    private void handleNewVote(final Post post, final PostVoteDto postVoteDto) {
+        if (VoteType.UPVOTE.equals(postVoteDto.getVoteType())) {
+            post.setPoints(post.getPoints() + 1);
+
+            if (post.getUser().getSettings().getPostUpVoteEmails()) {
+                sendPostUpVoteEmail(post);
+            }
+        } else {
+            post.setPoints(post.getPoints() - 1);
+        }
+
+        postVoteRepository.save(mapToVote(postVoteDto, post));
+    }
+
+    private void sendPostUpVoteEmail(final Post post) {
+        final User currentUser = authService.getCurrentUser();
 
         emailService.sendPostUpVoteEmail(new PostUpVoteEmail(
                 currentUser.getUsername() + " upvoted your post " + post.getTitle() + " in s\\"
@@ -85,7 +95,7 @@ public class PostVoteService {
         ));
     }
 
-    private PostVote mapToVote(PostVoteDto postVoteDto, Post post) {
+    private PostVote mapToVote(final PostVoteDto postVoteDto, final Post post) {
         return PostVote.builder()
                 .voteType(postVoteDto.getVoteType())
                 .post(post)

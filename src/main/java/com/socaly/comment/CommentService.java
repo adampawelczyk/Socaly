@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,30 +30,47 @@ public class CommentService {
     private final CommentRepository commentRepository;
     private final EmailService emailService;
 
-    public void save(CommentRequest commentRequest) {
-        Post post = postRepository.findById(commentRequest.getPostId()).orElseThrow(
-                () -> new PostNotFoundException(commentRequest.getPostId().toString())
-        );
-        User user = authService.getCurrentUser();
-        Comment comment = commentMapper.mapToComment(commentRequest, post, user);
+    void create(final CommentRequest commentRequest) {
+        final Post post = findPostById(commentRequest.getPostId());
+        final User user = authService.getCurrentUser();
+        final Comment comment = commentMapper.mapToComment(commentRequest, post, user);
         commentRepository.save(comment);
 
-        if (!post.getUser().getUsername().equals(comment.getUser().getUsername()) && comment.getParentCommentId() == null
-            && post.getUser().getSettings().getPostCommentEmails()) {
+        if (shouldSendPostCommentEmail(post, comment)) {
             sendPostCommentEmail(post, comment);
         } else if (comment.getParentCommentId() != null) {
-            Comment parentComment = commentRepository.findById(comment.getParentCommentId()).orElseThrow(
-                    () -> new CommentNotFoundException(comment.getParentCommentId().toString())
-            );
+            Comment parentComment = findCommentById(comment.getParentCommentId());
 
-            if (!comment.getUser().getUsername().equals(parentComment.getUser().getUsername())
-                    && parentComment.getUser().getSettings().getCommentReplyEmails()) {
+            if (shouldSendCommentReplyEmail(comment, parentComment)) {
                 sendCommentReplyEmail(post, parentComment, comment);
             }
         }
     }
 
-    private void sendPostCommentEmail(Post post, Comment comment) {
+    private Post findPostById(final Long postId) {
+        return postRepository.findById(postId).orElseThrow(
+                () -> new PostNotFoundException(postId.toString())
+        );
+    }
+
+    private boolean shouldSendPostCommentEmail(final Post post, final Comment comment) {
+        return !post.getUser().getUsername().equals(comment.getUser().getUsername()) &&
+                comment.getParentCommentId() == null &&
+                post.getUser().getSettings().getPostCommentEmails();
+    }
+
+    private Comment findCommentById(final Long commentId) {
+        return commentRepository.findById(commentId).orElseThrow(
+                    () -> new CommentNotFoundException(commentId.toString())
+            );
+    }
+
+    private boolean shouldSendCommentReplyEmail(final Comment comment, final Comment parentComment) {
+        return !comment.getUser().getUsername().equals(parentComment.getUser().getUsername()) &&
+                parentComment.getUser().getSettings().getCommentReplyEmails();
+    }
+
+    private void sendPostCommentEmail(final Post post, final Comment comment) {
         emailService.sendPostCommentEmail(new PostCommentEmail(
                 comment.getUser().getUsername() + " commented on your post " + post.getTitle() + " in s\\"
                         + post.getCommunity().getName(),
@@ -72,7 +90,7 @@ public class CommentService {
         ));
     }
 
-    private void sendCommentReplyEmail(Post post, Comment comment, Comment reply) {
+    private void sendCommentReplyEmail(final Post post, final Comment comment, final Comment reply) {
         emailService.sendCommentReplyEmail(new CommentReplyEmail(
                 reply.getUser().getUsername() + " replied to your comment on post " + post.getTitle()
                         + "in s\\" + post.getCommunity().getName(),
@@ -97,11 +115,9 @@ public class CommentService {
         ));
     }
 
-    public void edit(Long commentId, String text) {
-        Comment commentToEdit = commentRepository.findById(commentId).orElseThrow(
-                () -> new CommentNotFoundException(commentId.toString())
-        );
-        User user = authService.getCurrentUser();
+    void edit(final Long commentId, final String text) {
+        final Comment commentToEdit = findCommentById(commentId);
+        final User user = authService.getCurrentUser();
 
         if (Objects.equals(commentToEdit.getUser().getId(), user.getId())) {
             commentToEdit.setText(text);
@@ -110,20 +126,18 @@ public class CommentService {
         }
     }
 
-    public CommentResponse getComment(Long commentId) {
-        return commentRepository.findById(commentId)
-                .stream()
-                .map(commentMapper::mapToCommentResponse)
-                .findFirst()
-                .orElseThrow(
-                        () -> new CommentNotFoundException(commentId.toString())
-                );
+    CommentResponse get(final Long commentId) {
+        final Optional<Comment> comment = commentRepository.findById(commentId);
+
+        if (comment.isPresent()) {
+            return commentMapper.mapToCommentResponse(comment.get());
+        } else {
+            throw new CommentNotFoundException(commentId.toString());
+        }
     }
 
-    public List<CommentResponse> getAllCommentsForPost(Long postId) {
-        Post post = postRepository.findById(postId).orElseThrow(
-                () -> new PostNotFoundException(postId.toString())
-        );
+    List<CommentResponse> getAllByPost(final Long postId) {
+        final Post post = findPostById(postId);
 
         return commentRepository.findByPostAndParentCommentIdIsNull(post)
                 .stream()
@@ -131,15 +145,15 @@ public class CommentService {
                 .collect(Collectors.toList());
     }
 
-    public List<CommentResponse> getSubCommentsForComment(Long commentId) {
+    List<CommentResponse> getSubComments(final Long commentId) {
         return commentRepository.findByParentCommentId(commentId)
                 .stream()
                 .map(commentMapper::mapToCommentResponse)
                 .collect(Collectors.toList());
     }
 
-    public List<CommentResponse> getAllCommentsForUser(String username) {
-        User user = userRepository.findByUsername(username).orElseThrow(
+    List<CommentResponse> getAllByUser(final String username) {
+        final User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException(username)
         );
 

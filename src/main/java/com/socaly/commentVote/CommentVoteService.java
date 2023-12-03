@@ -26,53 +26,60 @@ public class CommentVoteService {
     private final EmailService emailService;
 
     @Transactional
-    public void vote(CommentVoteDto commentVoteDto) {
-        Comment comment = commentRepository.findById(commentVoteDto.getCommentId())
-                .orElseThrow(() -> new CommentNotFoundException(commentVoteDto.getCommentId().toString()));
-        Optional<CommentVote> voteByCommentAndUser = commentVoteRepository.findTopByCommentAndUserOrderByIdDesc(comment, authService.getCurrentUser());
+    public void save(final CommentVoteDto commentVoteDto) {
+        final Comment comment = findCommentById(commentVoteDto.getCommentId());
+        final Optional<CommentVote> voteByCommentAndUser = commentVoteRepository.findTopByCommentAndUserOrderByIdDesc(comment, authService.getCurrentUser());
 
-        if (voteByCommentAndUser.isPresent() && voteByCommentAndUser.get().getVoteType().equals(commentVoteDto.getVoteType())) {
-            if (VoteType.UPVOTE.equals(commentVoteDto.getVoteType())) {
-                comment.setPoints(comment.getPoints() - 1);
-            } else {
-                comment.setPoints(comment.getPoints() + 1);
-            }
-            commentVoteRepository.deleteById(voteByCommentAndUser.get().getId());
-
-        } else if (voteByCommentAndUser.isPresent()) {
-            if (VoteType.UPVOTE.equals(commentVoteDto.getVoteType())) {
-                comment.setPoints(comment.getPoints() + 2);
-            } else {
-                comment.setPoints(comment.getPoints() - 2);
-            }
-            commentVoteRepository.deleteById(voteByCommentAndUser.get().getId());
-            commentVoteRepository.save(mapToCommentVote(commentVoteDto, comment));
-
+        if (voteByCommentAndUser.isPresent()) {
+            handleExistingVote(comment, commentVoteDto, voteByCommentAndUser.get());
         } else {
-            if (VoteType.UPVOTE.equals(commentVoteDto.getVoteType())) {
-                comment.setPoints(comment.getPoints() + 1);
-                User currentUser = authService.getCurrentUser();
+            handleNewVote(comment, commentVoteDto);
+        }
+    }
 
-                if (!currentUser.getUsername().equals(comment.getUser().getUsername())
-                    && comment.getUser().getSettings().getCommentUpVoteEmails()) {
-                    sendCommentUpVoteEmail(comment);
-                }
-            } else {
-                comment.setPoints(comment.getPoints() - 1);
-            }
+    private Comment findCommentById(final Long commentId) {
+        return commentRepository.findById(commentId)
+            .orElseThrow(
+                () -> new CommentNotFoundException(commentId.toString())
+            );
+    }
+
+    private void handleExistingVote(final Comment comment, final CommentVoteDto commentVoteDto, final CommentVote existingVote) {
+        if (existingVote.getVoteType() == commentVoteDto.getVoteType()) {
+            comment.setPoints(comment.getPoints() + (commentVoteDto.getVoteType() == VoteType.UPVOTE ? -1 : 1));
+            commentVoteRepository.deleteById(existingVote.getId());
+        } else {
+            int pointsChange = (commentVoteDto.getVoteType() == VoteType.UPVOTE ? 2 : -2);
+            comment.setPoints(comment.getPoints() + pointsChange);
+            commentVoteRepository.deleteById(existingVote.getId());
             commentVoteRepository.save(mapToCommentVote(commentVoteDto, comment));
         }
     }
 
-    private void sendCommentUpVoteEmail(Comment comment) {
-        User currentUser = authService.getCurrentUser();
+    private void handleNewVote(final Comment comment, final CommentVoteDto commentVoteDto) {
+        final User currentUser = authService.getCurrentUser();
+        final int pointsChange = (commentVoteDto.getVoteType() == VoteType.UPVOTE ? 1 : -1);
+        comment.setPoints(comment.getPoints() + pointsChange);
 
-        if (comment.getParentCommentId() != null) {
-            Comment parentComment = commentRepository.findById(comment.getParentCommentId())
+        if (commentVoteDto.getVoteType() == VoteType.UPVOTE
+                && !currentUser.getUsername().equals(comment.getUser().getUsername())
+                && comment.getUser().getSettings().getCommentUpVoteEmails()) {
+            sendCommentUpVoteEmail(comment);
+        }
+
+        commentVoteRepository.save(mapToCommentVote(commentVoteDto, comment));
+    }
+
+    private void sendCommentUpVoteEmail(final Comment comment) {
+        final User currentUser = authService.getCurrentUser();
+        final Long parentCommentId = comment.getParentCommentId();
+
+        if (parentCommentId != null) {
+            Comment parentComment = commentRepository.findById(parentCommentId)
                     .stream()
                     .findFirst()
                     .orElseThrow(
-                            () -> new CommentNotFoundException(comment.getParentCommentId().toString())
+                            () -> new CommentNotFoundException(parentCommentId.toString())
                     );
 
             emailService.sendReplyUpVoteEmail(new ReplyUpVoteEmail(
@@ -126,7 +133,7 @@ public class CommentVoteService {
         }
     }
 
-    private CommentVote mapToCommentVote(CommentVoteDto commentVoteDto, Comment comment) {
+    private CommentVote mapToCommentVote(final CommentVoteDto commentVoteDto, final Comment comment) {
         return CommentVote.builder()
                 .voteType(commentVoteDto.getVoteType())
                 .comment(comment)

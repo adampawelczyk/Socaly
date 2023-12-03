@@ -4,6 +4,9 @@ import com.socaly.auth.AuthService;
 import com.socaly.user.User;
 import com.socaly.util.Sorting;
 import lombok.AllArgsConstructor;
+
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -13,60 +16,59 @@ class UserSettingsService {
     private final UserSettingsRepository userSettingsRepository;
     private final UserSettingsMapper userSettingsMapper;
 
-    UserSettingsResponse getCurrentUserSettings() {
-        User currentUser = authService.getCurrentUser();
+    UserSettingsResponse get() {
+        final User currentUser = authService.getCurrentUser();
+        final Optional<UserSettings> userSettings = userSettingsRepository.findById(currentUser.getSettings().getId());
 
-        return userSettingsRepository.findById(currentUser.getSettings().getId())
-                .stream()
-                .map(userSettingsMapper::mapToUserSettingsResponse)
-                .findFirst()
-                .orElseThrow(
-                        () -> new UserSettingsNotFoundException(currentUser.getUsername())
-                );
+        if (userSettings.isPresent()) {
+            return userSettingsMapper.mapToUserSettingsResponse(userSettings.get());
+        } else {
+            throw new UserSettingsNotFoundException(currentUser.getUsername());
+        }
     }
 
-    void updateCommunityContentSort(Sorting sorting) {
-        User currentUser = authService.getCurrentUser();
+    void updateCommunityContentSort(final Sorting sorting) {
+        final User currentUser = authService.getCurrentUser();
 
         UserSettings userSettings = currentUser.getSettings();
         userSettings.setCommunityContentSort(sorting);
         userSettingsRepository.save(userSettings);
     }
 
-    void updateOpenPostsInNewTab(boolean openPostsInNewTab) {
-        User currentUser = authService.getCurrentUser();
+    void updateOpenPostsInNewTab(final boolean openPostsInNewTab) {
+        final User currentUser = authService.getCurrentUser();
 
         UserSettings userSettings = currentUser.getSettings();
         userSettings.setOpenPostsInNewTab(openPostsInNewTab);
         userSettingsRepository.save(userSettings);
     }
 
-    void updatePostCommentEmails(boolean postCommentEmails) {
-        User currentUser = authService.getCurrentUser();
+    void updatePostCommentEmails(final boolean postCommentEmails) {
+        final User currentUser = authService.getCurrentUser();
 
         UserSettings userSettings = currentUser.getSettings();
         userSettings.setPostCommentEmails(postCommentEmails);
         userSettingsRepository.save(userSettings);
     }
 
-    void updateCommentReplyEmails(boolean commentReplyEmails) {
-        User currentUser = authService.getCurrentUser();
+    void updateCommentReplyEmails(final boolean commentReplyEmails) {
+        final User currentUser = authService.getCurrentUser();
 
         UserSettings userSettings = currentUser.getSettings();
         userSettings.setCommentReplyEmails(commentReplyEmails);
         userSettingsRepository.save(userSettings);
     }
 
-    void updatePostUpVoteEmails(boolean postUpvoteEmails) {
-        User currentUser = authService.getCurrentUser();
+    void updatePostUpVoteEmails(final boolean postUpVoteEmails) {
+        final User currentUser = authService.getCurrentUser();
 
         UserSettings userSettings = currentUser.getSettings();
-        userSettings.setPostUpVoteEmails(postUpvoteEmails);
+        userSettings.setPostUpVoteEmails(postUpVoteEmails);
         userSettingsRepository.save(userSettings);
     }
 
-    void updateCommentUpVoteEmails(boolean commentUpVoteEmails) {
-        User currentUser = authService.getCurrentUser();
+    void updateCommentUpVoteEmails(final boolean commentUpVoteEmails) {
+        final User currentUser = authService.getCurrentUser();
 
         UserSettings userSettings = currentUser.getSettings();
         userSettings.setCommentUpVoteEmails(commentUpVoteEmails);

@@ -38,11 +38,11 @@ public abstract class CommentMapper {
     @Mapping(target = "timeSinceEdit", expression = "java(getTimeSinceEdit(comment))")
     public abstract CommentResponse mapToCommentResponse(Comment comment);
 
-    boolean isCommentUpVoted(Comment comment) {
+    protected boolean isCommentUpVoted(Comment comment) {
         return checkVoteType(comment, VoteType.UPVOTE);
     }
 
-    boolean isCommentDownVoted(Comment comment) {
+    protected boolean isCommentDownVoted(Comment comment) {
         return checkVoteType(comment, VoteType.DOWNVOTE);
     }
 
@@ -56,11 +56,11 @@ public abstract class CommentMapper {
         return false;
     }
 
-    String getTimeSinceCreation(Comment comment) {
+    protected String getTimeSinceCreation(Comment comment) {
         return TimeAgo.using(comment.getCreationDate().toEpochMilli());
     }
 
-    String getTimeSinceEdit(Comment comment) {
+    protected String getTimeSinceEdit(Comment comment) {
         if (comment.getEditDate() != null) {
             return TimeAgo.using(comment.getEditDate().toEpochMilli());
         }

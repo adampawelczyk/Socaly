@@ -43,9 +43,16 @@ public class AuthService {
     private final RefreshTokenService refreshTokenService;
 
     @Transactional
-    public void signUp(SignUpRequest signUpRequest) {
-        User user = new User();
+    void signUp(final SignUpRequest signUpRequest) {
+        final User user = createUserFromSignUpRequest(signUpRequest);
+        userRepository.save(user);
+        
+        final String verificationToken = generateVerificationToken(user);
+        sendVerificationEmail(user, verificationToken);
+    }
 
+    private User createUserFromSignUpRequest(final SignUpRequest signUpRequest) {
+        final User user = new User();
         user.setUsername(signUpRequest.getUsername());
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         user.setEmail(signUpRequest.getEmail());
@@ -54,34 +61,32 @@ public class AuthService {
         user.setDeleted(false);
         user.setDescription("");
 
-        UserSettings settings = new UserSettings();
-        userSettingsRepository.save(settings);
+        final UserSettings userSettings = new UserSettings();
+        userSettingsRepository.save(userSettings);
+        user.setSettings(userSettings);
 
-        user.setSettings(settings);
-
-        Image profileImage = new Image();
-        profileImage.setImageUrl(generateProfileImage());
-        imageRepository.save(profileImage);
-
+        final Image profileImage = createProfileImage();
+        final Image profileBanner = createProfileBanner();
         user.setProfileImage(profileImage);
-
-        Image profileBanner = new Image();
-        profileBanner.setImageUrl("https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static%2F" +
-                "banner-default.png?alt=media&token=72a29594-4e22-43b6-83de-d93048a90edc");
-        imageRepository.save(profileBanner);
-
         user.setProfileBanner(profileBanner);
 
-        userRepository.save(user);
-        
-        String token = generateVerificationToken(user);
-        emailService.sendEmailVerificationEmail(new EmailVerificationEmail(
-                "Verify your Socaly email address",
-                user.getEmail(),
-                user.getUsername(),
-                user.getProfileImage().getImageUrl(),
-                "http://localhost:8090/api/auth/verify-account/" + token
-                ));
+        return user;
+    }
+
+    private Image createProfileImage() {
+        final String imageUrl = generateProfileImage();
+        final Image profileImage = new Image();
+        profileImage.setImageUrl(imageUrl);
+        imageRepository.save(profileImage);
+        return profileImage;
+    }
+
+    private Image createProfileBanner() {
+        String imageUrl = "https://firebasestorage.googleapis.com/v0/b/socaly-eb5f5.appspot.com/o/static%2Fbanner-default.png?alt=media&token=72a29594-4e22-43b6-83de-d93048a90edc";
+        Image profileBanner = new Image();
+        profileBanner.setImageUrl(imageUrl);
+        imageRepository.save(profileBanner);
+        return profileBanner;
     }
 
     private String generateProfileImage() {
@@ -90,9 +95,9 @@ public class AuthService {
                 +".png?alt=media&token=b00daa37-abf9-447d-9a52-80daa478e8ec";
     }
 
-    private String generateVerificationToken(User user) {
-        String token = UUID.randomUUID().toString();
-        VerificationToken verificationToken = new VerificationToken();
+    private String generateVerificationToken(final User user) {
+        final String token = UUID.randomUUID().toString();
+        final VerificationToken verificationToken = new VerificationToken();
 
         verificationToken.setToken(token);
         verificationToken.setUser(user);
@@ -101,8 +106,18 @@ public class AuthService {
         return token;
     }
 
-    public void verifyAccount(String token) {
-        Optional<VerificationToken> verificationToken = verificationTokenRepository.findByToken(token);
+    private void sendVerificationEmail(final User user, final String token) {
+        emailService.sendEmailVerificationEmail(new EmailVerificationEmail(
+                "Verify your Socaly email address",
+                user.getEmail(),
+                user.getUsername(),
+                user.getProfileImage().getImageUrl(),
+                "http://localhost:8090/api/auth/verify-account/" + token
+        ));
+    }
+
+    void verifyAccount(final String token) {
+        final Optional<VerificationToken> verificationToken = verificationTokenRepository.findByToken(token);
 
         verificationToken.orElseThrow(() -> new AuthException("Invalid token"));
         fetchUserAndEnable(verificationToken.get());
@@ -122,21 +137,20 @@ public class AuthService {
     }
 
     @Transactional
-    void fetchUserAndEnable(VerificationToken verificationToken) {
-        String username = verificationToken.getUser().getUsername();
-
-        User user = userRepository.findByUsername(username).orElseThrow(
+    void fetchUserAndEnable(final VerificationToken verificationToken) {
+        final String username = verificationToken.getUser().getUsername();
+        final User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException("User not found with name - " + username));
 
         user.setEmailVerified(true);
         userRepository.save(user);
     }
 
-    public AuthResponse logIn(LogInRequest loginRequest) {
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
+    AuthResponse logIn(final LogInRequest loginRequest) {
+        final Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                 loginRequest.getUsername(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String token = jwtProvider.generateToken(authentication);
+        final String token = jwtProvider.generateToken(authentication);
 
         return AuthResponse.builder()
                 .authenticationToken(token)
@@ -146,18 +160,18 @@ public class AuthService {
                 .build();
     }
 
-    public Boolean isAuthenticated(String username, String password) {
+    public Boolean isAuthenticated(final String username, final String password) {
         return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password)).isAuthenticated();
     }
 
-    public String encodePassword(String password) {
+    public String encodePassword(final String password) {
         return passwordEncoder.encode(password);
     }
 
-    public AuthResponse refreshToken(RefreshTokenRequest refreshTokenRequest) {
+    public AuthResponse refreshToken(final RefreshTokenRequest refreshTokenRequest) {
         refreshTokenService.validateRefreshToken(refreshTokenRequest.getRefreshToken());
 
-        String token = jwtProvider.generateTokenWithUsername(refreshTokenRequest.getUsername());
+        final String token = jwtProvider.generateTokenWithUsername(refreshTokenRequest.getUsername());
 
         return AuthResponse.builder()
                 .authenticationToken(token)
@@ -168,7 +182,8 @@ public class AuthService {
     }
 
     public boolean isLoggedIn() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        final Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        
         return !(authentication instanceof AnonymousAuthenticationToken) && authentication.isAuthenticated();
     }
 }

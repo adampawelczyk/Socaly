@@ -13,8 +13,8 @@ public class UserSettingsController {
     private final UserSettingsService userSettingsService;
 
     @GetMapping("/get")
-    public UserSettingsResponse getCurrentUserSettings() {
-        return userSettingsService.getCurrentUserSettings();
+    public UserSettingsResponse get() {
+        return userSettingsService.get();
     }
 
     @PatchMapping("/update/community-content-sort")

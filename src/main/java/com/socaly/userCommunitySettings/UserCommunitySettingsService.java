@@ -15,8 +15,8 @@ public class UserCommunitySettingsService {
     private final UserCommunitySettingsMapper userCommunitySettingsMapper;
     private final UserCommunitySettingsRepository userCommunitySettingsRepository;
 
-    UserCommunitySettingsResponse getUserCommunitySettingsById(Long communityId) {
-        User currentUser = authService.getCurrentUser();
+    UserCommunitySettingsResponse get(final Long communityId) {
+        final User currentUser = authService.getCurrentUser();
 
         return currentUser.getUserCommunitySettings()
                 .stream()
@@ -26,10 +26,10 @@ public class UserCommunitySettingsService {
                 .orElseThrow(() -> new UserCommunitySettingsNotFoundException(currentUser.getUsername()));
     }
 
-    void changeCommunityContentSort(Long communityId, Sorting sorting) {
-        User currentUser = authService.getCurrentUser();
+    void updateContentSorting(final Long communityId, final Sorting sorting) {
+        final User currentUser = authService.getCurrentUser();
 
-        UserCommunitySettings userCommunitySettings =currentUser.getUserCommunitySettings()
+        UserCommunitySettings userCommunitySettings = currentUser.getUserCommunitySettings()
                 .stream()
                 .filter(settings -> Objects.equals(settings.getCommunityId(), communityId))
                 .findFirst()
@@ -39,10 +39,10 @@ public class UserCommunitySettingsService {
         userCommunitySettingsRepository.save(userCommunitySettings);
     }
 
-    void changeShowTheme(Long communityId, boolean showTheme) {
-        User currentUser = authService.getCurrentUser();
+    void updateShowTheme(final Long communityId, final boolean showTheme) {
+        final User currentUser = authService.getCurrentUser();
 
-        UserCommunitySettings userCommunitySettings =currentUser.getUserCommunitySettings()
+        UserCommunitySettings userCommunitySettings = currentUser.getUserCommunitySettings()
                 .stream()
                 .filter(settings -> Objects.equals(settings.getCommunityId(), communityId))
                 .findFirst()

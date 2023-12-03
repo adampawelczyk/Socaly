@@ -8,7 +8,6 @@ import com.socaly.community.CommunityRepository;
 import com.socaly.user.UserRepository;
 import com.socaly.auth.AuthService;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,7 +20,6 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-@Slf4j
 @Transactional
 public class PostService {
     private final CommunityRepository communityRepository;
@@ -30,36 +28,36 @@ public class PostService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
-    public long save(PostRequest postRequest) {
-        Community community = communityRepository.findByName(postRequest.getCommunityName()).orElseThrow(
+    long create(final PostRequest postRequest) {
+        final Community community = communityRepository.findByName(postRequest.getCommunityName()).orElseThrow(
                 () -> new CommunityNotFoundException(postRequest.getCommunityName())
         );
-        User currentUser = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
 
         return postRepository.save(postMapper.mapToPost(postRequest, community, currentUser)).getId();
     }
 
     @Transactional(readOnly = true)
-    public PostResponse getPost(Long id) {
-        Post post = postRepository.findById(id).orElseThrow(
-                () -> new PostNotFoundException(id.toString())
+    public PostResponse findPostById(final Long postId) {
+        final Post post = postRepository.findById(postId).orElseThrow(
+                () -> new PostNotFoundException(postId.toString())
         );
 
         return postMapper.mapToPostResponse(post);
     }
 
-    public long updatePost(Long id, PostRequest postRequest) {
-        Post post = postRepository.findById(id).orElseThrow(
-                () -> new PostNotFoundException(id.toString())
+    long edit(final Long postId, final PostRequest postRequest) {
+        final Post post = postRepository.findById(postId).orElseThrow(
+                () -> new PostNotFoundException(postId.toString())
         );
 
-        Community community = communityRepository.findByName(postRequest.getCommunityName()).orElseThrow(
+        final Community community = communityRepository.findByName(postRequest.getCommunityName()).orElseThrow(
                 () -> new CommunityNotFoundException(postRequest.getCommunityName())
         );
 
-        User user = authService.getCurrentUser();
+        final User currentUser = authService.getCurrentUser();
 
-        if (Objects.equals(post.getUser().getId(), user.getId())) {
+        if (Objects.equals(post.getUser().getId(), currentUser.getId())) {
             post.setCommunity(community);
             post.setTitle(postRequest.getTitle());
             post.setDescription(postRequest.getDescription());
@@ -79,7 +77,7 @@ public class PostService {
     }
 
     @Transactional
-    public List<PostResponse> getAllPosts() {
+    List<PostResponse> getAll() {
         return postRepository
                 .findAll()
                 .stream()
@@ -88,11 +86,11 @@ public class PostService {
     }
 
     @Transactional(readOnly = true)
-    public List<PostResponse> getAllPostsByCommunity(String communityName) {
-        Community community = communityRepository.findByName(communityName).orElseThrow(
+    List<PostResponse> getAllByCommunity(final String communityName) {
+        final Community community = communityRepository.findByName(communityName).orElseThrow(
                 () -> new CommunityNotFoundException(communityName)
         );
-        List<Post> posts = postRepository.findAllByCommunity(community);
+        final List<Post> posts = postRepository.findAllByCommunity(community);
 
         return posts
                 .stream()
@@ -101,8 +99,8 @@ public class PostService {
     }
 
     @Transactional
-    public List<PostResponse> getAllPostsByUser(String username) {
-        User user = userRepository.findByUsername(username).orElseThrow(
+    List<PostResponse> getAllByUser(final String username) {
+        final User user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException(username)
         );
 

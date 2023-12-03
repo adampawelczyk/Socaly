@@ -15,31 +15,31 @@ public class PostController {
 
     @PostMapping("/create")
     public ResponseEntity<Long> createPost(@RequestBody PostRequest postRequest) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(postService.save(postRequest));
+        return ResponseEntity.status(HttpStatus.CREATED).body(postService.create(postRequest));
     }
 
-    @GetMapping("get/{id}")
-    public ResponseEntity<PostResponse> getPost(@PathVariable Long id) {
-        return ResponseEntity.status(HttpStatus.OK).body(postService.getPost(id));
+    @GetMapping("/get/{id}")
+    public ResponseEntity<PostResponse> get(@PathVariable Long id) {
+        return ResponseEntity.status(HttpStatus.OK).body(postService.findPostById(id));
     }
 
-    @PutMapping("update/{id}")
-    public ResponseEntity<Long> updatePost(@PathVariable Long id, @RequestBody PostRequest postRequest) {
-        return ResponseEntity.status(HttpStatus.OK).body(postService.updatePost(id, postRequest));
+    @PatchMapping("/edit/{id}")
+    public ResponseEntity<Long> edit(@PathVariable Long id, @RequestBody PostRequest postRequest) {
+        return ResponseEntity.status(HttpStatus.OK).body(postService.edit(id, postRequest));
     }
 
-    @GetMapping("get/all")
-    public ResponseEntity<List<PostResponse>> getAllPosts() {
-        return ResponseEntity.status(HttpStatus.OK).body(postService.getAllPosts());
+    @GetMapping("/get/all")
+    public ResponseEntity<List<PostResponse>> getAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(postService.getAll());
     }
 
-    @GetMapping("get/all/by-user/{name}")
-    public ResponseEntity<List<PostResponse>> getAllPostByUser(@PathVariable String name) {
-        return ResponseEntity.status(HttpStatus.OK).body(postService.getAllPostsByUser(name));
+    @GetMapping("/get/all/by-user/{name}")
+    public ResponseEntity<List<PostResponse>> getAllByUser(@PathVariable String name) {
+        return ResponseEntity.status(HttpStatus.OK).body(postService.getAllByUser(name));
     }
 
-    @GetMapping("get/all/by-community/{name}")
-    public ResponseEntity<List<PostResponse>> getAllPostsByCommunity(@PathVariable String name) {
-        return ResponseEntity.status(HttpStatus.OK).body(postService.getAllPostsByCommunity(name));
+    @GetMapping("/get/all/by-community/{name}")
+    public ResponseEntity<List<PostResponse>> getAllByCommunity(@PathVariable String name) {
+        return ResponseEntity.status(HttpStatus.OK).body(postService.getAllByCommunity(name));
     }
 }

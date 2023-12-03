@@ -12,20 +12,20 @@ import org.springframework.web.bind.annotation.*;
 public class UserCommunitySettingsController {
     private final UserCommunitySettingsService userCommunitySettingsService;
 
-    @GetMapping("/get/{communityId}")
-    public UserCommunitySettingsResponse getUserCommunitySettingsById(@PathVariable Long communityId) {
-        return userCommunitySettingsService.getUserCommunitySettingsById(communityId);
+    @GetMapping("/get/{id}")
+    public UserCommunitySettingsResponse get(@PathVariable Long id) {
+        return userCommunitySettingsService.get(id);
     }
 
-    @PatchMapping("/change/community-content-sort/{communityId}")
-    public ResponseEntity<Void> changeCommunityContentSort(@PathVariable Long communityId, @RequestBody Sorting sorting) {
-        userCommunitySettingsService.changeCommunityContentSort(communityId, sorting);
+    @PatchMapping("/update/community-content-sorting/{id}")
+    public ResponseEntity<Void> updateContentSorting(@PathVariable Long id, @RequestBody Sorting sorting) {
+        userCommunitySettingsService.updateContentSorting(id, sorting);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PatchMapping("/change/show-theme/{communityId}")
-    public ResponseEntity<Void> changeShowTheme(@PathVariable Long communityId, @RequestBody Boolean showTheme) {
-        userCommunitySettingsService.changeShowTheme(communityId, showTheme);
+    @PatchMapping("/update/show-theme/{id}")
+    public ResponseEntity<Void> updateShowTheme(@PathVariable Long id, @RequestBody Boolean showTheme) {
+        userCommunitySettingsService.updateShowTheme(id, showTheme);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

@@ -7,7 +7,6 @@ import com.socaly.userCommunitySettings.UserCommunitySettings;
 import com.socaly.userCommunitySettings.UserCommunitySettingsNotFoundException;
 import com.socaly.userCommunitySettings.UserCommunitySettingsRepository;
 import lombok.AllArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,7 +17,6 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-@Slf4j
 public class CommunityService {
     private final CommunityRepository communityRepository;
     private final UserCommunitySettingsRepository userCommunitySettingsRepository;
@@ -27,16 +25,16 @@ public class CommunityService {
     private final UserRepository userRepository;
 
     @Transactional
-    public CommunityResponse save(CommunityRequest communityRequest) {
-        User currentUser = authService.getCurrentUser();
-        Community save = communityRepository.save(communityMapper.mapToCommunity(communityRequest, currentUser));
+    CommunityResponse create(final CommunityRequest communityRequest) {
+        final User currentUser = authService.getCurrentUser();
+        final Community savedCommunity = communityRepository.save(communityMapper.mapToCommunity(communityRequest, currentUser));
         join(communityRequest.getName());
 
-        return communityMapper.mapToCommunityResponse(save);
+        return communityMapper.mapToCommunityResponse(savedCommunity);
     }
 
     @Transactional(readOnly = true)
-    public List<CommunityResponse> getAll() {
+    List<CommunityResponse> getAll() {
         return communityRepository
                 .findAll()
                 .stream()
@@ -44,21 +42,31 @@ public class CommunityService {
                 .collect(Collectors.toList());
     }
 
-    public CommunityResponse getCommunity(String name) {
-        Community community = communityRepository.findByName(name).orElseThrow(
-                () -> new CommunityNotFoundException(name));
+    CommunityResponse findCommunityByName(final String communityName) {
+        final Community community = communityRepository.findByName(communityName).orElseThrow(
+                () -> new CommunityNotFoundException(communityName));
 
         return communityMapper.mapToCommunityResponse(community);
     }
 
-    public void join(String name) {
-        User currentUser = authService.getCurrentUser();
-        Community community = communityRepository.findByName(name).orElseThrow(
-                () -> new CommunityNotFoundException(name)
+    void join(final String communityName) {
+        final Community community = communityRepository.findByName(communityName).orElseThrow(
+                () -> new CommunityNotFoundException(communityName)
         );
+
+        addCurrentUserToCommunity(community);
+        saveCurrentUserCommunitySettings(community);
+    }
+
+    private void addCurrentUserToCommunity(final Community community) {
+        final User currentUser = authService.getCurrentUser();
 
         community.getUsers().add(currentUser);
         communityRepository.save(community);
+    }
+
+    private void saveCurrentUserCommunitySettings(final Community community) {
+        final User currentUser = authService.getCurrentUser();
 
         UserCommunitySettings userCommunitySettings = new UserCommunitySettings();
         userCommunitySettings.setCommunityId(community.getId());
@@ -68,15 +76,25 @@ public class CommunityService {
         userRepository.save(currentUser);
     }
 
-    public void leave(String name) {
-        User currentUser = authService.getCurrentUser();
-        Community community = communityRepository.findByName(name).orElseThrow(
-                () -> new CommunityNotFoundException(name)
+    void leave(final String communityName) {
+        final Community community = communityRepository.findByName(communityName).orElseThrow(
+                () -> new CommunityNotFoundException(communityName)
         );
 
+        removeCurrentUserFromCommunity(community);
+        removeCurrentUserCommunitySettings(community);
+    }
+
+    private void removeCurrentUserFromCommunity(final Community community) {
+        final User currentUser = authService.getCurrentUser();
+        
         community.getUsers().remove(currentUser);
         communityRepository.save(community);
+    }
 
+    private void removeCurrentUserCommunitySettings(final Community community) {
+        final User currentUser = authService.getCurrentUser();
+        
         List<UserCommunitySettings> userCommunitySettingsList = currentUser.getUserCommunitySettings();
         UserCommunitySettings userCommunitySettings = userCommunitySettingsList
                 .stream()
@@ -90,9 +108,9 @@ public class CommunityService {
         userCommunitySettingsRepository.delete(userCommunitySettings);
     }
 
-    public List<CommunityResponse> getAllCommunitiesForUser(String name) {
-        User user = userRepository.findByUsername(name).orElseThrow(
-                () -> new UsernameNotFoundException("No user found with name - " + name)
+    List<CommunityResponse> getAllByUser(final String username) {
+        final User user = userRepository.findByUsername(username).orElseThrow(
+                () -> new UsernameNotFoundException("No user found with name - " + username)
         );
 
         return communityRepository

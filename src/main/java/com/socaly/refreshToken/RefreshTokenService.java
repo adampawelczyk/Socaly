@@ -14,7 +14,7 @@ public class RefreshTokenService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     public RefreshToken generateRefreshToken() {
-        RefreshToken refreshToken = new RefreshToken();
+        final RefreshToken refreshToken = new RefreshToken();
 
         refreshToken.setToken(UUID.randomUUID().toString());
         refreshToken.setCreatedDate(Instant.now());
@@ -22,13 +22,13 @@ public class RefreshTokenService {
         return refreshTokenRepository.save(refreshToken);
     }
 
-    public void validateRefreshToken(String token) {
-        refreshTokenRepository.findByToken(token).orElseThrow(
+    public void validateRefreshToken(final String refreshToken) {
+        refreshTokenRepository.findByToken(refreshToken).orElseThrow(
                 () -> new RefreshTokenException("Invalid refresh token")
         );
     }
 
-    public void deleteRefreshToken(String token) {
-        refreshTokenRepository.deleteByToken(token);
+    public void deleteRefreshToken(final String refreshToken) {
+        refreshTokenRepository.deleteByToken(refreshToken);
     }
 }
