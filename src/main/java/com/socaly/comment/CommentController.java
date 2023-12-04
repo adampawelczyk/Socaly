@@ -20,8 +20,8 @@ public class CommentController {
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<CommentResponse> get(@PathVariable Long commentId) {
-        return ResponseEntity.ok(commentService.get(commentId));
+    public ResponseEntity<CommentResponse> get(@PathVariable Long id) {
+        return ResponseEntity.ok(commentService.get(id));
     }
 
     @GetMapping("get/all/by-post/{id}")
